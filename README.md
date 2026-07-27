@@ -55,6 +55,7 @@ import 'showa-retro.css/min';     // 圧縮版 48KB
 | 店先 | `sw-noren` `sw-chochin` `sw-match` マッチラベル　`sw-garasu` 型板ガラス　`sw-denshou` 電照看板 |
 | 家電 | `sw-tv`（`is-sunaarashi` 砂嵐／`is-nagare` 走査線）`sw-jimaku` `sw-neon` `sw-denkou` 電光掲示板　`sw-patapata` `sw-keikoutou` `sw-record` `sw-cassette` `sw-dial` 黒電話 |
 | 地紋 | `sw-ji-hanagara` 花柄　`sw-ji-kikagaku` `sw-ji-tile` `sw-ji-garasu` `sw-ji-sofa` `sw-ji-ichimatsu` `sw-ji-yagasuri` `sw-ji-koushi` `sw-ji-mizutama` `sw-ji-shima` `sw-ji-amiten` `sw-ji-hougan` |
+| 飾り | `sw-shusen` 集中線　`sw-hana` 花　`sw-kirakira` キラキラ　`sw-arch` アーチ枠　`sw-panel` 角丸パネル　`sw-tanzaku` 短冊 |
 | 動き | `sw-anim-chirachira` ネオン　`sw-anim-tenmetsu` 蛍光灯　`sw-anim-kaiten` レコード |
 
 動きはすべて `prefers-reduced-motion: reduce` で停止します。
@@ -100,6 +101,16 @@ OS の設定に従うほか、`<html data-theme="dark">` で明示的に指定�
 
 同梱していないのは、**「商用利用可」と「webフォントとして再配布可」が別の許諾**で、多くのフリーフォントが後者を認めていないためです。差し替え先の一覧は `showa-retro-fonts.css` のコメントにあります。
 
+
+## 実物のテンプレートから学んだこと
+
+流通している昭和レトロのテンプレートを50点ほど確認して、思い込みが三つ崩れました。
+
+1. **集中線が最頻出だった。** 中心から放射する線で紙を埋めるのが昭和の広告の定番なのに、一つも作っていませんでした。`sw-shusen` を追加。
+2. **大柄は「同心円」だった。** 色違いの輪がびっしり並ぶ柄です。以前これを「架空」として撤去しましたが、方向は正しく実装が間違っていただけでした。`sw-ji-dosen` として作り直し。
+3. **角丸を多用している。** 色地に白い角丸パネルを置く型が非常に多い。「昭和に角丸は無い」は私の思い込みでした。`sw-panel` を追加。
+
+ほかに、花を地紋ではなく単体の飾りとして置く型（`sw-hana`）、キラキラ（`sw-kirakira`）、アーチ枠（`sw-arch`）、短冊（`sw-tanzaku`）、そして配色に**橙と水色**が足りていませんでした。
 
 ## 何が昭和固有か
 
