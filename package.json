@@ -1,0 +1,16 @@
+{
+  "name": "showa-retro.css",
+  "version": "1.1.0",
+  "description": "昭和レトロなUIを組むためのCSSフレームワーク。琺瑯看板・純喫茶のお品書き・回数券・ブラウン管。JavaScript も画像も使いません。",
+  "keywords": ["css", "framework", "retro", "showa", "japanese", "昭和", "レトロ"],
+  "license": "MIT",
+  "style": "showa-retro.css",
+  "main": "showa-retro.css",
+  "exports": {
+    ".": "./showa-retro.css",
+    "./min": "./dist/showa-retro.min.css",
+    "./fonts": "./showa-retro-fonts.css"
+  },
+  "files": ["showa-retro.css", "showa-retro-fonts.css", "dist/", "README.md"],
+  "sideEffects": ["*.css"]
+}

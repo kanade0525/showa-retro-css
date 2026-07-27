@@ -1,0 +1,8 @@
+# 作業用
+*.bak
+.DS_Store
+.light.html
+.dark.html
+
+# 書体の原本（OFLだがサイズが大きいので配布物には含めない）
+fonts/

@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>showa-retro.css — 昭和レトロCSSフレームワーク</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="showa-retro-fonts.css">
+<link rel="stylesheet" href="showa-retro.css">
+<style>
+/* 見本帳ページの割付。フレームワーク本体には含めません。
+   本体は素のCSSだけで動きます。このページのJavaScriptは
+   コピーボタンと早見表の絞り込みのためだけに使っています。 */
+* { box-sizing: border-box; }
+body { margin: 0; }
+
+/* ── 冒頭。店先が組み上がった一枚。
+   部品を並べるのではなく、組み上がった情景をひとつ見せる。
+   これがフレームワークの唯一の証拠になる。 ───────────────────── */
+.doc-mise {
+  position: relative;
+  border-bottom: 6px solid var(--sw-o-sumi);
+  padding-bottom: clamp(1.75rem, 5vw, 3rem);
+}
+/* 軒下の暖簾。丈を詰めて日除けとして渡す */
+.doc-mise .doc-noren > .nuno {
+  padding: 0.65rem 0.35rem 1.4rem;
+  font-size: clamp(1.3rem, 4.4vw, 2.1rem);
+  letter-spacing: 0.1em;
+}
+.doc-mise-naka {
+  max-width: 68rem; margin-inline: auto;
+  padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 4vw, 2.5rem) 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: clamp(0.9rem, 3vw, 1.75rem);
+  align-items: center;
+}
+.doc-mise-migi { display: grid; gap: 0.9rem; justify-items: center; }
+/* 看板の中は 横の主文 ＋ 縦の副文。看板の定石 */
+.doc-oo { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 1.25rem; align-items: center; }
+/* 掲示。右列は内容の幅まで詰める */
+.doc-keiji { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 1.5rem; align-items: start; }
+@media (max-width: 46rem) { .doc-keiji { grid-template-columns: 1fr; } }
+@media (max-width: 52rem) { .doc-oo { grid-template-columns: 1fr; } .doc-oo > .sw-tate { display: none; } }
+@media (max-width: 62rem) {
+  .doc-mise-naka { grid-template-columns: auto minmax(0,1fr); }
+  .doc-mise-migi { display: none; }
+}
+@media (max-width: 44rem) {
+  .doc-mise-naka { grid-template-columns: 1fr; }
+  .doc-mise .sw-sodekanban { justify-self: start; font-size: 1.1rem; }
+}
+
+/* 節の地に地紋を敷く。見本枠に閉じ込めず、実際の使い方で見せる */
+.doc-section.is-ji { position: relative; }
+.doc-section.is-ji > * { position: relative; }
+
+/* 目次を上に貼り付けて、見ている場所を失わないようにする */
+.doc-nav-wrap {
+  position: sticky; top: 0; z-index: 15;
+  background: var(--sw-paper);
+  border-bottom: 2px solid var(--sw-sumi);
+  padding-block: 0.5rem;
+  box-shadow: 0 3px 10px rgba(42,38,34,.12);
+}
+.doc-nav { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.doc-nav a { text-decoration: none; }
+
+.doc-section { padding-block: clamp(1.75rem, 4.5vw, 3rem); scroll-margin-top: 4.5rem; }
+.doc-section-head {
+  display: flex; align-items: baseline; gap: 0.9rem;
+  flex-wrap: wrap; margin-bottom: 1.25rem;
+}
+.doc-note { margin: 0; color: var(--sw-sumi-usu); font-size: 0.875rem; }
+
+/* 見本と写植の対 */
+.doc-demo {
+  border: 2px solid var(--sw-kei);
+  border-bottom: 0;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  background-color: var(--sw-paper-3);
+  background-image:
+    linear-gradient(var(--sw-kei-usu) 1px, transparent 1px),
+    linear-gradient(90deg, var(--sw-kei-usu) 1px, transparent 1px);
+  background-size: 22px 22px;
+  overflow-x: auto;
+}
+.doc-demo.is-yoru {
+  background-color: #14131a; background-image: none; border-color: #322f3a;
+}
+
+/* 写植欄。右上にコピーボタンを置く */
+.doc-src { position: relative; }
+.doc-code {
+  margin: 0;
+  padding: 1rem 1.15rem;
+  background: var(--sw-sumi);
+  color: var(--sw-paper);
+  border: 2px solid var(--sw-sumi);
+  font-family: var(--sw-mono);
+  font-size: 0.8125rem;
+  line-height: 1.75;
+  overflow-x: auto;
+  tab-size: 2;
+}
+.doc-code .c { color: var(--sw-kei); }
+.doc-copy {
+  position: absolute; top: 0.45rem; right: 0.45rem;
+  font-family: var(--sw-gothic); font-weight: 700; font-size: 0.7rem;
+  letter-spacing: .08em;
+  color: var(--sw-sumi); background: var(--sw-paper-2);
+  border: 1px solid var(--sw-kei); border-radius: 0;
+  padding: 0.2em 0.7em; cursor: pointer;
+}
+.doc-copy:hover { background: var(--sw-o-karashi); color: var(--sw-o-sumi); }
+.doc-copy.is-sumi { color: var(--sw-o-sumi); }
+
+/* 早見表 */
+.doc-sagashi {
+  display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap;
+  margin-bottom: 0.9rem;
+}
+.doc-sagashi input { max-width: 20rem; }
+.doc-hit { font-size: 0.8rem; color: var(--sw-sumi-usu); font-variant-numeric: tabular-nums; }
+.doc-hyo { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.doc-hyo th, .doc-hyo td {
+  text-align: left; padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid var(--sw-kei-usu); vertical-align: top;
+}
+.doc-hyo thead th {
+  border-bottom: 2px solid var(--sw-sumi); font-size: 0.75rem;
+  letter-spacing: .1em; white-space: nowrap;
+}
+.doc-hyo td:first-child { white-space: nowrap; color: var(--sw-sumi-usu); font-size: 0.78rem; }
+.doc-hyo code {
+  font-family: var(--sw-mono); font-size: 0.78rem;
+  white-space: nowrap; cursor: pointer;
+  border-bottom: 1px dotted var(--sw-kei);
+}
+.doc-hyo code:hover { background: var(--sw-o-karashi); color: var(--sw-o-sumi); }
+
+/* 色見本 */
+.doc-swatches {
+  display: grid; gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+}
+.doc-swatch { border: 2px solid var(--sw-sumi); display: flex; flex-direction: column; }
+.doc-swatch .chip { height: 3.5rem; }
+.doc-swatch .meta {
+  background: var(--sw-paper-3); border-top: 2px solid var(--sw-sumi);
+  padding: 0.4rem 0.6rem; font-size: 0.75rem; line-height: 1.5;
+}
+.doc-swatch .meta b { display: block; font-family: var(--sw-mincho); font-size: 0.9rem; }
+.doc-swatch .meta code { font-family: var(--sw-mono); color: var(--sw-sumi-usu); }
+
+/* 書体見本 */
+.doc-fonts { display: grid; gap: 0.85rem; }
+.doc-font {
+  display: grid; grid-template-columns: 11rem 1fr; gap: 1rem;
+  align-items: center; border-bottom: 1px dashed var(--sw-kei); padding-bottom: 0.85rem;
+}
+@media (max-width: 40rem) { .doc-font { grid-template-columns: 1fr; gap: 0.3rem; } }
+.doc-font .yakuwari { font-size: 0.8125rem; line-height: 1.6; }
+.doc-font .yakuwari b { display: block; font-size: 0.95rem; }
+.doc-font .yakuwari code { font-family: var(--sw-mono); font-size: 0.72rem; color: var(--sw-sumi-usu); }
+.doc-font .mihon { font-size: 1.7rem; line-height: 1.5; }
+
+.doc-jimon { min-height: 7rem; border: 2px solid var(--sw-sumi); display: grid; place-content: center; }
+.doc-jimon > code {
+  font-family: var(--sw-mono); font-size: 0.72rem;
+  background: var(--sw-paper-3); border: 1px solid var(--sw-sumi); padding: 0.2em 0.5em;
+}
+
+/* テンプレート */
+.doc-tmpl { border: 2px solid var(--sw-sumi); margin-bottom: 1.25rem; }
+.doc-tmpl > .doc-tmpl-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 0.75rem; flex-wrap: wrap;
+  background: var(--sw-sumi); color: var(--sw-paper);
+  padding: 0.35rem 0.8rem;
+  font-family: var(--sw-mincho); font-weight: 700; letter-spacing: .12em;
+}
+.doc-tmpl > .doc-tmpl-head > span { font-family: var(--sw-gothic); font-size: 0.75rem; letter-spacing: .04em; font-weight: 400; }
+.doc-tmpl > .doc-tmpl-body { padding: clamp(1rem, 3vw, 1.5rem); background: var(--sw-paper-3); }
+
+.doc-foot {
+  border-top: 4px double var(--sw-sumi); margin-top: 2.5rem;
+  padding-block: 2rem 3rem; font-size: 0.875rem; color: var(--sw-sumi-usu);
+}
+.doc-toggle { position: fixed; bottom: 1rem; right: 1rem; z-index: 20; }
+</style>
+</head>
+<body class="sw">
+
+<button type="button" class="sw-btn is-sm doc-toggle" id="toggle">昼 / 夜</button>
+
+<!-- ===== 冒頭。店先が組み上がった一枚 ===== -->
+<header class="doc-mise sw-ji-tile">
+  <div class="sw-noren doc-noren" style="max-width:68rem; margin-inline:auto;">
+    <span class="nuno">純</span><span class="nuno">喫</span><span class="nuno">茶</span>
+    <span class="nuno">あ</span><span class="nuno">か</span><span class="nuno">ね</span>
+  </div>
+
+  <div class="doc-mise-naka">
+    <span class="sw-sodekanban" style="font-size:clamp(1.3rem,4vw,1.9rem); align-self:start;">御食事</span>
+
+    <div class="sw-kanban is-sabi doc-oo">
+      <div>
+      <p class="sw-eyebrow" style="color:rgba(244,236,216,.75); margin:0 0 .5rem;">CSS FRAMEWORK</p>
+      <h1 class="sw-midashi is-3xl is-tsumeru" style="color:#f4ecd8;">昭和レトロ.css</h1>
+      <p style="font-family:var(--sw-gothic); margin:.8rem 0 0; max-width:30em; line-height:1.9; font-size:.95rem;">
+        琺瑯看板、純喫茶のお品書き、回数券、ブラウン管、オフセットの網点。<br>
+        この画面も、下に並ぶ部品だけで組んでいます。
+      </p>
+      <p class="sw-row" style="margin:1rem 0 0; gap:.4rem;">
+        <span class="sw-badge is-karashi">v1.1</span>
+        <span class="sw-badge is-karashi">48KB</span>
+        <span class="sw-badge is-karashi">MIT</span>
+        <span class="sw-badge is-karashi">画像・JS 不要</span>
+      </p>
+      </div>
+      <p class="sw-tate" style="margin:0; color:rgba(244,236,216,.88); font-size:.85rem; letter-spacing:.24em; justify-self:end;">琺瑯看板　純喫茶　回数券　ブラウン管</p>
+    </div>
+
+    <div class="doc-mise-migi">
+      <div class="sw-chochin" style="width:5.5rem; height:7.5rem; font-size:1.2rem;">酒</div>
+      <div class="sw-denshou" style="padding:.8rem 1.1rem; font-size:1.2rem;">営業中</div>
+    </div>
+  </div>
+</header>
+
+<div class="doc-nav-wrap">
+  <nav class="sw-wrap doc-nav" aria-label="目次">
+    <a class="sw-btn is-sm is-enji" href="#donyu">導入</a>
+    <a class="sw-btn is-sm is-enji" href="#hayami">早見表</a>
+    <a class="sw-btn is-sm is-enji" href="#tmpl">テンプレート</a>
+    <a class="sw-btn is-sm" href="#shotai">書体</a>
+    <a class="sw-btn is-sm" href="#iro">色</a>
+    <a class="sw-btn is-sm" href="#moji">文字</a>
+    <a class="sw-btn is-sm" href="#insatsu">印刷技法</a>
+    <a class="sw-btn is-sm" href="#button">ボタン</a>
+    <a class="sw-btn is-sm" href="#waku">枠と看板</a>
+    <a class="sw-btn is-sm" href="#kinyu">記入欄</a>
+    <a class="sw-btn is-sm" href="#hyou">表とお品書き</a>
+    <a class="sw-btn is-sm" href="#kami">紙もの</a>
+    <a class="sw-btn is-sm" href="#misesaki">店先</a>
+    <a class="sw-btn is-sm" href="#kaden">家電</a>
+    <a class="sw-btn is-sm" href="#jimon">地紋</a>
+    <a class="sw-btn is-sm is-enji" href="#sakurei">作例</a>
+  </nav>
+</div>
+
+<!-- ===== 01 導入 ===== -->
+<section class="doc-section sw-wrap" id="donyu">
+  <div class="doc-section-head">
+    <span class="sw-eyebrow">01</span>
+    <h2 class="sw-midashi is-xl">導入</h2>
+    <p class="doc-note">好きな方法をひとつ選んでください</p>
+  </div>
+
+  <div class="sw-cols" style="align-items:start;">
+    <div class="doc-src">
+      <button type="button" class="doc-copy">コピー</button>
+      <pre class="doc-code"><code><span class="c">&lt;!-- ① ファイルを置いて読み込む --&gt;</span>
+&lt;link rel="stylesheet" href="showa-retro-fonts.css"&gt; <span class="c">&lt;!-- 任意 --&gt;</span>
+&lt;link rel="stylesheet" href="showa-retro.css"&gt;
+
+&lt;body class="sw"&gt;
+  &lt;button class="sw-btn is-enji"&gt;押す&lt;/button&gt;
+&lt;/body&gt;</code></pre>
+    </div>
+    <div class="doc-src">
+      <button type="button" class="doc-copy">コピー</button>
+      <pre class="doc-code"><code><span class="c">// ② npm から</span>
+npm i showa-retro.css
+
+<span class="c">// 読み込み</span>
+import 'showa-retro.css';
+import 'showa-retro.css/fonts';   <span class="c">// 任意</span>
+import 'showa-retro.css/min';     <span class="c">// 圧縮版 48KB</span></code></pre>
+    </div>
+  </div>
+
+  <div class="sw-cols" style="margin-top:1.5rem;">
+    <div class="sw-waku is-nijuu with-title">
+      <p class="title">画像を使わない</p>
+      <p class="sw-honbun" style="margin:0;">
+        地紋も紙の粗さも錆も、すべてグラデーションと埋め込みSVGで描いています。読みに行くファイルはCSSだけです。
+      </p>
+    </div>
+    <div class="sw-waku is-nijuu with-title">
+      <p class="title">昼と夜</p>
+      <p class="sw-honbun" style="margin:0;">
+        紙と刷り色は昼夜で入れ替わりますが、琺瑯看板や提灯といった<strong>実物の塗りは変わりません</strong>。夜になっても看板の色は変わらないからです。
+      </p>
+    </div>
+    <div class="sw-waku is-nijuu with-title">
+      <p class="title">JavaScript不要</p>
+      <p class="sw-honbun" style="margin:0;">
+        本体は素のCSSだけです。このページのJSはコピーボタンと絞り込みのためだけに使っています。
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="sw-wrap"><hr class="sw-shikiri"></div>
+
+<!-- ===== 02 早見表 ===== -->
+<section class="doc-section sw-wrap" id="hayami">
+  <div class="doc-section-head">
+    <span class="sw-eyebrow">02</span>
+    <h2 class="sw-midashi is-xl">早見表</h2>
+    <p class="doc-note">クラス名をクリックするとコピーします</p>
+  </div>
+
+  <div class="doc-sagashi">
+    <input class="sw-input" id="q" type="search" placeholder="「看板」「縦」「btn」などで絞り込む" aria-label="クラスを絞り込む">
+    <span class="doc-hit" id="hit"></span>
+  </div>
+
+  <div class="sw-scroll-x">
+    <table class="doc-hyo" id="hyo">
+      <thead><tr><th>分類</th><th>クラス</th><th>用途</th></tr></thead>
+      <tbody>
+        <tr><td>下地</td><td><code>.sw</code></td><td>body に付ける。紙の地と、地の文の明朝</td></tr>
+        <tr><td>書体</td><td><code>.sw-f-mincho</code></td><td>明朝。<strong>地の文はこれ</strong>。お品書き・賞状・縦組み</td></tr>
+        <tr><td>書体</td><td><code>.sw-f-gothic</code></td><td>角ゴ。ラベル・ボタン・注記に限る（現代の書体）</td></tr>
+        <tr><td>書体</td><td><code>.sw-f-futo</code></td><td>極太。琺瑯看板・見出し。ゴナU（1975・写研）の代用</td></tr>
+        <tr><td>書体</td><td><code>.sw-f-poster</code></td><td>ポスター。極太に統合（旧版のReggae Oneは昭和と無関係だった）</td></tr>
+        <tr><td>書体</td><td><code>.sw-f-rittai</code></td><td>突き出し看板。立体はCSSの <code>is-rittai</code> が作る</td></tr>
+        <tr><td>書体</td><td><code>.sw-f-jimaku</code></td><td>映画字幕体。<strong>同梱なし</strong>。手元にあれば使う</td></tr>
+        <tr><td>書体</td><td><code>.sw-f-marumoji</code></td><td>昭和40〜50年代の丸文字ブーム（年代を直接参照）</td></tr>
+        <tr><td>書体</td><td><code>.sw-f-tegaki</code></td><td>油性マジックの手書きPOP</td></tr>
+        <tr><td>書体</td><td><code>.sw-f-anchikku</code></td><td>アンチック体。漫画のセリフ（昭和から続く様式）</td></tr>
+        <tr><td>書体</td><td><code>.sw-f-maru</code></td><td>丸ゴシック。ナール（1973・写研）の代用</td></tr>
+        <tr><td>書体</td><td><code>.sw-f-dot</code></td><td>ドット。16ドットの表示装置（昭和末期を参照）</td></tr>
+        <tr><td>文字組</td><td><code>.sw-midashi</code></td><td>見出し。<code>is-md</code>〜<code>is-3xl</code> で大きさ</td></tr>
+        <tr><td>文字組</td><td><code>.sw-midashi.is-tsumeru</code></td><td>ツメ組み。字間を詰めて紙を埋める</td></tr>
+        <tr><td>文字組</td><td><code>.sw-midashi.is-kage</code></td><td>影文字。版をずらして重ねる</td></tr>
+        <tr><td>文字組</td><td><code>.sw-midashi.is-fukuro</code></td><td>袋文字。縁を取って中を抜く</td></tr>
+        <tr><td>文字組</td><td><code>.sw-midashi.is-fuchi</code></td><td>二重の縁取り。歌謡番組のテロップ</td></tr>
+        <tr><td>文字組</td><td><code>.sw-midashi.is-rittai</code></td><td>押し出しの立体文字</td></tr>
+        <tr><td>文字組</td><td><code>.sw-tate</code></td><td>縦組み。<code>is-hitohira</code> で一行に固定</td></tr>
+        <tr><td>文字組</td><td><code>.sw-tcy</code></td><td>縦中横。縦組みの中の数字</td></tr>
+        <tr><td>文字組</td><td><code>.sw-choutai</code> <code>.sw-heitai</code></td><td>長体・平体。写植の変形</td></tr>
+        <tr><td>文字組</td><td><code>.sw-marker</code></td><td>蛍光ペン。<code>is-momo</code> <code>is-asagi</code></td></tr>
+        <tr><td>文字組</td><td><code>.sw-boten</code></td><td>傍点。<code>is-sesame</code> でゴマ点</td></tr>
+        <tr><td>文字組</td><td><code>.sw-teisei</code></td><td>二重取り消し線。価格改定に</td></tr>
+        <tr><td>文字組</td><td><code>.sw-eyebrow</code> <code>.sw-lead</code> <code>.sw-honbun</code></td><td>肩の札・導入文・本文の読み幅</td></tr>
+        <tr><td>文字組</td><td><code>.sw-shikiri</code></td><td>区切り罫。<code>is-kazari</code> <code>is-nami</code></td></tr>
+        <tr><td>印刷技法</td><td><code>.sw-amiten</code></td><td>網点。<code>is-arai</code> <code>is-komakai</code></td></tr>
+        <tr><td>印刷技法</td><td><code>.sw-hanzure</code></td><td>版ズレ。<code>is-ookii</code> で大きく</td></tr>
+        <tr><td>印刷技法</td><td><code>.sw-kasure</code></td><td>かすれ。インクの乗り残し</td></tr>
+        <tr><td>印刷技法</td><td><code>.sw-taishoku</code></td><td>退色。<code>is-tsuyoi</code> で強く</td></tr>
+        <tr><td>印刷技法</td><td><code>.sw-monokuro</code></td><td>白黒写真</td></tr>
+        <tr><td>枠</td><td><code>.sw-waku</code></td><td>枠。<code>is-nijuu</code> <code>is-kage</code> <code>with-title</code></td></tr>
+        <tr><td>看板</td><td><code>.sw-kanban</code></td><td>琺瑯看板。<code>is-sabi</code> で錆。5色</td></tr>
+        <tr><td>看板</td><td><code>.sw-sodekanban</code></td><td>突き出し看板。縦組み</td></tr>
+        <tr><td>看板</td><td><code>.sw-obi</code></td><td>帯。刷り色六色</td></tr>
+        <tr><td>ボタン</td><td><code>.sw-btn</code></td><td>ボタン。六色＋<code>is-sm</code> <code>is-lg</code> <code>is-block</code></td></tr>
+        <tr><td>ボタン</td><td><code>.sw-kenbai</code></td><td>券売機のボタン。<code>is-urikire</code></td></tr>
+        <tr><td>ボタン</td><td><code>.sw-tsumami</code></td><td>ラジオのつまみ</td></tr>
+        <tr><td>ボタン</td><td><code>.sw-progress</code></td><td>目盛り</td></tr>
+        <tr><td>記入欄</td><td><code>.sw-field</code> <code>.sw-label</code></td><td>ラベルと欄の組</td></tr>
+        <tr><td>記入欄</td><td><code>.sw-input</code></td><td>入力欄。<code>is-genkou</code> で升目</td></tr>
+        <tr><td>記入欄</td><td><code>.sw-select</code> <code>.sw-textarea</code></td><td>選択・複数行</td></tr>
+        <tr><td>記入欄</td><td><code>.sw-check</code> <code>.sw-radio</code></td><td>朱で入る検印風のチェック</td></tr>
+        <tr><td>表</td><td><code>.sw-table</code></td><td>罫線表。<code>is-shima</code> で縞</td></tr>
+        <tr><td>表</td><td><code>.sw-shinagaki</code></td><td>お品書き。点線リーダーで値段を揃える</td></tr>
+        <tr><td>表</td><td><code>.sw-denpyo</code></td><td>複写伝票</td></tr>
+        <tr><td>表</td><td><code>.sw-list</code></td><td>箇条書き。<code>is-maru</code> <code>is-nakaguro</code></td></tr>
+        <tr><td>紙もの</td><td><code>.sw-inkan</code></td><td>判子。<code>is-kaku</code> 角印 <code>is-beta</code> ベタ</td></tr>
+        <tr><td>紙もの</td><td><code>.sw-badge</code></td><td>徽章</td></tr>
+        <tr><td>紙もの</td><td><code>.sw-nifuda</code></td><td>荷札。紐穴付き</td></tr>
+        <tr><td>紙もの</td><td><code>.sw-senjafuda</code></td><td>千社札</td></tr>
+        <tr><td>紙もの</td><td><code>.sw-fusen</code></td><td>付箋。3色</td></tr>
+        <tr><td>紙もの</td><td><code>.sw-fukidashi</code></td><td>吹き出し。<code>from-right</code></td></tr>
+        <tr><td>紙もの</td><td><code>.sw-kippu</code></td><td>回数券。ミシン目付き</td></tr>
+        <tr><td>紙もの</td><td><code>.sw-pop</code></td><td>特売POP。爆発。8rem以上で使う</td></tr>
+        <tr><td>紙もの</td><td><code>.sw-noshi</code></td><td>のし紙。紅白の水引</td></tr>
+        <tr><td>紙もの</td><td><code>.sw-shojo</code></td><td>賞状</td></tr>
+        <tr><td>紙もの</td><td><code>.sw-genkou</code></td><td>原稿用紙</td></tr>
+        <tr><td>紙もの</td><td><code>.sw-stampcard</code></td><td>スタンプカード</td></tr>
+        <tr><td>紙もの</td><td><code>.sw-shashin</code></td><td>白フチ写真。日付焼き込み</td></tr>
+        <tr><td>紙もの</td><td><code>.sw-aozake</code></td><td>青焼き。仕様書やコードに</td></tr>
+        <tr><td>店先</td><td><code>.sw-noren</code></td><td>のれん</td></tr>
+        <tr><td>店先</td><td><code>.sw-chochin</code></td><td>提灯</td></tr>
+        <tr><td>店先</td><td><code>.sw-match</code></td><td>マッチラベル</td></tr>
+        <tr><td>店先</td><td><code>.sw-garasu</code></td><td>型板ガラス。後ろがぼやける</td></tr>
+        <tr><td>店先</td><td><code>.sw-denshou</code></td><td>電照看板</td></tr>
+        <tr><td>家電</td><td><code>.sw-tv</code></td><td>ブラウン管。<code>is-sunaarashi</code> <code>is-nagare</code></td></tr>
+        <tr><td>家電</td><td><code>.sw-jimaku</code></td><td>映画字幕</td></tr>
+        <tr><td>家電</td><td><code>.sw-neon</code></td><td>ネオン管。夜に光る</td></tr>
+        <tr><td>家電</td><td><code>.sw-denkou</code></td><td>電光掲示板。流れる文字</td></tr>
+        <tr><td>家電</td><td><code>.sw-patapata</code></td><td>パタパタ発車標</td></tr>
+        <tr><td>家電</td><td><code>.sw-keikoutou</code></td><td>蛍光灯</td></tr>
+        <tr><td>家電</td><td><code>.sw-record</code></td><td>レコード盤</td></tr>
+        <tr><td>家電</td><td><code>.sw-cassette</code></td><td>カセットテープ</td></tr>
+        <tr><td>家電</td><td><code>.sw-dial</code></td><td>黒電話のダイヤル</td></tr>
+        <tr><td>地紋</td><td><code>.sw-ji-hanagara</code></td><td>花柄。<code>is-tokiwa</code> <code>is-momo</code></td></tr>
+        <tr><td>地紋</td><td><code>.sw-ji-kikagaku</code></td><td>大柄の幾何学</td></tr>
+        <tr><td>地紋</td><td><code>.sw-ji-tile</code></td><td>モザイクタイル</td></tr>
+        <tr><td>地紋</td><td><code>.sw-ji-garasu</code></td><td>型板ガラスのモール</td></tr>
+        <tr><td>地紋</td><td><code>.sw-ji-sofa</code></td><td>喫茶店のソファ</td></tr>
+        <tr><td>地紋</td><td><code>.sw-ji-ichimatsu</code></td><td>市松</td></tr>
+        <tr><td>地紋</td><td><code>.sw-ji-yagasuri</code></td><td>矢絣</td></tr>
+        <tr><td>地紋</td><td><code>.sw-ji-koushi</code></td><td>格子</td></tr>
+        <tr><td>地紋</td><td><code>.sw-ji-mizutama</code></td><td>水玉</td></tr>
+        <tr><td>地紋</td><td><code>.sw-ji-shima</code></td><td>縞</td></tr>
+        <tr><td>地紋</td><td><code>.sw-ji-amiten</code></td><td>網点</td></tr>
+        <tr><td>地紋</td><td><code>.sw-ji-hougan</code></td><td>方眼</td></tr>
+        <tr><td>動き</td><td><code>.sw-anim-chirachira</code></td><td>ネオンのちらつき</td></tr>
+        <tr><td>動き</td><td><code>.sw-anim-tenmetsu</code></td><td>蛍光灯の点き始め</td></tr>
+        <tr><td>動き</td><td><code>.sw-anim-kaiten</code></td><td>レコードの回転</td></tr>
+        <tr><td>割付</td><td><code>.sw-wrap</code> <code>.sw-stack</code> <code>.sw-row</code> <code>.sw-cols</code></td><td>幅・縦積み・横並び・段組み</td></tr>
+        <tr><td>色</td><td><code>.sw-c-enji</code> ほか六色</td><td>文字色</td></tr>
+        <tr><td>色</td><td><code>.sw-bg-enji</code> ほか六色</td><td>地色。文字色も対で付く</td></tr>
+        <tr><td>傾き</td><td><code>.sw-katamuki-l</code> <code>.sw-katamuki-r</code></td><td>貼り紙の癖</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===== 03 テンプレート ===== -->
+<section class="doc-section sw-wrap" id="tmpl">
+  <div class="doc-section-head">
+    <span class="sw-eyebrow">03</span>
+    <h2 class="sw-midashi is-xl">テンプレート</h2>
+    <p class="doc-note">まるごとコピーしてそのまま使えます</p>
+  </div>
+
+  <!-- 品書き -->
+  <div class="doc-tmpl">
+    <p class="doc-tmpl-head">お品書き<span>純喫茶・食堂</span></p>
+    <div class="doc-tmpl-body">
+      <div class="sw-waku is-nijuu sw-ji-mizutama" style="max-width:26rem; margin-inline:auto;">
+        <div style="text-align:center; margin-bottom:1.1rem;">
+          <p class="sw-eyebrow" style="margin:0;">SINCE 1963</p>
+          <p class="sw-midashi is-xl" style="margin:.15rem 0 0;">純喫茶　あかね</p>
+        </div>
+        <p class="sw-obi is-enji" style="margin:0 0 .8rem;">飲みもの</p>
+        <ul class="sw-shinagaki" style="margin-bottom:1.2rem;">
+          <li><span class="na">ブレンド珈琲</span><span class="nedan">450</span></li>
+          <li><span class="na">クリームソーダ</span><span class="nedan">600</span></li>
+        </ul>
+        <p class="sw-obi is-tokiwa" style="margin:0 0 .8rem;">お食事</p>
+        <ul class="sw-shinagaki">
+          <li><span class="na">ナポリタン</span><span class="nedan">780</span></li>
+          <li><span class="na">ミックスサンド</span><span class="nedan">700</span></li>
+        </ul>
+        <hr class="sw-shikiri is-nami">
+        <div class="sw-row" style="justify-content:space-between;">
+          <p style="margin:0; font-family:var(--sw-mincho); font-size:.85rem;">営業　午前十時 — 午後八時<br>定休　毎週水曜日</p>
+          <span class="sw-inkan">あ<br>か<br>ね</span>
+        </div>
+      </div>
+    </div>
+    <div class="doc-src">
+      <button type="button" class="doc-copy">コピー</button>
+      <pre class="doc-code"><code>&lt;div class="sw-waku is-nijuu sw-ji-mizutama"&gt;
+  &lt;p class="sw-eyebrow"&gt;SINCE 1963&lt;/p&gt;
+  &lt;p class="sw-midashi is-xl"&gt;純喫茶　あかね&lt;/p&gt;
+
+  &lt;p class="sw-obi is-enji"&gt;飲みもの&lt;/p&gt;
+  &lt;ul class="sw-shinagaki"&gt;
+    &lt;li&gt;&lt;span class="na"&gt;ブレンド珈琲&lt;/span&gt;&lt;span class="nedan"&gt;450&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span class="na"&gt;クリームソーダ&lt;/span&gt;&lt;span class="nedan"&gt;600&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;hr class="sw-shikiri is-nami"&gt;
+  &lt;span class="sw-inkan"&gt;あ&lt;br&gt;か&lt;br&gt;ね&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+  </div>
+
+  <!-- 申込書 -->
+  <div class="doc-tmpl">
+    <p class="doc-tmpl-head">申込書<span>フォーム</span></p>
+    <div class="doc-tmpl-body">
+      <div class="sw-waku is-nijuu with-title" style="max-width:30rem;">
+        <p class="title">御芳名帳</p>
+        <div class="sw-stack">
+          <div class="sw-field">
+            <label class="sw-label" for="t-na">お名前</label>
+            <input class="sw-input is-genkou" id="t-na" type="text" value="石田">
+          </div>
+          <div class="sw-field">
+            <label class="sw-label" for="t-ken">ご来店の目的</label>
+            <select class="sw-select" id="t-ken"><option>喫茶</option><option>お食事</option><option>待ち合わせ</option></select>
+          </div>
+          <div class="sw-row" style="gap:1.1rem;">
+            <label class="sw-check"><input type="checkbox" checked>常連である</label>
+            <label class="sw-radio"><input type="radio" name="t-seki" checked>禁煙席</label>
+            <label class="sw-radio"><input type="radio" name="t-seki">喫煙席</label>
+          </div>
+          <button type="button" class="sw-btn is-enji is-block">受 付</button>
+        </div>
+      </div>
+    </div>
+    <div class="doc-src">
+      <button type="button" class="doc-copy">コピー</button>
+      <pre class="doc-code"><code>&lt;div class="sw-waku is-nijuu with-title"&gt;
+  &lt;p class="title"&gt;御芳名帳&lt;/p&gt;
+  &lt;div class="sw-stack"&gt;
+    &lt;div class="sw-field"&gt;
+      &lt;label class="sw-label" for="na"&gt;お名前&lt;/label&gt;
+      &lt;input class="sw-input is-genkou" id="na" type="text"&gt;
+    &lt;/div&gt;
+    &lt;label class="sw-check"&gt;&lt;input type="checkbox"&gt;常連である&lt;/label&gt;
+    &lt;label class="sw-radio"&gt;&lt;input type="radio" name="seki"&gt;禁煙席&lt;/label&gt;
+    &lt;button class="sw-btn is-enji is-block"&gt;受 付&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+  </div>
+
+  <!-- 看板 -->
+  <div class="doc-tmpl">
+    <p class="doc-tmpl-head">看板<span>見出し・告知</span></p>
+    <div class="doc-tmpl-body">
+      <div class="sw-row" style="align-items:stretch;">
+        <span class="sw-sodekanban" style="font-size:1.3rem;">大衆酒場</span>
+        <div class="sw-kanban is-karashi is-sabi" style="flex:1 1 16rem;">
+          <p class="sw-f-futo is-tsumeru" style="margin:0; font-size:clamp(1.4rem,4.5vw,2rem);">禁煙　火の元注意</p>
+          <p style="font-family:var(--sw-gothic); margin:.4rem 0 0; font-size:.82rem;">火気厳禁　あかね商店会</p>
+        </div>
+      </div>
+    </div>
+    <div class="doc-src">
+      <button type="button" class="doc-copy">コピー</button>
+      <pre class="doc-code"><code>&lt;span class="sw-sodekanban"&gt;大衆酒場&lt;/span&gt;
+
+&lt;div class="sw-kanban is-karashi is-sabi"&gt;
+  &lt;p class="sw-f-futo is-tsumeru"&gt;禁煙　火の元注意&lt;/p&gt;
+  &lt;p&gt;火気厳禁　あかね商店会&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+  </div>
+
+  <!-- 回数券 -->
+  <div class="doc-tmpl">
+    <p class="doc-tmpl-head">回数券とスタンプカード<span>特典・来店記録</span></p>
+    <div class="doc-tmpl-body">
+      <div class="sw-row" style="align-items:flex-start;">
+        <div class="sw-kippu" style="flex:1 1 19rem;">
+          <span class="mimi">回数券</span>
+          <span class="honbun"><b style="font-size:1.2rem;">珈琲　一杯</b><br>
+          <small class="sw-c-usu" style="font-size:.78rem;">有効期限　昭和六十三年十二月まで</small></span>
+        </div>
+        <div class="sw-stampcard" style="flex:0 1 15rem;">
+          <span class="masu is-oshita">済</span><span class="masu is-oshita">済</span>
+          <span class="masu is-oshita">済</span><span class="masu">4</span><span class="masu">5</span>
+          <span class="masu">6</span><span class="masu">7</span><span class="masu">8</span>
+          <span class="masu">9</span><span class="masu">満</span>
+        </div>
+      </div>
+    </div>
+    <div class="doc-src">
+      <button type="button" class="doc-copy">コピー</button>
+      <pre class="doc-code"><code>&lt;div class="sw-kippu"&gt;
+  &lt;span class="mimi"&gt;回数券&lt;/span&gt;
+  &lt;span class="honbun"&gt;&lt;b&gt;珈琲　一杯&lt;/b&gt;&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;div class="sw-stampcard"&gt;
+  &lt;span class="masu is-oshita"&gt;済&lt;/span&gt;
+  &lt;span class="masu"&gt;4&lt;/span&gt;  <span class="c">…10枡ぶん</span>
+&lt;/div&gt;</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 04 書体 ===== -->
+<section class="doc-section sw-wrap" id="shotai">
+  <div class="doc-section-head">
+    <span class="sw-eyebrow">04</span>
+    <h2 class="sw-midashi is-xl">書体</h2>
+    <p class="doc-note">昭和は写植と手描き看板の時代。字が変われば全部変わります</p>
+  </div>
+
+  <div class="sw-waku is-kage is-enji" style="margin-bottom:1.5rem;">
+    <p class="sw-honbun" style="margin:0;">
+      <strong>先にお断りします。</strong>本物の昭和の見出し書体は、写研の
+      <span class="sw-boten">ゴナU（1975）</span>・<span class="sw-boten">ナール（1973）</span>・<span class="sw-boten">石井明朝</span>です。
+      いずれも写研の所有で、モリサワが2024年から復刻を始めましたが商用書体のため、OFLライセンスでは同梱できません。
+      したがって下表の多くは<strong>代用</strong>です。年代を直接参照しているのは丸文字・アンチック体・ドットの三つだけです。
+    </p>
+  </div>
+
+  <div class="sw-scroll-x">
+    <table class="doc-hyo" style="font-size:.82rem;">
+      <thead><tr><th>役割</th><th>同梱書体</th><th>昭和の何か</th><th>見本</th></tr></thead>
+      <tbody>
+        <tr><td><code>.sw-f-mincho</code><br>明朝</td><td>Zen Old Mincho</td>
+          <td>石井明朝・本蘭明朝の方向<br><span class="sw-c-usu">代用</span></td>
+          <td><span class="sw-f-mincho" style="font-size:1.5rem;">純喫茶あかね　珈琲四百五十円</span></td></tr>
+        <tr><td><code>.sw-f-futo</code><br>極太</td><td>Dela Gothic One</td>
+          <td>ゴナU（1975・写研）<br><span class="sw-c-usu">代用</span></td>
+          <td><span class="sw-f-futo" style="font-size:1.5rem;">歳末大売出し</span></td></tr>
+        <tr><td><code>.sw-f-maru</code><br>丸ゴ</td><td>Zen Maru Gothic</td>
+          <td>ナール（1973・写研）<br><span class="sw-c-usu">代用</span></td>
+          <td><span class="sw-f-maru" style="font-size:1.5rem;">くじ　一回十円</span></td></tr>
+        <tr><td><code>.sw-f-marumoji</code><br>丸文字</td><td>Hachi Maru Pop</td>
+          <td>昭和40〜50年代の丸文字ブーム<br><span class="sw-c-enji">直接参照</span></td>
+          <td><span class="sw-f-marumoji" style="font-size:1.5rem;">またあしたね</span></td></tr>
+        <tr><td><code>.sw-f-anchikku</code><br>アンチック</td><td>Shippori Antique</td>
+          <td>漫画のセリフ書体<br><span class="sw-c-enji">昭和から続く様式</span></td>
+          <td><span class="sw-f-anchikku" style="font-size:1.5rem;">いらっしゃいませ</span></td></tr>
+        <tr><td><code>.sw-f-dot</code><br>ドット</td><td>DotGothic16</td>
+          <td>16ドットの表示装置<br><span class="sw-c-enji">昭和末期を参照</span></td>
+          <td><span class="sw-f-dot" style="font-size:1.4rem;">ツギハ シナガワ</span></td></tr>
+        <tr><td><code>.sw-f-tegaki</code><br>手書POP</td><td>Yusei Magic</td>
+          <td>油性マジックの手書き<br><span class="sw-c-usu">年代は特定しない</span></td>
+          <td><span class="sw-f-tegaki" style="font-size:1.5rem;">本日限り　半額！</span></td></tr>
+        <tr><td><code>.sw-f-gothic</code><br>角ゴ</td><td>Zen Kaku Gothic New</td>
+          <td>—<br><span class="sw-c-usu">現代の書体。ラベルとボタンに限る</span></td>
+          <td><span class="sw-f-gothic" style="font-size:1.4rem;">ご来店の目的　受付</span></td></tr>
+        <tr><td><code>.sw-f-jimaku</code><br>字幕</td><td class="sw-c-usu">同梱なし</td>
+          <td>しねきゃぷしょん・うずまさ本丸ゴシック<br><span class="sw-c-usu">手元にあれば使う</span></td>
+          <td><span class="sw-f-jimaku" style="font-size:1.4rem;">それは去年の夏のことだった</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="doc-note" style="margin:1rem 0 1.25rem;">
+    旧版では <code class="sw-code">.sw-f-poster</code> に Reggae One、<code class="sw-code">.sw-f-rittai</code> に Rampart One を当てていましたが、
+    前者はレゲエ由来の鋭角書体、後者はブロックの立体書体で、どちらも昭和とは無関係でした。両方とも外し、極太に統合しています。
+    昭和の立体文字は袋文字と影で作るものなので、書体ではなく <code class="sw-code">is-rittai</code> と <code class="sw-code">is-fukuro</code> が担います。
+  </p>
+
+  <div class="sw-waku is-kage is-enji" style="margin-top:1.25rem;">
+    <p class="sw-honbun" style="margin:0;">
+      <strong>本物に寄せるには、手元に昭和書体を入れてください。</strong>
+      しねきゃぷしょん・たぬき油性マジック・ポプらむ☆キュート・かんじゅくゴシックなどは、商用利用可でも<span class="sw-boten">webフォントとしての再配布は別許諾</span>のことが多いため同梱していません。各スタックの先頭に名前を並べてあるので、端末に導入するか自前で <code class="sw-code">@font-face</code> を書けば、そちらが優先して使われます。差し替え先の一覧は <code class="sw-code">showa-retro-fonts.css</code> のコメントにあります。
+    </p>
+  </div>
+</section>
+
+<!-- ===== 05 色 ===== -->
+<section class="doc-section sw-wrap" id="iro">
+  <div class="doc-section-head">
+    <span class="sw-eyebrow">05</span>
+    <h2 class="sw-midashi is-xl">色</h2>
+    <p class="doc-note">昭和の印刷は版が少ない。一枚で使うのは多くて三色までを目安に</p>
+  </div>
+
+  <div class="doc-swatches">
+    <div class="doc-swatch"><div class="chip" style="background:var(--sw-enji);"></div><div class="meta"><b>臙脂</b><code>--sw-enji</code></div></div>
+    <div class="doc-swatch"><div class="chip" style="background:var(--sw-karashi);"></div><div class="meta"><b>芥子</b><code>--sw-karashi</code></div></div>
+    <div class="doc-swatch"><div class="chip" style="background:var(--sw-tokiwa);"></div><div class="meta"><b>常磐</b><code>--sw-tokiwa</code></div></div>
+    <div class="doc-swatch"><div class="chip" style="background:var(--sw-kon);"></div><div class="meta"><b>紺</b><code>--sw-kon</code></div></div>
+    <div class="doc-swatch"><div class="chip" style="background:var(--sw-asagi);"></div><div class="meta"><b>浅葱</b><code>--sw-asagi</code></div></div>
+    <div class="doc-swatch"><div class="chip" style="background:var(--sw-momo);"></div><div class="meta"><b>退紅</b><code>--sw-momo</code></div></div>
+    <div class="doc-swatch"><div class="chip" style="background:var(--sw-paper);"></div><div class="meta"><b>生成り</b><code>--sw-paper</code></div></div>
+    <div class="doc-swatch"><div class="chip" style="background:var(--sw-sumi);"></div><div class="meta"><b>墨</b><code>--sw-sumi</code></div></div>
+  </div>
+
+  <div class="sw-waku is-nijuu with-title" style="margin-top:1.5rem;">
+    <p class="title">色の三層</p>
+    <p class="sw-honbun" style="margin:0;">
+      色は三つの層に分かれています。<strong>①紙と墨</strong>と<strong>②刷り色の六色</strong>は昼夜で入れ替わります。
+      <strong>③物体色（<code class="sw-code">--sw-o-*</code>）は昼夜で変えません。</strong>
+      琺瑯看板や提灯は実物なので、夜になっても色が変わらないからです。
+      ここを混ぜると、夜間モードで地色だけが反転して文字が読めなくなります。
+    </p>
+  </div>
+</section>
+
+<!-- ===== 06 文字 ===== -->
+<section class="doc-section sw-wrap" id="moji">
+  <div class="doc-section-head">
+    <span class="sw-eyebrow">06</span>
+    <h2 class="sw-midashi is-xl">文字</h2>
+  </div>
+
+  <div class="doc-demo sw-stack is-lg">
+    <div class="sw-row" style="gap:2rem;">
+      <p class="sw-midashi is-2xl is-tsumeru is-kage" style="margin:0;">歳末大売出し</p>
+      <p class="sw-midashi is-2xl is-tsumeru is-fukuro sw-f-futo" style="margin:0;">本日開店</p>
+    </div>
+    <div class="sw-row" style="gap:2rem;">
+      <p class="sw-midashi is-2xl is-tsumeru is-fuchi sw-f-poster" style="margin:0;">紅白歌合戦</p>
+      <p class="sw-midashi is-2xl is-tsumeru is-rittai sw-f-futo" style="margin:0;">大特価</p>
+    </div>
+
+    <div class="sw-row" style="align-items:flex-start; gap:2rem;">
+      <p class="sw-tate is-hitohira" style="margin:0; font-size:1.1rem;">珈琲は熱いうちに</p>
+      <p class="sw-honbun" style="margin:0;">
+        本文には<span class="sw-marker">蛍光ペン</span>や<span class="sw-boten">傍点</span>、
+        <span class="sw-boten is-sesame">ゴマ点</span>が引けます。
+        価格の改定は<span class="sw-teisei">四百円</span>三百五十円のように二重線で示せます。
+        <ruby>昭和<rt>しょうわ</rt></ruby>のようにルビも組め、
+        写植の<span class="sw-choutai">長体</span>と<span class="sw-heitai">平体</span>も掛けられます。
+      </p>
+    </div>
+  </div>
+
+  <div class="doc-src">
+    <button type="button" class="doc-copy">コピー</button>
+    <pre class="doc-code"><code>&lt;p class="sw-midashi is-2xl is-tsumeru is-kage"&gt;歳末大売出し&lt;/p&gt;
+&lt;p class="sw-midashi is-2xl is-fukuro"&gt;本日開店&lt;/p&gt;    <span class="c">袋文字</span>
+&lt;p class="sw-midashi is-2xl is-fuchi"&gt;紅白歌合戦&lt;/p&gt;    <span class="c">二重の縁取り</span>
+&lt;p class="sw-midashi is-2xl is-rittai"&gt;大特価&lt;/p&gt;       <span class="c">押し出し</span>
+
+&lt;p class="sw-tate is-hitohira"&gt;珈琲は熱いうちに&lt;/p&gt;    <span class="c">縦組み・一行固定</span>
+&lt;span class="sw-marker"&gt;蛍光ペン&lt;/span&gt; &lt;span class="sw-boten"&gt;傍点&lt;/span&gt;</code></pre>
+  </div>
+</section>
+
+<!-- ===== 07 印刷技法 ===== -->
+<section class="doc-section sw-wrap" id="insatsu">
+  <div class="doc-section-head">
+    <span class="sw-eyebrow">07</span>
+    <h2 class="sw-midashi is-xl">印刷技法</h2>
+    <p class="doc-note">小さい面積で使ってください。大きな面に掛けると濁ります</p>
+  </div>
+
+  <div class="doc-demo sw-cols">
+    <div class="sw-waku sw-amiten is-arai sw-bg-enji" style="display:grid; place-content:center; min-height:7rem;">
+      <p class="sw-f-futo" style="margin:0; font-size:1.5rem;">網　点</p></div>
+    <div class="sw-waku" style="display:grid; place-content:center; min-height:7rem;">
+      <p class="sw-f-futo sw-hanzure is-ookii" style="margin:0; font-size:1.5rem;">版ズレ</p></div>
+    <div class="sw-waku" style="display:grid; place-content:center; min-height:7rem;">
+      <p class="sw-f-futo sw-kasure sw-c-enji" style="margin:0; font-size:1.5rem;">かすれ</p></div>
+    <div class="sw-waku sw-taishoku is-tsuyoi sw-bg-tokiwa" style="display:grid; place-content:center; min-height:7rem;">
+      <p class="sw-f-futo" style="margin:0; font-size:1.5rem;">退　色</p></div>
+  </div>
+
+  <div class="doc-src">
+    <button type="button" class="doc-copy">コピー</button>
+    <pre class="doc-code"><code>&lt;div class="sw-amiten is-arai"&gt;…&lt;/div&gt;      <span class="c">網点</span>
+&lt;p class="sw-hanzure is-ookii"&gt;版ズレ&lt;/p&gt;    <span class="c">色版のずれ</span>
+&lt;p class="sw-kasure"&gt;かすれ&lt;/p&gt;              <span class="c">インクの乗り残し</span>
+&lt;div class="sw-taishoku is-tsuyoi"&gt;…&lt;/div&gt;  <span class="c">日焼け</span>
+&lt;img class="sw-monokuro"&gt;                    <span class="c">白黒写真</span></code></pre>
+  </div>
+</section>
+
+<!-- ===== 08 ボタン ===== -->
+<section class="doc-section sw-wrap" id="button">
+  <div class="doc-section-head">
+    <span class="sw-eyebrow">08</span>
+    <h2 class="sw-midashi is-xl">ボタン</h2>
+    <p class="doc-note">押すと影の分だけ本当に沈みます</p>
+  </div>
+
+  <div class="doc-demo sw-stack is-lg">
+    <div class="sw-row">
+      <button type="button" class="sw-btn">標準</button>
+      <button type="button" class="sw-btn is-enji">臙脂</button>
+      <button type="button" class="sw-btn is-karashi">芥子</button>
+      <button type="button" class="sw-btn is-tokiwa">常磐</button>
+      <button type="button" class="sw-btn is-kon">紺</button>
+      <button type="button" class="sw-btn is-asagi">浅葱</button>
+      <button type="button" class="sw-btn is-momo">退紅</button>
+      <button type="button" class="sw-btn" disabled>品切</button>
+    </div>
+    <div class="sw-row" style="align-items:center;">
+      <button type="button" class="sw-btn is-sm">小</button>
+      <button type="button" class="sw-btn is-lg is-mincho is-enji">大・明朝</button>
+      <button type="button" class="sw-kenbai">ブレンド<span class="nedan">450</span></button>
+      <button type="button" class="sw-kenbai is-urikire">プリン<span class="nedan">売切</span></button>
+      <span class="sw-tsumami" role="img" aria-label="音量つまみ"></span>
+      <progress class="sw-progress" value="65" max="100" style="max-width:12rem;"></progress>
+    </div>
+  </div>
+
+  <div class="doc-src">
+    <button type="button" class="doc-copy">コピー</button>
+    <pre class="doc-code"><code>&lt;button class="sw-btn is-enji"&gt;臙脂&lt;/button&gt;
+&lt;button class="sw-btn is-lg is-mincho"&gt;大・明朝&lt;/button&gt;
+&lt;button class="sw-btn" disabled&gt;品切&lt;/button&gt;
+
+&lt;button class="sw-kenbai"&gt;ブレンド&lt;span class="nedan"&gt;450&lt;/span&gt;&lt;/button&gt;
+&lt;span class="sw-tsumami"&gt;&lt;/span&gt;</code></pre>
+  </div>
+</section>
+
+<!-- ===== 09 枠と看板 ===== -->
+<section class="doc-section sw-wrap" id="waku">
+  <div class="doc-section-head">
+    <span class="sw-eyebrow">09</span>
+    <h2 class="sw-midashi is-xl">枠と看板</h2>
+  </div>
+
+  <div class="doc-demo sw-stack is-lg">
+    <div class="sw-row" style="align-items:stretch;">
+      <div class="sw-kanban" style="flex:1 1 14rem;">
+        <p class="sw-f-poster" style="margin:0; font-size:1.5rem;">たばこ</p></div>
+      <div class="sw-kanban is-tokiwa is-sabi" style="flex:1 1 14rem;">
+        <p class="sw-f-poster" style="margin:0; font-size:1.5rem;">氷</p></div>
+      <span class="sw-sodekanban" style="font-size:1.2rem;">喫茶</span>
+    </div>
+
+    <div class="sw-cols">
+      <div class="sw-waku is-kage"><p style="margin:0;">ベタ影 <code class="sw-code">is-kage</code></p></div>
+      <div class="sw-waku is-nijuu is-enji"><p style="margin:0;">二重罫 <code class="sw-code">is-nijuu</code></p></div>
+      <div class="sw-waku with-title"><p class="title">見出し</p><p style="margin:0;">角に咥えた見出し</p></div>
+    </div>
+
+    <div class="sw-stack is-sm">
+      <p class="sw-obi is-enji" style="margin:0;">本日のおすすめ</p>
+      <p class="sw-obi is-tokiwa" style="margin:0;">配達承ります</p>
+      <p class="sw-obi is-karashi" style="margin:0;">売切御免</p>
+    </div>
+  </div>
+
+  <div class="doc-src">
+    <button type="button" class="doc-copy">コピー</button>
+    <pre class="doc-code"><code>&lt;div class="sw-kanban is-tokiwa is-sabi"&gt;氷&lt;/div&gt;
+&lt;span class="sw-sodekanban"&gt;喫茶&lt;/span&gt;
+&lt;div class="sw-waku is-nijuu with-title"&gt;&lt;p class="title"&gt;見出し&lt;/p&gt;本文&lt;/div&gt;
+&lt;p class="sw-obi is-enji"&gt;本日のおすすめ&lt;/p&gt;</code></pre>
+  </div>
+</section>
+
+<!-- ===== 10 記入欄 ===== -->
+<section class="doc-section sw-wrap" id="kinyu">
+  <div class="doc-section-head">
+    <span class="sw-eyebrow">10</span>
+    <h2 class="sw-midashi is-xl">記入欄</h2>
+    <p class="doc-note">申込書と伝票の見た目に寄せています</p>
+  </div>
+
+  <div class="doc-demo">
+    <div class="sw-cols" style="align-items:start;">
+      <div class="sw-field">
+        <label class="sw-label" for="d-na">お名前（升目）</label>
+        <input class="sw-input is-genkou" id="d-na" type="text" value="石田">
+      </div>
+      <div class="sw-field">
+        <label class="sw-label" for="d-ken">選択</label>
+        <select class="sw-select" id="d-ken"><option>喫茶</option><option>お食事</option></select>
+      </div>
+      <div class="sw-field">
+        <label class="sw-label" for="d-me">ご意見</label>
+        <textarea class="sw-textarea" id="d-me" placeholder="ご自由にお書きください"></textarea>
+      </div>
+    </div>
+    <div class="sw-row" style="gap:1.25rem; margin-top:1rem;">
+      <label class="sw-check"><input type="checkbox" checked>常連である</label>
+      <label class="sw-check"><input type="checkbox">初めて</label>
+      <label class="sw-radio"><input type="radio" name="d-seki" checked>禁煙席</label>
+      <label class="sw-radio"><input type="radio" name="d-seki">喫煙席</label>
+    </div>
+  </div>
+
+  <div class="doc-src">
+    <button type="button" class="doc-copy">コピー</button>
+    <pre class="doc-code"><code>&lt;div class="sw-field"&gt;
+  &lt;label class="sw-label" for="na"&gt;お名前&lt;/label&gt;
+  &lt;input class="sw-input is-genkou" id="na" type="text"&gt;
+&lt;/div&gt;
+&lt;label class="sw-check"&gt;&lt;input type="checkbox"&gt;常連である&lt;/label&gt;</code></pre>
+  </div>
+</section>
+
+<!-- ===== 11 表とお品書き ===== -->
+<section class="doc-section sw-wrap" id="hyou">
+  <div class="doc-section-head">
+    <span class="sw-eyebrow">11</span>
+    <h2 class="sw-midashi is-xl">表とお品書き</h2>
+  </div>
+
+  <div class="doc-demo sw-stack is-lg">
+    <div class="sw-scroll-x">
+      <table class="sw-table is-shima">
+        <thead><tr><th>品名</th><th>仕入先</th><th class="is-num">単価</th><th class="is-num">在庫</th></tr></thead>
+        <tbody>
+          <tr><td>珈琲豆（深煎）</td><td>丸山商店</td><td class="is-num">1,280</td><td class="is-num">14</td></tr>
+          <tr><td>練乳</td><td>山田乳業</td><td class="is-num">340</td><td class="is-num">6</td></tr>
+          <tr><td>さくらんぼ（缶）</td><td>丸山商店</td><td class="is-num">920</td><td class="is-num">3</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sw-cols">
+      <ul class="sw-shinagaki">
+        <li><span class="na">ナポリタン</span><span class="nedan">780</span></li>
+        <li><span class="na">クリームソーダ</span><span class="nedan">600</span></li>
+        <li><span class="na">プリンアラモード</span><span class="nedan">850</span></li>
+      </ul>
+      <div class="sw-denpyo">
+        <div class="gyou"><span>ブレンド　２</span><span>900</span></div>
+        <div class="gyou"><span>ナポリタン　１</span><span>780</span></div>
+        <div class="gyou gokei"><span>合計</span><span>1,680</span></div>
+      </div>
+      <ol class="sw-list is-maru">
+        <li>お履物はお脱ぎください</li>
+        <li>お会計は前払いで</li>
+        <li>相席のご協力を</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="doc-src">
+    <button type="button" class="doc-copy">コピー</button>
+    <pre class="doc-code"><code>&lt;ul class="sw-shinagaki"&gt;
+  &lt;li&gt;&lt;span class="na"&gt;ナポリタン&lt;/span&gt;&lt;span class="nedan"&gt;780&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class="sw-denpyo"&gt;
+  &lt;div class="gyou"&gt;&lt;span&gt;ブレンド　２&lt;/span&gt;&lt;span&gt;900&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="gyou gokei"&gt;&lt;span&gt;合計&lt;/span&gt;&lt;span&gt;1,680&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;ol class="sw-list is-maru"&gt;&lt;li&gt;お履物はお脱ぎください&lt;/li&gt;&lt;/ol&gt;</code></pre>
+  </div>
+</section>
+
+<!-- ===== 12 紙もの ===== -->
+<section class="doc-section sw-wrap" id="kami">
+  <div class="doc-section-head">
+    <span class="sw-eyebrow">12</span>
+    <h2 class="sw-midashi is-xl">紙もの</h2>
+  </div>
+
+  <div class="doc-demo sw-stack is-lg">
+    <div class="sw-row" style="gap:1.75rem;">
+      <span class="sw-inkan">検<br>印</span>
+      <span class="sw-inkan is-kaku">認</span>
+      <span class="sw-inkan is-beta">済</span>
+      <span class="sw-nifuda">品川駅発</span>
+      <span class="sw-senjafuda">日本橋　三河屋</span>
+      <span class="sw-badge">新装開店</span>
+      <span class="sw-badge is-karashi">売切御免</span>
+    </div>
+
+    <div class="sw-row" style="align-items:flex-end; gap:1.5rem;">
+      <p class="sw-fukidashi" style="margin:0 0 .9rem;">いらっしゃいませ。お好きな席へどうぞ。</p>
+      <p class="sw-fusen" style="margin:0; max-width:15rem;">十四日（火）は<br>店主都合によりお休みします</p>
+      <div class="sw-pop"><span>本日限り</span><span class="nedan">半額</span></div>
+    </div>
+
+    <div class="sw-cols">
+      <div class="sw-shojo">
+        <p class="sw-midashi is-lg" style="text-align:center; margin:0 0 .8rem;">感謝状</p>
+        <p style="margin:0; font-size:.9rem;">あなたは当店の常連として永年にわたり多大なる貢献をされました　よってこれを表彰します</p>
+      </div>
+      <div>
+        <div class="sw-noshi"><p style="margin:0; font-size:.85rem;">粗品</p>
+          <p class="sw-midashi is-md" style="margin:.25rem 0 0;">あかね</p></div>
+        <p class="sw-genkou" style="margin-top:1rem;">むかしこの町には映画館が三軒あった。</p>
+      </div>
+      <div class="sw-shashin">
+        <span class="ban sw-ji-tile" style="display:block;"></span>
+        <span class="hizuke">'88 7 24</span>
+        <span class="caption">開店二十五周年</span>
+      </div>
+    </div>
+
+    <pre class="sw-aozake" style="margin:0;">青焼き。版下を確認するために焼いた青写しの紙。
+仕様書やコードを載せると印刷所の指定紙の顔になります。
+<span class="chu">夜間モードでは青写真に反転します。</span></pre>
+  </div>
+
+  <div class="doc-src">
+    <button type="button" class="doc-copy">コピー</button>
+    <pre class="doc-code"><code>&lt;span class="sw-inkan"&gt;検&lt;br&gt;印&lt;/span&gt;      <span class="c">is-kaku 角印 / is-beta ベタ</span>
+&lt;span class="sw-nifuda"&gt;品川駅発&lt;/span&gt;
+&lt;span class="sw-senjafuda"&gt;日本橋　三河屋&lt;/span&gt;
+&lt;p class="sw-fusen"&gt;本日休業&lt;/p&gt;
+&lt;p class="sw-fukidashi"&gt;いらっしゃいませ&lt;/p&gt;
+&lt;div class="sw-pop"&gt;&lt;span&gt;本日限り&lt;/span&gt;&lt;span class="nedan"&gt;半額&lt;/span&gt;&lt;/div&gt;
+&lt;div class="sw-shojo"&gt;感謝状&lt;/div&gt;
+&lt;div class="sw-noshi"&gt;粗品&lt;/div&gt;
+&lt;p class="sw-genkou"&gt;原稿用紙の升目に流し込む&lt;/p&gt;
+&lt;pre class="sw-aozake"&gt;青焼き&lt;/pre&gt;</code></pre>
+  </div>
+</section>
+
+<!-- ===== 13 店先 ===== -->
+<section class="doc-section sw-wrap" id="misesaki">
+  <div class="doc-section-head">
+    <span class="sw-eyebrow">13</span>
+    <h2 class="sw-midashi is-xl">店先</h2>
+  </div>
+
+  <div class="doc-demo sw-stack is-lg">
+    <div class="sw-row" style="gap:1.75rem; align-items:flex-start;">
+      <div class="sw-noren" style="flex:0 1 14rem;">
+        <span class="nuno">御</span><span class="nuno">食</span><span class="nuno">事</span><span class="nuno">処</span>
+      </div>
+      <div class="sw-chochin">酒</div>
+      <div class="sw-match">
+        <span class="yago">純喫茶あかね</span><span>珈琲・軽食</span>
+        <span class="tel">TEL (03) 3812 - 4567</span>
+      </div>
+      <div class="sw-denshou">営業中</div>
+    </div>
+
+    <div class="sw-ji-tile" style="padding:1.4rem;">
+      <div class="sw-garasu">
+        <p class="sw-midashi is-md" style="margin:0;">型板ガラス</p>
+        <p style="margin:.3rem 0 0; font-size:.875rem;">向こう側がぼやける昭和の建具。後ろの地紋が透けます。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-src">
+    <button type="button" class="doc-copy">コピー</button>
+    <pre class="doc-code"><code>&lt;div class="sw-noren"&gt;
+  &lt;span class="nuno"&gt;御&lt;/span&gt;&lt;span class="nuno"&gt;食&lt;/span&gt;&lt;span class="nuno"&gt;事&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class="sw-chochin"&gt;酒&lt;/div&gt;
+&lt;div class="sw-match"&gt;&lt;span class="yago"&gt;純喫茶あかね&lt;/span&gt;&lt;/div&gt;
+&lt;div class="sw-denshou"&gt;営業中&lt;/div&gt;
+&lt;div class="sw-garasu"&gt;向こうがぼやける&lt;/div&gt;</code></pre>
+  </div>
+</section>
+
+<!-- ===== 14 家電 ===== -->
+<section class="doc-section sw-wrap" id="kaden">
+  <div class="doc-section-head">
+    <span class="sw-eyebrow">14</span>
+    <h2 class="sw-midashi is-xl">家電</h2>
+    <p class="doc-note">ネオンと蛍光灯は夜間モードで本領を出します</p>
+  </div>
+
+  <div class="doc-demo is-yoru sw-stack is-lg">
+    <div class="sw-cols">
+      <div class="sw-tv is-nagare">
+        <p style="margin:0 0 .4rem; letter-spacing:.2em;">＊＊＊ 深夜放送 ＊＊＊</p>
+        <p style="margin:0; line-height:1.95;">ただいまの時刻　二時十五分<br>本日の放送は終了いたしました</p>
+      </div>
+      <div class="sw-tv is-sunaarashi" style="display:grid; align-items:end;">
+        <p class="sw-jimaku" style="margin:0;">——それは去年の夏のことだった</p>
+      </div>
+    </div>
+
+    <div style="background:#0d0b14; padding:1.75rem; display:grid; place-content:center; gap:.3rem; text-align:center;">
+      <p class="sw-neon is-asagi sw-anim-chirachira" style="margin:0; font-size:2.2rem;">純喫茶</p>
+      <p class="sw-neon" style="margin:0; font-size:1.3rem;">あかね</p>
+    </div>
+
+    <span class="sw-keikoutou sw-anim-tenmetsu"></span>
+
+    <div class="sw-denkou">
+      <span class="nagare">ツギノ デンシャハ 2バンセン フツウ シナガワ ユキ デス　シロイセンノ ウチガワマデ オサガリクダサイ</span>
+    </div>
+
+    <div class="sw-row" style="justify-content:center; gap:1.25rem;">
+      <span class="sw-patapata"><span class="koma">シ</span><span class="koma">ナ</span><span class="koma">ガ</span><span class="koma">ワ</span></span>
+      <span class="sw-patapata"><span class="koma">1</span><span class="koma">4</span><span class="koma">:</span><span class="koma">0</span><span class="koma">7</span></span>
+    </div>
+
+    <div class="sw-row" style="justify-content:center; gap:1.75rem; align-items:center;">
+      <span class="sw-record sw-anim-kaiten" style="width:8.5rem;"></span>
+      <span class="sw-dial" style="--sw-dial-d:10rem;">
+        <span class="ana">1</span><span class="ana">2</span><span class="ana">3</span><span class="ana">4</span><span class="ana">5</span>
+        <span class="ana">6</span><span class="ana">7</span><span class="ana">8</span><span class="ana">9</span><span class="ana">0</span>
+        <span class="bango">3812<br>4567</span>
+      </span>
+      <span class="sw-cassette">
+        <span class="label" style="display:block;">A面　夏の終わりに<br>1987.8.24 録音</span>
+        <span class="mado"><span class="reel"></span><span class="reel"></span></span>
+      </span>
+    </div>
+  </div>
+
+  <div class="doc-src">
+    <button type="button" class="doc-copy">コピー</button>
+    <pre class="doc-code"><code>&lt;div class="sw-tv is-nagare"&gt;…&lt;/div&gt;        <span class="c">走査線が流れる</span>
+&lt;div class="sw-tv is-sunaarashi"&gt;…&lt;/div&gt;    <span class="c">砂嵐</span>
+&lt;p class="sw-jimaku"&gt;——それは去年の…&lt;/p&gt;
+&lt;p class="sw-neon is-asagi sw-anim-chirachira"&gt;純喫茶&lt;/p&gt;
+&lt;div class="sw-denkou"&gt;&lt;span class="nagare"&gt;ツギノ…&lt;/span&gt;&lt;/div&gt;
+&lt;span class="sw-patapata"&gt;&lt;span class="koma"&gt;シ&lt;/span&gt;…&lt;/span&gt;
+&lt;span class="sw-record sw-anim-kaiten"&gt;&lt;/span&gt;
+&lt;span class="sw-dial"&gt;&lt;span class="ana"&gt;1&lt;/span&gt;…&lt;/span&gt;
+&lt;span class="sw-cassette"&gt;…&lt;/span&gt;</code></pre>
+  </div>
+</section>
+
+<!-- ===== 15 地紋 ===== -->
+<section class="doc-section sw-wrap" id="jimon">
+  <div class="doc-section-head">
+    <span class="sw-eyebrow">15</span>
+    <h2 class="sw-midashi is-xl">地紋</h2>
+    <p class="doc-note">画像は一枚も使っていません</p>
+  </div>
+
+  <div class="sw-cols">
+    <div class="sw-ji-hanagara doc-jimon"><code>sw-ji-hanagara</code></div>
+    <div class="sw-ji-hanagara is-tokiwa doc-jimon"><code>is-tokiwa</code></div>
+    <div class="sw-ji-hanagara is-momo doc-jimon"><code>is-momo</code></div>
+    <div class="sw-ji-kikagaku doc-jimon"><code>sw-ji-kikagaku</code></div>
+    <div class="sw-ji-tile doc-jimon"><code>sw-ji-tile</code></div>
+    <div class="sw-ji-garasu doc-jimon"><code>sw-ji-garasu</code></div>
+    <div class="sw-ji-sofa doc-jimon"><code>sw-ji-sofa</code></div>
+    <div class="sw-ji-ichimatsu doc-jimon"><code>sw-ji-ichimatsu</code></div>
+    <div class="sw-ji-yagasuri doc-jimon"><code>sw-ji-yagasuri</code></div>
+    <div class="sw-ji-koushi doc-jimon"><code>sw-ji-koushi</code></div>
+    <div class="sw-ji-mizutama doc-jimon"><code>sw-ji-mizutama</code></div>
+    <div class="sw-ji-shima doc-jimon"><code>sw-ji-shima</code></div>
+    <div class="sw-ji-amiten doc-jimon"><code>sw-ji-amiten</code></div>
+    <div class="sw-ji-hougan doc-jimon"><code>sw-ji-hougan</code></div>
+  </div>
+</section>
+
+
+<!-- ===== 作例。組み上がった情景 ===== -->
+<section class="doc-section sw-wrap" id="sakurei">
+  <div class="doc-section-head">
+    <span class="sw-eyebrow">作例</span>
+    <h2 class="sw-midashi is-xl">組み上げるとこうなります</h2>
+    <p class="doc-note">部品を並べるのではなく、一枚に組んだもの</p>
+  </div>
+
+  <!-- 一 純喫茶の卓上 -->
+  <div class="doc-tmpl">
+    <p class="doc-tmpl-head">純喫茶の卓上<span>お品書き・マッチ・伝票・検印</span></p>
+    <div class="sw-ji-hanagara is-momo" style="padding:clamp(1rem,3.5vw,2rem);">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(15rem,100%),1fr)); gap:1.25rem; align-items:start;">
+        <div class="sw-waku is-nijuu" style="grid-row:span 2;">
+          <p class="sw-eyebrow" style="margin:0; text-align:center;">SINCE 1963</p>
+          <p class="sw-midashi is-lg" style="margin:.1rem 0 1rem; text-align:center;">純喫茶　あかね</p>
+          <p class="sw-obi is-enji" style="margin:0 0 .7rem; font-size:.78rem;">飲みもの</p>
+          <ul class="sw-shinagaki" style="font-size:.95rem; margin-bottom:1rem;">
+            <li><span class="na">ブレンド珈琲</span><span class="nedan">450</span></li>
+            <li><span class="na">クリームソーダ</span><span class="nedan">600</span></li>
+            <li><span class="na">レモンスカッシュ</span><span class="nedan">550</span></li>
+          </ul>
+          <p class="sw-obi is-karashi" style="margin:0 0 .7rem; font-size:.78rem;">甘いもの</p>
+          <ul class="sw-shinagaki" style="font-size:.95rem;">
+            <li><span class="na">プリンアラモード</span><span class="nedan">850</span></li>
+            <li><span class="na">珈琲ゼリー</span><span class="nedan">600</span></li>
+          </ul>
+          <hr class="sw-shikiri is-nami" style="margin:1rem 0;">
+          <div class="sw-row" style="justify-content:space-between; gap:.5rem;">
+            <p style="margin:0; font-size:.8rem;">営業　午前十時 — 午後八時<br>定休　毎週水曜日</p>
+            <span class="sw-inkan">あ<br>か<br>ね</span>
+          </div>
+        </div>
+
+        <div class="sw-match" style="width:100%; max-width:none;">
+          <span class="yago">純喫茶あかね</span>
+          <span>珈琲・軽食</span>
+          <span class="tel">TEL (03) 3812 - 4567</span>
+        </div>
+
+        <div class="sw-denpyo">
+          <div class="gyou"><span>ブレンド　２</span><span>900</span></div>
+          <div class="gyou"><span>プリン　１</span><span>850</span></div>
+          <div class="gyou"><span>珈琲ゼリー　１</span><span>600</span></div>
+          <div class="gyou gokei"><span>合計</span><span>2,350</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 二 商店街の掲示 -->
+  <div class="doc-tmpl">
+    <p class="doc-tmpl-head">商店街の掲示<span>琺瑯看板・帯・丸数字・千社札</span></p>
+    <div class="sw-ji-ichimatsu" style="padding:clamp(1rem,3.5vw,2rem);">
+      <div class="sw-kanban is-karashi is-sabi" style="margin-bottom:1.25rem;">
+        <p class="sw-f-futo is-tsumeru sw-midashi" style="margin:0; font-size:clamp(1.5rem,5vw,2.2rem);">火の元　御用心</p>
+        <p style="font-family:var(--sw-gothic); margin:.45rem 0 0; font-size:.85rem;">あかね商店会　防火部</p>
+      </div>
+      <div class="doc-keiji">
+        <div class="sw-waku with-title">
+          <p class="title">御願い</p>
+          <ol class="sw-list is-maru" style="font-size:.9rem;">
+            <li>火気の取扱いに御注意ください</li>
+            <li>戸締りを御確認ください</li>
+            <li>不審な物は詰所まで</li>
+          </ol>
+        </div>
+        <div style="display:grid; gap:1rem; justify-items:center;">
+          <span class="sw-senjafuda">あかね商店会</span>
+          <span class="sw-nifuda">昭和六十三年十二月</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 三 深夜放送 -->
+  <div class="doc-tmpl">
+    <p class="doc-tmpl-head">深夜放送<span>ブラウン管・字幕・ネオン・電光掲示板</span></p>
+    <div style="background:#14131a; padding:clamp(1rem,3.5vw,2rem); display:grid; gap:1.1rem;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(17rem,100%),1fr)); gap:1.1rem;">
+        <div class="sw-tv is-nagare">
+          <p style="margin:0 0 .4rem; letter-spacing:.2em; font-size:.85rem;">＊＊＊ 深夜放送 ＊＊＊</p>
+          <p style="margin:0; line-height:1.95; font-size:.9rem;">ただいまの時刻　二時十五分<br>本日の放送は終了いたしました</p>
+        </div>
+        <div class="sw-tv is-sunaarashi" style="display:grid; align-items:end;">
+          <p class="sw-jimaku" style="margin:0;">——それは去年の夏のことだった</p>
+        </div>
+        <div style="display:grid; place-content:center; text-align:center; gap:.3rem;">
+          <p class="sw-neon is-asagi sw-anim-chirachira" style="margin:0; font-size:2rem;">純喫茶</p>
+          <p class="sw-neon" style="margin:0; font-size:1.2rem;">あかね</p>
+          <p class="sw-neon is-karashi" style="margin:.4rem 0 0; font-size:1rem;">営業中</p>
+        </div>
+      </div>
+      <span class="sw-keikoutou sw-anim-tenmetsu"></span>
+      <div class="sw-denkou">
+        <span class="nagare">ツギノ デンシャハ 2バンセン フツウ シナガワ ユキ デス　シロイセンノ ウチガワマデ オサガリクダサイ</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="doc-foot">
+  <div class="sw-wrap sw-row" style="justify-content:space-between; align-items:flex-start;">
+    <p style="margin:0;">
+      showa-retro.css v1.1.0 — MIT License<br>
+      同梱書体は SIL Open Font License。画像もJavaScriptも使いません
+    </p>
+    <p style="margin:0;">見本帳の店名・電話番号・文言はすべて架空のものです</p>
+  </div>
+</footer>
+
+<script>
+/* このページだけのJavaScript。フレームワーク本体は素のCSSで動きます。 */
+
+// 昼 / 夜
+document.getElementById('toggle').addEventListener('click', function () {
+  var root = document.documentElement;
+  var now = root.getAttribute('data-theme');
+  if (!now) now = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  root.setAttribute('data-theme', now === 'dark' ? 'light' : 'dark');
+});
+
+// コピーボタン
+function copy(text, btn, label) {
+  navigator.clipboard.writeText(text).then(function () {
+    var before = btn.textContent;
+    btn.textContent = label || 'コピーしました';
+    setTimeout(function () { btn.textContent = before; }, 1400);
+  });
+}
+
+document.querySelectorAll('.doc-copy').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var pre = btn.parentElement.querySelector('.doc-code');
+    if (pre) copy(pre.innerText, btn);
+  });
+});
+
+// 早見表のクラス名をクリックでコピー
+document.querySelectorAll('#hyo code').forEach(function (el) {
+  el.title = 'クリックでコピー';
+  el.addEventListener('click', function () {
+    navigator.clipboard.writeText(el.textContent);
+    var before = el.textContent;
+    el.textContent = '写しました';
+    setTimeout(function () { el.textContent = before; }, 900);
+  });
+});
+
+// 早見表の絞り込み
+var q = document.getElementById('q');
+var rows = Array.prototype.slice.call(document.querySelectorAll('#hyo tbody tr'));
+var hit = document.getElementById('hit');
+function shibori() {
+  var v = q.value.trim().toLowerCase();
+  var n = 0;
+  rows.forEach(function (tr) {
+    var ok = !v || tr.textContent.toLowerCase().indexOf(v) !== -1;
+    tr.hidden = !ok;
+    if (ok) n++;
+  });
+  hit.textContent = v ? n + ' 件' : rows.length + ' 件';
+}
+q.addEventListener('input', shibori);
+shibori();
+</script>
+
+</body>
+</html>
