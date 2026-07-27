@@ -668,6 +668,17 @@
 
 .sw-sodekanban.is-enji { background: var(--sw-o-enji); }
 
+/* 腕金。壁から突き出すための金具。is-udegane で付ける */
+.sw-sodekanban.is-udegane { position: relative; margin-left: 1.6em; }
+.sw-sodekanban.is-udegane::before {
+  content: "";
+  position: absolute;
+  left: -1.6em; top: 0.7em;
+  width: 1.6em; height: 0.34em;
+  background: linear-gradient(#8d8578, #4e483d);
+  box-shadow: 0 1px 2px rgba(0,0,0,.5);
+}
+
 /* --- 帯 --- */
 
 .sw-obi {
@@ -1111,7 +1122,16 @@
 }
 
 /* 角印。縁を太く、字を大きく */
-.sw-inkan.is-kaku { border-radius: 0; border-width: 0.2em; transform: rotate(-5deg); }
+/* 角印。実物は縁が太く、字が枠を埋める */
+.sw-inkan.is-kaku {
+  border-radius: 0;
+  border-width: 0.26em;
+  padding: 0.04em;
+  font-size: var(--sw-t-lg);
+  width: 3.1em;
+  height: 3.1em;
+  transform: rotate(-5deg);
+}
 
 /* 朱を全面に置いた印 */
 .sw-inkan.is-beta {
@@ -1268,6 +1288,11 @@
   text-align: center;
   font-family: var(--sw-mincho);
   overflow: hidden;
+  /* 中央の結び目。二本の水引がここで結ばれる */
+  background-image:
+    radial-gradient(ellipse 0.62em 0.46em at 50% 1.15em,
+      #c0302b 0 66%, #8e1f1c 68% 78%, transparent 80%);
+  background-repeat: no-repeat;
 }
 
 /* 左右から中央へ寄る二本の水引 */
@@ -1329,11 +1354,13 @@
   padding: calc(var(--sw-ma) * 2.5);
   font-family: var(--sw-mincho);
   line-height: 2.2;
+  /* 縁飾り。旧版は同心の線だけだった。雷文風の連続模様を回す */
+  border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23f7f1e1'/%3E%3Cg stroke='%237d4f22' stroke-width='1.6' fill='none'%3E%3Cpath d='M0 8 H3 M13 8 H16'/%3E%3Cpath d='M8 3 L13 8 L8 13 L3 8 Z'/%3E%3C/g%3E%3C/svg%3E") 6 round;
+  border-width: 12px;
   box-shadow:
     inset 0 0 0 3px var(--sw-paper-3),
     inset 0 0 0 4px var(--sw-o-karashi),
-    inset 0 0 0 7px var(--sw-paper-3),
-    inset 0 0 0 8px var(--sw-o-kogecha);
+    inset 0 0 0 6px var(--sw-paper-3);
 }
 
 /* 原稿用紙 */
@@ -1352,6 +1379,30 @@
   letter-spacing: calc(var(--sw-masu) - 1em);
   text-indent: calc((var(--sw-masu) - 1em) / 2);
   color: var(--sw-sumi);
+}
+
+/* 縦組みの原稿用紙。実物はこちらが本来の形 */
+.sw-genkou.is-tate {
+  position: relative;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  line-height: var(--sw-masu);
+  letter-spacing: calc(var(--sw-masu) - 1em);
+  text-indent: calc((var(--sw-masu) - 1em) / 2);
+  /* 天に魚尾ぶんの余白を取る。ここが無いと本文に重なる */
+  padding-top: 1.5em;
+  padding-bottom: 0;
+}
+
+/* 魚尾。中央の綴じ目に入る印 */
+.sw-genkou.is-tate::before {
+  content: "";
+  position: absolute;
+  left: 50%; top: 0.18em;
+  width: 0.85em; height: 1.05em;
+  transform: translateX(-50%);
+  background: var(--sw-o-asagi);
+  clip-path: polygon(0 0, 100% 0, 100% 55%, 50% 100%, 0 55%);
 }
 
 /* スタンプカード */
@@ -1658,13 +1709,39 @@
 
 /* 電光掲示板。ドットが右から左へ流れる。
    最初から字が見えている位置で始めます。空の板を数秒見せないためです。 */
+/* 電光掲示板。素子の格子が見えるのが実物。
+   旧版は暗い面にドット書体を置いただけだった。 */
 .sw-denkou {
+  position: relative;
   overflow: hidden;
   background: #120f0c;
   border: 4px solid #3b332a;
   padding: 0.6em 0;
   box-shadow: inset 0 0 22px rgba(0, 0, 0, 0.9);
 }
+
+/* 消灯している素子 */
+.sw-denkou::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,122,26,.10) 0 1.2px, transparent 1.5px);
+  background-size: 5px 5px;
+}
+
+/* 素子の隙間。文字がLEDの粒に見える */
+.sw-denkou::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(0,0,0,.5) 0 1.7px, transparent 1.7px 5px),
+    repeating-linear-gradient(0deg,  rgba(0,0,0,.5) 0 1.7px, transparent 1.7px 5px);
+}
+
+.sw-denkou > .nagare { position: relative; z-index: 1; }
 
 .sw-denkou > .nagare {
   display: inline-block;
@@ -1974,16 +2051,20 @@
   background-position: 0 0, 16px 16px;
 }
 
-/* 矢絣 */
+/* 矢絣。矢羽根は軸を挟んだ左右一対の羽。
+   中央に軸ぶんの空きを作らないと、ただのジグザグに見える */
 .sw-ji-yagasuri {
   background-color: var(--sw-paper);
-  background-image:
-    linear-gradient(135deg, var(--sw-pattern) 25%, transparent 25%),
-    linear-gradient(225deg, var(--sw-pattern) 25%, transparent 25%),
-    linear-gradient(45deg,  var(--sw-pattern) 25%, transparent 25%),
-    linear-gradient(315deg, var(--sw-pattern) 25%, transparent 25%);
-  background-position: 14px 0, 14px 0, 0 0, 0 0;
-  background-size: 28px 28px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='52' viewBox='0 0 36 52'%3E%3Cg fill='%232a2622' fill-opacity='.14'%3E%3Cpath d='M15.4 3 L2 17 L2 27 L15.4 13 Z'/%3E%3Cpath d='M20.6 3 L34 17 L34 27 L20.6 13 Z'/%3E%3Cpath d='M15.4 29 L2 43 L2 53 L15.4 39 Z'/%3E%3Cpath d='M20.6 29 L34 43 L34 53 L20.6 39 Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 36px 52px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .sw-ji-yagasuri {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='52' viewBox='0 0 36 52'%3E%3Cg fill='%23ece2cc' fill-opacity='.14'%3E%3Cpath d='M15.4 3 L2 17 L2 27 L15.4 13 Z'/%3E%3Cpath d='M20.6 3 L34 17 L34 27 L20.6 13 Z'/%3E%3Cpath d='M15.4 29 L2 43 L2 53 L15.4 39 Z'/%3E%3Cpath d='M20.6 29 L34 43 L34 53 L20.6 39 Z'/%3E%3C/g%3E%3C/svg%3E");
+  }
+}
+:root[data-theme="dark"] .sw-ji-yagasuri {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='52' viewBox='0 0 36 52'%3E%3Cg fill='%23ece2cc' fill-opacity='.14'%3E%3Cpath d='M15.4 3 L2 17 L2 27 L15.4 13 Z'/%3E%3Cpath d='M20.6 3 L34 17 L34 27 L20.6 13 Z'/%3E%3Cpath d='M15.4 29 L2 43 L2 53 L15.4 39 Z'/%3E%3Cpath d='M20.6 29 L34 43 L34 53 L20.6 39 Z'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 /* 水玉 */
@@ -2026,18 +2107,6 @@
   background-color: var(--sw-paper);
   background-image: radial-gradient(circle at center, var(--sw-pattern) 2px, transparent 2.4px);
   background-size: 7px 7px;
-}
-
-/* 大柄の幾何学。昭和四十年代のインテリア地 */
-.sw-ji-kikagaku {
-  background-color: #f7db76;
-  background-image:
-    radial-gradient(circle 26px at 0 0,       #d4491a 98%, transparent),
-    radial-gradient(circle 26px at 100% 0,    #d4491a 98%, transparent),
-    radial-gradient(circle 26px at 0 100%,    #d4491a 98%, transparent),
-    radial-gradient(circle 26px at 100% 100%, #d4491a 98%, transparent),
-    radial-gradient(circle 17px at 50% 50%,   #3c6b52 98%, transparent);
-  background-size: 72px 72px;
 }
 
 /* モザイクタイル。銭湯と喫茶店の腰壁 */
@@ -2083,17 +2152,23 @@
   background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27120%27%20height%3D%27120%27%20viewBox%3D%270%200%20120%20120%27%3E%3Cg%20fill%3D%27%23cf8e8e%27%3E%3Ccircle%20cx%3D%2730.0%27%20cy%3D%2718.0%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2741.4%27%20cy%3D%2726.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2737.1%27%20cy%3D%2739.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2722.9%27%20cy%3D%2739.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2718.6%27%20cy%3D%2726.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2790.0%27%20cy%3D%2778.0%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%27101.4%27%20cy%3D%2786.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2797.1%27%20cy%3D%2799.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2782.9%27%20cy%3D%2799.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2778.6%27%20cy%3D%2786.3%27%20r%3D%2710.4%27%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2730%27%20r%3D%277.5%27%20fill%3D%27%2379b0a5%27%2F%3E%3Ccircle%20cx%3D%2790%27%20cy%3D%2790%27%20r%3D%277.5%27%20fill%3D%27%2379b0a5%27%2F%3E%3Cg%20fill%3D%27%2379b0a5%27%20opacity%3D%27.55%27%3E%3Ccircle%20cx%3D%2790.0%27%20cy%3D%2723.4%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2796.3%27%20cy%3D%2728.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2793.9%27%20cy%3D%2735.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2786.1%27%20cy%3D%2735.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2783.7%27%20cy%3D%2728.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2730.0%27%20cy%3D%2783.4%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2736.3%27%20cy%3D%2788.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2733.9%27%20cy%3D%2795.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2726.1%27%20cy%3D%2795.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2723.7%27%20cy%3D%2788.0%27%20r%3D%275.7%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
 }
 
-/* 喫茶店のソファ。ビニールレザーの縫い目 */
+/* 喫茶店のソファ。ビニールレザー。
+   升目が膨らみ、交点のボタンが沈む。旧版は平らな面に点を置いただけだった。
+   縫い目の間隔62pxに対し、斜めの筋は 62/√2 ≒ 44px で交点が合う。 */
 .sw-ji-sofa {
   background-color: #7d211e;
   background-image:
-    radial-gradient(circle at 50% 50%, rgba(0,0,0,.35) 0 3px, transparent 3.5px),
-    radial-gradient(circle at 50% 50%, rgba(0,0,0,.35) 0 3px, transparent 3.5px),
-    repeating-linear-gradient(45deg,  rgba(255,255,255,.07) 0 1px, transparent 1px 44px),
-    repeating-linear-gradient(-45deg, rgba(0,0,0,.16) 0 1px, transparent 1px 44px),
-    radial-gradient(ellipse at 50% 0, rgba(255,255,255,.14), transparent 60%);
-  background-size: 62px 62px, 62px 62px, auto, auto, auto;
-  background-position: 0 0, 31px 31px, 0 0, 0 0, 0 0;
+    /* 交点に沈むボタン */
+    radial-gradient(circle 5px at 50% 50%, #360f0e 0 46%, rgba(0,0,0,.55) 62%, transparent 74%),
+    radial-gradient(circle 5px at 50% 50%, #360f0e 0 46%, rgba(0,0,0,.55) 62%, transparent 74%),
+    /* 升目の膨らみ */
+    radial-gradient(circle at 50% 38%, rgba(255,255,255,.17), transparent 60%),
+    radial-gradient(circle at 50% 38%, rgba(255,255,255,.17), transparent 60%),
+    /* 縫い目 */
+    repeating-linear-gradient(45deg,  rgba(0,0,0,.26) 0 1.5px, transparent 1.5px 44px),
+    repeating-linear-gradient(-45deg, rgba(0,0,0,.26) 0 1.5px, transparent 1.5px 44px);
+  background-size: 62px 62px, 62px 62px, 62px 62px, 62px 62px, auto, auto;
+  background-position: 0 0, 31px 31px, 0 0, 31px 31px, 0 0, 0 0;
 }
 
 /* ==========================================================================
