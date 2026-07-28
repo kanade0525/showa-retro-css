@@ -3,6 +3,23 @@
 書式は [Keep a Changelog](https://keepachangelog.com/ja/1.1.0/) に、
 版の付け方は [セマンティック バージョニング](https://semver.org/lang/ja/) に従います。
 
+## [2.2.2] — 2026-07-29
+
+### 見本帳
+
+- **袖看板を冒頭に戻し、成立する置き方にしました。** 2.2.1 で消したのは
+  対処が乱暴でした。壁の正面に置いて宙に浮いて見えるのが問題だったのだから、
+  浮かない置き方をするのが筋です。
+
+  画面の左端に寄せ、腕金と座金を画面の縁で切りました。こうすると
+  「画面の外へ続く壁から手前に突き出している」と読めます。壁の面に貼られた
+  物ではないことが伝わります。
+
+  重なりは実測しました。1153px で27px、1280px で91px の空きがあり、
+  1152px 未満では隠します（中央のホーロー看板に重なるため）。
+- `.d-sode` の `position: absolute` が効いていなかったのを修正。
+  `.sw-sodekanban.is-udegane` の `position: relative` に詳細度で負けていました。
+
 ## [2.2.1] — 2026-07-29
 
 ### 見本帳
@@ -374,6 +391,7 @@ npm に出す前に、番号の付け方を正しておきます。今回から 
 
 - 初期の公開版
 
+[2.2.2]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.2.2
 [2.2.1]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.2.1
 [2.2.0]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.2.0
 [2.1.4]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.1.4

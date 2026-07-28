@@ -32,7 +32,21 @@ body { margin: 0; }
 .d-wrap { max-width: 60rem; margin-inline: auto; padding-inline: clamp(1rem, 4vw, 2rem); }
 
 /* ── 冒頭。店先を一枚。丈は詰める ─────────────────────────────── */
-.d-mise { border-bottom: 5px solid var(--sw-o-sumi); }
+.d-mise { position: relative; overflow: hidden; border-bottom: 5px solid var(--sw-o-sumi); }
+
+/* 袖看板。壁の面に貼るものではなく、壁から手前に突き出すもの。
+   壁の真ん中に正面向きで置くと宙に浮いて見えるので、画面の左端に寄せ、
+   座金を縁で切って「画面の外へ続く壁から出ている」と読ませる。 */
+/* .sw-sodekanban.is-udegane が position:relative を持つので、
+   詳細度を上げないと absolute が負ける */
+.d-mise .d-sode {
+  position: absolute;
+  left: -0.55em;
+  bottom: clamp(1.8rem, 5vw, 3rem);
+  z-index: 1;
+}
+/* 狭いと中央のホーロー看板に重なるので隠す。1152px 未満で消える */
+@media (max-width: 72rem) { .d-mise .d-sode { display: none; } }
 .d-mise .d-noren > .nuno {
   padding: 0.55rem 0.3rem 1.15rem;
   font-size: clamp(1.15rem, 3.8vw, 1.8rem);
@@ -166,6 +180,7 @@ body { margin: 0; }
   <div class="sw-noren d-noren" style="max-width:60rem; margin-inline:auto;">
     <span class="nuno">昭</span><span class="nuno">和</span><span class="nuno">レ</span><span class="nuno">ト</span><span class="nuno">ロ</span>
   </div>
+  <span class="sw-sodekanban is-udegane d-sode" style="font-size:clamp(1rem,2.6vw,1.25rem);">見本</span>
   <div class="d-mise-naka">
     <div class="sw-kanban is-sabi">
       <p class="sw-eyebrow" style="color:rgba(244,236,216,.75); margin:0 0 .4rem;">CSS FRAMEWORK</p>
@@ -1443,7 +1458,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 </section>
 
 <footer class="d-foot d-wrap">
-  <p style="margin:0">昭和レトロ.css v2.2.1・CSS は MIT License。書体は各ライセンスに従います（付属の晩秋レトロミンは OFL ではありません）。<a href="https://github.com/kanade0525/showa-retro-css/blob/main/LICENSE">詳細</a></p>
+  <p style="margin:0">昭和レトロ.css v2.2.2・CSS は MIT License。書体は各ライセンスに従います（付属の晩秋レトロミンは OFL ではありません）。<a href="https://github.com/kanade0525/showa-retro-css/blob/main/LICENSE">詳細</a></p>
   <p style="margin:.3rem 0 0">画像もJavaScriptも使いません。このページのJSはコピーボタンとより分けのためだけに使っています。</p>
   <p style="margin:.3rem 0 0">見本の電話番号・日付・文言はすべて実在しないものです。</p>
 </footer>
