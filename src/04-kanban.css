@@ -15,21 +15,31 @@
 }
 
 .sw-waku.is-kage { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-sumi); }
-.sw-waku.with-title { padding-top: calc(var(--sw-ma) * 2); }
+.sw-waku.with-title { padding-top: calc(var(--sw-ma) * 1.5); }
 
+/* 枠の上辺に載る題。
+   絶対配置にしていたので、枠より長い題が右にはみ出し、折り返すと
+   本文の上に重なっていました。流し込みに戻して、負のマージンで
+   上辺まで持ち上げます。こうすると題が二行になった分だけ本文が
+   自然に下がり、幅がいくら狭くても枠から出ません。
+   display:table は内容幅に縮めるため。block だと帯が横一杯になります。 */
 .sw-waku > .title {
-  position: absolute;
-  top: 0;
-  left: var(--sw-ma);
-  transform: translateY(-50%);
+  display: table;
+  max-width: 100%;
+  margin: calc(var(--sw-ma) * -1.5 - 0.72em) 0 var(--sw-ma);
   background: var(--sw-paper-3);
   padding: 0 0.7em;
-  margin: 0;
   font-family: var(--sw-mincho);
   font-weight: 700;
   font-size: var(--sw-t-base);
+  line-height: 1.45;
   letter-spacing: 0.14em;
+  overflow-wrap: anywhere;
 }
+
+/* 二重罫のときは内側の罫のぶんだけ深く沈める */
+.sw-waku.is-nijuu.with-title { padding-top: calc(var(--sw-ma) * 1.75); }
+.sw-waku.is-nijuu > .title { margin-top: calc(var(--sw-ma) * -1.75 - 0.72em); }
 
 .sw-waku.is-enji   { border-color: var(--sw-enji); }
 .sw-waku.is-tokiwa { border-color: var(--sw-tokiwa); }

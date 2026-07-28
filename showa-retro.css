@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*!
- * 昭和レトロ.css v2.0.0 — 昭和レトロ CSS フレームワーク
+ * 昭和レトロ.css v2.0.1 — 昭和レトロ CSS フレームワーク
  * MIT License
  *
  * ── 色の三層 ────────────────────────────────────────────────────────
@@ -100,12 +100,11 @@
   --sw-dot: "マキナスカナ", "DotGothic16", "Osaka-Mono", monospace;
 
   /* 等幅。時刻表と伝票の数字 */
-  /* コード用。Monaco が和文を持たないので、和文は等幅のコーディング書体に渡す。
-     M PLUS 1 Code はラテン 0.5em / 和文 1.0em の 2:1 等幅（OFL） */
-  /* コード用。端末の Monaco に頼ると、入っていない環境で等幅にならない。
-     同梱の M PLUS 1 Code（OFL・ラテン0.5em／和文1.0emの2:1等幅）を先頭に置いて、
-     どの環境でも必ず等幅で出るようにする */
-  --sw-mono: Monaco, "M PLUS 1 Code", "SFMono-Regular", Menlo, Consolas, monospace;
+  /* コード用。Monaco を先頭に置くと、Monaco が和文を持たないので
+     欧文＝Monaco・和文＝M PLUS 1 Code の混植になり、字面が揃いません。
+     M PLUS 1 Code はラテン0.5em／和文1.0emの2:1等幅（OFL）で、
+     欧文も和文も一つの書体で賄えます。こちらを先頭に置きます。 */
+  --sw-mono: "M PLUS 1 Code", Monaco, "SFMono-Regular", Menlo, Consolas, monospace;
 }
 
 /* ==========================================================================
@@ -316,8 +315,7 @@
 /* --- 書体の差し替え --- */
 
 /* 飾り書体は太字を持たないので、合成ボールドで潰れないよう止めます */
-.sw-f-futo, .sw-f-poster, .sw-f-rittai,
-.sw-f-marumoji, .sw-f-tegaki, .sw-f-dot {
+.sw-f-tegaki, .sw-f-dot {
   font-weight: 400;
   font-synthesis: none;
 }
@@ -412,13 +410,22 @@
 /* --- 文中のあしらい ---
    蛍光ペンは地色と文字色を対で持たせます。文字色を継承させると
    夜間モードで明色の文字が蛍光色に乗って読めなくなります。 */
+/* 蛍光ペン。地色と文字色を対で持たせます。
+   旧版は行の下38%にだけ帯を敷いて文字色を墨に固定していたので、
+   夜間モードで字の上半分が暗地に暗字になり読めませんでした。
+   実物の蛍光ペンは字を覆って塗り潰すものなので、帯を字の高さに広げます。
+   行の高さではなく em で持たせるのは、line-height を変えても
+   帯が字からずれないようにするためです。 */
 .sw-marker {
-  background-image: linear-gradient(transparent 62%, var(--sw-o-karashi) 62%);
+  background-image: linear-gradient(var(--sw-o-karashi), var(--sw-o-karashi));
+  background-repeat: no-repeat;
+  background-size: 100% 1.15em;
+  background-position: 0 50%;
   color: var(--sw-o-sumi);
   padding: 0 0.1em;
 }
-.sw-marker.is-momo  { background-image: linear-gradient(transparent 62%, var(--sw-o-momo) 62%); }
-.sw-marker.is-asagi { background-image: linear-gradient(transparent 62%, var(--sw-o-asagi) 62%); }
+.sw-marker.is-momo  { background-image: linear-gradient(var(--sw-o-momo), var(--sw-o-momo)); }
+.sw-marker.is-asagi { background-image: linear-gradient(var(--sw-o-asagi), var(--sw-o-asagi)); }
 
 .sw-boten {
   text-emphasis: filled dot var(--sw-enji);
@@ -573,21 +580,31 @@
 }
 
 .sw-waku.is-kage { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-sumi); }
-.sw-waku.with-title { padding-top: calc(var(--sw-ma) * 2); }
+.sw-waku.with-title { padding-top: calc(var(--sw-ma) * 1.5); }
 
+/* 枠の上辺に載る題。
+   絶対配置にしていたので、枠より長い題が右にはみ出し、折り返すと
+   本文の上に重なっていました。流し込みに戻して、負のマージンで
+   上辺まで持ち上げます。こうすると題が二行になった分だけ本文が
+   自然に下がり、幅がいくら狭くても枠から出ません。
+   display:table は内容幅に縮めるため。block だと帯が横一杯になります。 */
 .sw-waku > .title {
-  position: absolute;
-  top: 0;
-  left: var(--sw-ma);
-  transform: translateY(-50%);
+  display: table;
+  max-width: 100%;
+  margin: calc(var(--sw-ma) * -1.5 - 0.72em) 0 var(--sw-ma);
   background: var(--sw-paper-3);
   padding: 0 0.7em;
-  margin: 0;
   font-family: var(--sw-mincho);
   font-weight: 700;
   font-size: var(--sw-t-base);
+  line-height: 1.45;
   letter-spacing: 0.14em;
+  overflow-wrap: anywhere;
 }
+
+/* 二重罫のときは内側の罫のぶんだけ深く沈める */
+.sw-waku.is-nijuu.with-title { padding-top: calc(var(--sw-ma) * 1.75); }
+.sw-waku.is-nijuu > .title { margin-top: calc(var(--sw-ma) * -1.75 - 0.72em); }
 
 .sw-waku.is-enji   { border-color: var(--sw-enji); }
 .sw-waku.is-tokiwa { border-color: var(--sw-tokiwa); }
@@ -1905,6 +1922,9 @@
 .sw-denkou {
   position: relative;
   overflow: hidden;
+  /* 中の流れる文字は nowrap なので、flex や grid の中に置くと
+     min-content 幅まで広がって親からはみ出します。縮めるようにします */
+  min-width: 0;
   background: #120f0c;
   border: 4px solid #3b332a;
   padding: 0.6em 0;

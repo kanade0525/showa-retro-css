@@ -23,8 +23,7 @@
 /* --- 書体の差し替え --- */
 
 /* 飾り書体は太字を持たないので、合成ボールドで潰れないよう止めます */
-.sw-f-futo, .sw-f-poster, .sw-f-rittai,
-.sw-f-marumoji, .sw-f-tegaki, .sw-f-dot {
+.sw-f-tegaki, .sw-f-dot {
   font-weight: 400;
   font-synthesis: none;
 }
@@ -119,13 +118,22 @@
 /* --- 文中のあしらい ---
    蛍光ペンは地色と文字色を対で持たせます。文字色を継承させると
    夜間モードで明色の文字が蛍光色に乗って読めなくなります。 */
+/* 蛍光ペン。地色と文字色を対で持たせます。
+   旧版は行の下38%にだけ帯を敷いて文字色を墨に固定していたので、
+   夜間モードで字の上半分が暗地に暗字になり読めませんでした。
+   実物の蛍光ペンは字を覆って塗り潰すものなので、帯を字の高さに広げます。
+   行の高さではなく em で持たせるのは、line-height を変えても
+   帯が字からずれないようにするためです。 */
 .sw-marker {
-  background-image: linear-gradient(transparent 62%, var(--sw-o-karashi) 62%);
+  background-image: linear-gradient(var(--sw-o-karashi), var(--sw-o-karashi));
+  background-repeat: no-repeat;
+  background-size: 100% 1.15em;
+  background-position: 0 50%;
   color: var(--sw-o-sumi);
   padding: 0 0.1em;
 }
-.sw-marker.is-momo  { background-image: linear-gradient(transparent 62%, var(--sw-o-momo) 62%); }
-.sw-marker.is-asagi { background-image: linear-gradient(transparent 62%, var(--sw-o-asagi) 62%); }
+.sw-marker.is-momo  { background-image: linear-gradient(var(--sw-o-momo), var(--sw-o-momo)); }
+.sw-marker.is-asagi { background-image: linear-gradient(var(--sw-o-asagi), var(--sw-o-asagi)); }
 
 .sw-boten {
   text-emphasis: filled dot var(--sw-enji);

@@ -77,12 +77,11 @@
   --sw-dot: "マキナスカナ", "DotGothic16", "Osaka-Mono", monospace;
 
   /* 等幅。時刻表と伝票の数字 */
-  /* コード用。Monaco が和文を持たないので、和文は等幅のコーディング書体に渡す。
-     M PLUS 1 Code はラテン 0.5em / 和文 1.0em の 2:1 等幅（OFL） */
-  /* コード用。端末の Monaco に頼ると、入っていない環境で等幅にならない。
-     同梱の M PLUS 1 Code（OFL・ラテン0.5em／和文1.0emの2:1等幅）を先頭に置いて、
-     どの環境でも必ず等幅で出るようにする */
-  --sw-mono: Monaco, "M PLUS 1 Code", "SFMono-Regular", Menlo, Consolas, monospace;
+  /* コード用。Monaco を先頭に置くと、Monaco が和文を持たないので
+     欧文＝Monaco・和文＝M PLUS 1 Code の混植になり、字面が揃いません。
+     M PLUS 1 Code はラテン0.5em／和文1.0emの2:1等幅（OFL）で、
+     欧文も和文も一つの書体で賄えます。こちらを先頭に置きます。 */
+  --sw-mono: "M PLUS 1 Code", Monaco, "SFMono-Regular", Menlo, Consolas, monospace;
 }
 
 /* ==========================================================================

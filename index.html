@@ -83,7 +83,21 @@ body { margin: 0; }
 .d-rei.is-ue { align-items: flex-start; }
 .d-rei.is-tate { flex-direction: column; align-items: stretch; }
 .d-rei.is-yoko { display: block; overflow-x: auto; }
-.d-rei.is-yoru { background: #14131a; padding: 1.1rem; }
+/* 夜の台。家電は暗がりに置かないと発光が見えないので、この帯に載せる。
+   地の色だけ変えると、夜間モードでは紙の色とほぼ同じになって
+   ただの黒い板が置いてあるだけに見えたので、縁と丸みを付けて
+   「台に載せた」と分かる形にした。 */
+.d-rei.is-yoru {
+  /* 台の中だけ夜にする。--sw-glow は昼だと transparent なので、
+     これが無いと明るい画面ではネオンが消えたまま暗い台に載って、
+     何を見せたいのか分からない絵になる */
+  --sw-glow: currentColor;
+  background: #0e0d13;
+  border: 1px solid rgba(236, 226, 204, 0.16);
+  border-radius: 8px;
+  padding: 1.5rem 1.2rem;
+  overflow-x: auto;
+}
 
 /* コード。見本の直下に必ず置く。
    黒地にすると数が多いぶんページのリズムを支配するので、薄い地にする */
@@ -258,7 +272,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 <section class="d-sec d-wrap" id="shotai">
   <h2>書体</h2>
   <p class="d-about">
-    先にお断りします。本物の昭和の見出し書体は写研の<strong>ゴナU（1975）</strong>・<strong>ナール（1973）</strong>・<strong>石井明朝</strong>で、いずれも写研の所有です。OFLでは一緒に配れないため、下表の多くは<strong>代用</strong>です。年代を直接参照しているのはアンチック体とドットの二つだけです。
+    本物の昭和の見出し書体（ゴナU・ナール・石井明朝）は写研の所有で一緒に配れないため、下表は<strong>代用</strong>です。
     昭和の本文組は明朝なので、<code class="sw-code">.sw</code> の既定を明朝にしています。
   </p>
 
@@ -349,8 +363,10 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
   <div class="d-item">
     <h3>見出し <code>.sw-midashi</code></h3>
     <p><code class="sw-code">is-md</code> から <code class="sw-code">is-3xl</code> で大きさ。<code class="sw-code">is-tsumeru</code> でツメ組み。</p>
-    <div class="d-rei"><p class="sw-midashi is-xl" style="margin:0">昭和レトロ</p>
-      <p class="sw-midashi is-xl is-tsumeru" style="margin:0">昭和レトロ（詰め）</p></div>
+    <p>同じ文字列を並べています。下が <code class="sw-code">is-tsumeru</code> で、字間が詰まって紙が埋まります。</p>
+    <div class="d-rei is-tate">
+      <p class="sw-midashi is-xl" style="margin:0">昭和レトロ</p>
+      <p class="sw-midashi is-xl is-tsumeru" style="margin:0">昭和レトロ</p></div>
     <div class="d-src"><button type="button" class="d-copy">コピー</button><pre class="d-code"><code>&lt;p class="sw-midashi is-xl is-tsumeru"&gt;昭和レトロ&lt;/p&gt;</code></pre></div>
   </div>
 
@@ -402,7 +418,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
         <span class="sw-marker">蛍光ペン</span>、<span class="sw-marker is-momo">桃</span>、<span class="sw-marker is-asagi">あさぎ</span>。
         <span class="sw-boten">傍点</span>と<span class="sw-boten is-sesame">ゴマ点</span>。
         価格の改定は<span class="sw-teisei">四百円</span>三百五十円。
-        <ruby>琺瑯<rt>ほうろう</rt></ruby>のようにルビも組め、
+        <ruby>硝子<rt>ガラス</rt></ruby>のようにルビも組め、
         写植の<span class="sw-choutai">長体</span>と<span class="sw-heitai">平体</span>も掛けられます。
       </p>
     </div>
@@ -812,9 +828,9 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
       <span class="sw-inkan is-mincho">承<br>認</span>
       <span class="sw-inkan is-mincho is-beta">済</span>
     </div>
-    <div class="d-src"><button type="button" class="d-copy">コピー</button><pre class="d-code"><code>&lt;span class="sw-inkan"&gt;検&lt;br&gt;印&lt;/span&gt;              &lt;!-- 古印体ふう --&gt;
+    <div class="d-src"><button type="button" class="d-copy">コピー</button><pre class="d-code"><code>&lt;span class="sw-inkan"&gt;検&lt;br&gt;印&lt;/span&gt;
 &lt;span class="sw-inkan is-kaku"&gt;認&lt;/span&gt;
-&lt;span class="sw-inkan is-mincho"&gt;承&lt;br&gt;認&lt;/span&gt;   &lt;!-- 明朝 --&gt;
+&lt;span class="sw-inkan is-mincho"&gt;承&lt;br&gt;認&lt;/span&gt;
 &lt;span class="sw-inkan is-mincho is-beta"&gt;済&lt;/span&gt;</code></pre></div>
   </div>
 
@@ -1427,7 +1443,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 </section>
 
 <footer class="d-foot d-wrap">
-  <p style="margin:0">昭和レトロ.css v2.0.0 — CSS は MIT License。書体は各ライセンスに従います（付属の晩秋レトロミンは OFL ではありません）。<a href="https://github.com/kanade0525/showa-retro-css/blob/main/LICENSE">詳細</a></p>
+  <p style="margin:0">昭和レトロ.css v2.0.1 — CSS は MIT License。書体は各ライセンスに従います（付属の晩秋レトロミンは OFL ではありません）。<a href="https://github.com/kanade0525/showa-retro-css/blob/main/LICENSE">詳細</a></p>
   <p style="margin:.3rem 0 0">画像もJavaScriptも使いません。このページのJSはコピーボタンと絞り込みのためだけに使っています。</p>
   <p style="margin:.3rem 0 0">見本の電話番号・日付・文言はすべて架空のものです。</p>
 </footer>
@@ -1446,7 +1462,7 @@ document.querySelectorAll('.d-copy').forEach(function (b) {
     if (!pre) return;
     navigator.clipboard.writeText(pre.innerText).then(function () {
       var before = b.textContent;
-      b.textContent = '写しました';
+      b.textContent = 'コピーしました';
       setTimeout(function () { b.textContent = before; }, 1300);
     });
   });
