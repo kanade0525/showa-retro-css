@@ -3,6 +3,18 @@
 書式は [Keep a Changelog](https://keepachangelog.com/ja/1.1.0/) に、
 版の付け方は [セマンティック バージョニング](https://semver.org/lang/ja/) に従います。
 
+## [2.1.4] — 2026-07-29
+
+### 見本帳
+
+- **「駄菓子」と「既定」を収録内の言葉に。** 2.1.2 で `駄` と `既` を
+  「フレームワークの用語」として残しましたが、これは私の分類の誤りでした。
+  駄菓子はただの見本の文言、既定は一般的な技術用語で、どちらもクラス名や
+  色名ではありません。だがし屋・もとの色 に言い換えました。
+- `tools/check-glyphs.mjs` の許容字から `駄` `既` を外しました（16字→14字）。
+  残すのは色名（`墨` `橙` `朱`）とクラス名（`枠` `袖` `傍` `蛍` `紋` `稿`
+  `欄` `升` `縁` `袋` `掲`）だけです。
+
 ## [2.1.3] — 2026-07-29
 
 ### 修正
@@ -325,6 +337,7 @@ npm に出す前に、番号の付け方を正しておきます。今回から 
 
 - 初期の公開版
 
+[2.1.4]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.1.4
 [2.1.3]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.1.3
 [2.1.2]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.1.2
 [2.1.1]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.1.1

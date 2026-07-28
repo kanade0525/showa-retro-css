@@ -272,7 +272,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
   <h2>書体</h2>
   <p class="d-about">
     本物の昭和の見出し書体（ゴナU・ナール・石井明朝）は写研の所有で一緒に配れないため、下表は<strong>代用</strong>です。
-    昭和の本文組は明朝なので、<code class="sw-code">.sw</code> の既定を明朝にしています。
+    昭和の本文組は明朝なので、<code class="sw-code">.sw</code> は明朝で組みます。
   </p>
 
   <div class="d-item">
@@ -516,7 +516,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 &lt;/div&gt;
 
 &lt;div class="sw-shusen is-sumi" style="--sw-shusen-c:var(--sw-o-mizu)"&gt;
-<span class="c">--sw-shusen-n で線の太さ（既定 5deg）</span></code></pre></div>
+<span class="c">--sw-shusen-n で線の太さ（もとは 5deg）</span></code></pre></div>
   </div>
 
   <div class="d-item">
@@ -582,12 +582,12 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 
   <div class="d-item">
     <h3>短冊 <code>.sw-tanzaku</code></h3>
-    <p>細長い縦枠に縦組みの題字。駄菓子屋や喫茶の掲示に多い形です。</p>
+    <p>細長い縦枠に縦組みの題字。だがし屋や喫茶の掲示に多い形です。</p>
     <div class="d-rei">
-      <span class="sw-tanzaku" style="font-size:1.2rem">昭和駄菓子</span>
+      <span class="sw-tanzaku" style="font-size:1.2rem">昭和のだがし</span>
       <span class="sw-tanzaku is-enji" style="font-size:1.2rem">本日営業</span>
     </div>
-    <div class="d-src"><button type="button" class="d-copy">コピー</button><pre class="d-code"><code>&lt;span class="sw-tanzaku"&gt;昭和駄菓子&lt;/span&gt;
+    <div class="d-src"><button type="button" class="d-copy">コピー</button><pre class="d-code"><code>&lt;span class="sw-tanzaku"&gt;昭和のだがし&lt;/span&gt;
 &lt;span class="sw-tanzaku is-enji"&gt;本日営業&lt;/span&gt;</code></pre></div>
   </div>
   <hr class="d-hr">
@@ -608,7 +608,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
     <div class="d-src"><button type="button" class="d-copy">コピー</button><pre class="d-code"><code>&lt;div class="sw-kanban is-karashi is-sabi"&gt;
   &lt;p&gt;火の用心&lt;/p&gt;
 &lt;/div&gt;
-<span class="c">既定（えんじ）/ is-aka / is-karashi / is-tokiwa / is-kon</span></code></pre></div>
+<span class="c">もとの色（えんじ）/ is-aka / is-karashi / is-tokiwa / is-kon</span></code></pre></div>
   </div>
 
   <div class="d-item">
@@ -638,7 +638,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
   <div class="d-item">
     <h3>帯 <code>.sw-obi</code></h3>
     <div class="d-rei is-tate" style="gap:.3rem">
-      <p class="sw-obi" style="margin:0">既定（墨）</p>
+      <p class="sw-obi" style="margin:0">もとの色（墨）</p>
       <p class="sw-obi is-enji" style="margin:0">えんじ</p>
       <p class="sw-obi is-tokiwa" style="margin:0">ときわ</p>
       <p class="sw-obi is-karashi" style="margin:0">からし</p>
@@ -820,7 +820,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 
   <div class="d-item">
     <h3>判子 <code>.sw-inkan</code></h3>
-    <p>字が枠をうめるのが実物です。書体は二種類。既定は古印体ふうで線がかすれ、<code class="sw-code">is-mincho</code> は明朝でぴたりと当てたもの。<code class="sw-code">is-kaku</code> 角印、<code class="sw-code">is-beta</code> 朱を全面に。</p>
+    <p>字が枠をうめるのが実物です。書体は二種類。もとは古印体ふうで線がかすれ、<code class="sw-code">is-mincho</code> は明朝でぴたりと当てたもの。<code class="sw-code">is-kaku</code> 角印、<code class="sw-code">is-beta</code> 朱を全面に。</p>
     <div class="d-rei">
       <span class="sw-inkan">検<br>印</span>
       <span class="sw-inkan is-kaku">認</span>
@@ -1420,7 +1420,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
         <tr><td>家電</td><td><code>.sw-cassette</code></td><td>カセット。--sw-cas-w で寸法</td></tr>
         <tr><td>家電</td><td><code>.sw-dial</code></td><td>黒電話。--sw-dial-d で寸法</td></tr>
         <tr><td>地模様</td><td><code>.sw-ji-hanagara</code></td><td>花柄。is-tokiwa / is-momo</td></tr>
-        <tr><td>地模様</td><td><code>.sw-ji-dosen</code></td><td>同心円の大柄。駄菓子屋と包装紙の地。is-momo</td></tr>
+        <tr><td>地模様</td><td><code>.sw-ji-dosen</code></td><td>同心円の大柄。だがし屋と包装紙の地。is-momo</td></tr>
         <tr><td>地模様</td><td><code>.sw-ji-tile</code></td><td>モザイクタイル。is-momo / is-usuki</td></tr>
         <tr><td>地模様</td><td><code>.sw-ji-garasu</code></td><td>型板ガラスのモール</td></tr>
         <tr><td>地模様</td><td><code>.sw-ji-sofa</code></td><td>喫茶店のソファ。ぬい目と下がるボタン</td></tr>
@@ -1444,7 +1444,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 </section>
 
 <footer class="d-foot d-wrap">
-  <p style="margin:0">昭和レトロ.css v2.1.3・CSS は MIT License。書体は各ライセンスに従います（付属の晩秋レトロミンは OFL ではありません）。<a href="https://github.com/kanade0525/showa-retro-css/blob/main/LICENSE">詳細</a></p>
+  <p style="margin:0">昭和レトロ.css v2.1.4・CSS は MIT License。書体は各ライセンスに従います（付属の晩秋レトロミンは OFL ではありません）。<a href="https://github.com/kanade0525/showa-retro-css/blob/main/LICENSE">詳細</a></p>
   <p style="margin:.3rem 0 0">画像もJavaScriptも使いません。このページのJSはコピーボタンとより分けのためだけに使っています。</p>
   <p style="margin:.3rem 0 0">見本の電話番号・日付・文言はすべて実在しないものです。</p>
 </footer>

@@ -95,8 +95,11 @@ html = html
 const attrs = [...html.matchAll(/(?:placeholder|value)="([^"]*)"/g)].map((m) => m[1]).join("");
 const text = html.replace(/<[^>]+>/g, " ") + attrs;
 
-// フレームワークの用語として意図的に残している字
-const KEEP = new Set([..."墨橙朱枠袖傍蛍紋稿欄升縁袋掲既駄"]);
+// フレームワークの用語として意図的に残している字。
+// 色名（墨・橙・朱）とクラス名（枠・袖看板・傍点・地紋・原稿用紙・升目・
+// 縁取り・袋文字・電光掲示板・記入欄）だけ。
+// 「駄菓子」「既定」は用語ではなく単なる文言なので、ここには入れない。
+const KEEP = new Set([..."墨橙朱枠袖傍蛍紋稿欄升縁袋掲"]);
 
 const counts = new Map();
 for (const ch of text) {
