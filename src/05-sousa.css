@@ -29,22 +29,24 @@
 }
 
 /* 色付きは地と字を対で持たせます */
+/* 色付きのボタン。地色と文字色を対で持たせ、触れたときも物体色の中で動きます。
+   ホバーで文字色を切り替えないのは、地色と文字色の関係を一定に保つためです。 */
 .sw-btn.is-enji    { background: var(--sw-o-enji);    color: var(--sw-o-kinari); }
-.sw-btn.is-enji:hover    { background: var(--sw-enji-fuka); }
+.sw-btn.is-enji:hover    { background: var(--sw-o-enji-oshi); }
 .sw-btn.is-karashi { background: var(--sw-o-karashi); color: var(--sw-o-sumi); }
-.sw-btn.is-karashi:hover { background: var(--sw-karashi-fuka); color: var(--sw-o-kinari); }
+.sw-btn.is-karashi:hover { background: var(--sw-o-karashi-oshi); }
 .sw-btn.is-tokiwa  { background: var(--sw-o-tokiwa);  color: var(--sw-o-kinari); }
-.sw-btn.is-tokiwa:hover  { background: var(--sw-tokiwa-fuka); }
+.sw-btn.is-tokiwa:hover  { background: var(--sw-o-tokiwa-oshi); }
 .sw-btn.is-kon     { background: var(--sw-o-kon);     color: var(--sw-o-kinari); }
-.sw-btn.is-kon:hover     { background: var(--sw-kon-fuka); }
+.sw-btn.is-kon:hover     { background: var(--sw-o-kon-oshi); }
 .sw-btn.is-asagi   { background: var(--sw-o-asagi);   color: var(--sw-o-sumi); }
-.sw-btn.is-asagi:hover   { background: var(--sw-asagi-fuka); color: var(--sw-o-kinari); }
+.sw-btn.is-asagi:hover   { background: var(--sw-o-asagi-oshi); }
 .sw-btn.is-momo    { background: var(--sw-o-momo);    color: var(--sw-o-sumi); }
-.sw-btn.is-momo:hover    { background: var(--sw-momo-fuka); color: var(--sw-o-kinari); }
+.sw-btn.is-momo:hover    { background: var(--sw-o-momo-oshi); }
 .sw-btn.is-daidai  { background: var(--sw-o-daidai);  color: var(--sw-o-sumi); }
-.sw-btn.is-daidai:hover  { background: var(--sw-daidai-fuka); color: var(--sw-o-kinari); }
+.sw-btn.is-daidai:hover  { background: var(--sw-o-daidai-oshi); }
 .sw-btn.is-mizu    { background: var(--sw-o-mizu);    color: var(--sw-o-sumi); }
-.sw-btn.is-mizu:hover    { background: var(--sw-mizu-fuka); color: var(--sw-o-kinari); }
+.sw-btn.is-mizu:hover    { background: var(--sw-o-mizu-oshi); }
 
 .sw-btn.is-sm { font-size: var(--sw-t-sm); padding: 0.4em 1em; }
 .sw-btn.is-lg { font-size: var(--sw-t-md); padding: 0.7em 2em; }

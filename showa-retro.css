@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*!
- * 昭和レトロ.css v2.0.5 — 昭和レトロ CSS フレームワーク
+ * 昭和レトロ.css v2.1.0 — 昭和レトロ CSS フレームワーク
  * MIT License
  *
  * ── 色の三層 ────────────────────────────────────────────────────────
@@ -53,15 +53,22 @@
      収録は「教育漢字＋α」の1732字なので、一部の漢字は
      次の書体（しっぽり明朝→Zen Old Mincho）に落ちます。
      見出し向けの書体で、本文組み向けではない点は作者も明記しています。 */
-  /* 本文の明朝。全字が揃っているものだけを並べる。
-     晩秋レトロミンは収録が1732字（教育漢字＋α）しかなく、本文に使うと
-     常用漢字が18%落ちて混植になるので、ここには入れない */
-  --sw-mincho: "Zen Old Mincho", "しっぽり明朝", "Shippori Mincho",
+  /* 明朝。晩秋レトロミンを先頭に置きます。このフレームワークの顔なので、
+     見出しだけに閉じ込めず地の文にも使います。
+
+     収録は教育漢字＋αの1732字なので、範囲外の字は次の書体（Zen Old Mincho）
+     に落ちて混植になります。見本帳の本文で測ると632字種のうち95字種（15%）。
+     混植を承知のうえでの既定です。避けたい場合は、この変数から
+     晩秋レトロミンを外してください。字が揃った明朝に落ちて、そのまま動きます。 */
+  --sw-mincho: "晩秋レトロミン", "Bansyu-retoromin", "Bansyu-retoromin R",
+               "Zen Old Mincho", "しっぽり明朝", "Shippori Mincho",
                "はんなり明朝", "Hannari", "コーポレート明朝 ver3",
                "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
-  /* 見出し・看板用。字数が少なく、収録内に収まることを確認した箇所にだけ使う */
-  --sw-retromin: "晩秋レトロミン", "Bansyu-retoromin", "Bansyu-retoromin R",
-                 var(--sw-mincho);
+
+  /* 見出し・看板用。中身は --sw-mincho と同じですが、部品側が
+     「ここはレトロミンで組みたい所」と表明するために分けてあります。
+     地の文だけ別の明朝にしたい場合は --sw-mincho の方を差し替えてください。 */
+  --sw-retromin: var(--sw-mincho);
 
   /* 角ゴ。ラベル・ボタン・注記に限って使います。
      同梱の Zen Kaku Gothic New は現代の書体で、昭和ではありません */
@@ -159,6 +166,21 @@
   --sw-o-shu:     #d4491a;  /* 特売の朱 */
   --sw-o-daidai:  #e2662a;  /* 橙 */
   --sw-o-mizu:    #6cb8cf;  /* 水色 */
+
+  /* 押したとき・触れたときの塗り。これも物体色なので昼夜で変えません。
+     以前はここにテーマ変数の --sw-*-fuka を当てていました。夜は地色が
+     明るくなるのに文字色は生成りで固定なので、両者が近づいて全8色とも
+     コントラストが 4.5 を割っていました（最悪 2.54）。
+     文字色が明るい色は暗く、文字色が暗い色は明るく寄せます。
+     どちらも比が上がる方向です。最小でも 6.16 を確保しています。 */
+  --sw-o-enji-oshi:    #862926;
+  --sw-o-tokiwa-oshi:  #305642;
+  --sw-o-kon-oshi:     #20334a;
+  --sw-o-karashi-oshi: #dcb55c;
+  --sw-o-asagi-oshi:   #94c0b7;
+  --sw-o-momo-oshi:    #d9a5a5;
+  --sw-o-daidai-oshi:  #e88555;
+  --sw-o-mizu-oshi:    #89c6d9;
 
   /* --- 地紋と刷りの表情 --- */
   --sw-pattern: rgba(42, 38, 34, 0.10);
@@ -926,22 +948,24 @@
 }
 
 /* 色付きは地と字を対で持たせます */
+/* 色付きのボタン。地色と文字色を対で持たせ、触れたときも物体色の中で動きます。
+   ホバーで文字色を切り替えないのは、地色と文字色の関係を一定に保つためです。 */
 .sw-btn.is-enji    { background: var(--sw-o-enji);    color: var(--sw-o-kinari); }
-.sw-btn.is-enji:hover    { background: var(--sw-enji-fuka); }
+.sw-btn.is-enji:hover    { background: var(--sw-o-enji-oshi); }
 .sw-btn.is-karashi { background: var(--sw-o-karashi); color: var(--sw-o-sumi); }
-.sw-btn.is-karashi:hover { background: var(--sw-karashi-fuka); color: var(--sw-o-kinari); }
+.sw-btn.is-karashi:hover { background: var(--sw-o-karashi-oshi); }
 .sw-btn.is-tokiwa  { background: var(--sw-o-tokiwa);  color: var(--sw-o-kinari); }
-.sw-btn.is-tokiwa:hover  { background: var(--sw-tokiwa-fuka); }
+.sw-btn.is-tokiwa:hover  { background: var(--sw-o-tokiwa-oshi); }
 .sw-btn.is-kon     { background: var(--sw-o-kon);     color: var(--sw-o-kinari); }
-.sw-btn.is-kon:hover     { background: var(--sw-kon-fuka); }
+.sw-btn.is-kon:hover     { background: var(--sw-o-kon-oshi); }
 .sw-btn.is-asagi   { background: var(--sw-o-asagi);   color: var(--sw-o-sumi); }
-.sw-btn.is-asagi:hover   { background: var(--sw-asagi-fuka); color: var(--sw-o-kinari); }
+.sw-btn.is-asagi:hover   { background: var(--sw-o-asagi-oshi); }
 .sw-btn.is-momo    { background: var(--sw-o-momo);    color: var(--sw-o-sumi); }
-.sw-btn.is-momo:hover    { background: var(--sw-momo-fuka); color: var(--sw-o-kinari); }
+.sw-btn.is-momo:hover    { background: var(--sw-o-momo-oshi); }
 .sw-btn.is-daidai  { background: var(--sw-o-daidai);  color: var(--sw-o-sumi); }
-.sw-btn.is-daidai:hover  { background: var(--sw-daidai-fuka); color: var(--sw-o-kinari); }
+.sw-btn.is-daidai:hover  { background: var(--sw-o-daidai-oshi); }
 .sw-btn.is-mizu    { background: var(--sw-o-mizu);    color: var(--sw-o-sumi); }
-.sw-btn.is-mizu:hover    { background: var(--sw-mizu-fuka); color: var(--sw-o-kinari); }
+.sw-btn.is-mizu:hover    { background: var(--sw-o-mizu-oshi); }
 
 .sw-btn.is-sm { font-size: var(--sw-t-sm); padding: 0.4em 1em; }
 .sw-btn.is-lg { font-size: var(--sw-t-md); padding: 0.7em 2em; }

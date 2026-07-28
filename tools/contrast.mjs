@@ -138,11 +138,19 @@ for (const f of readdirSync(p("src")).filter((x) => /^\d\d-.+\.css$/.test(x))) {
     if (fg && light[fg[1]]) baseColor.set(sel, fg[1]);
     if (!bg || !light[bg[1]]) continue;
 
-    // 同じブロックの色、無ければ基底セレクタの色（.a.is-b → .a）
+    // 同じブロックの色、無ければ順に基底へ遡る。
+    //   .a.is-b:hover → .a.is-b → .a
+    // :hover だけ background を書き替えて文字色は据え置く書き方が多いので、
+    // 擬似クラスを落として辿れないと、状態付きの配色を丸ごと見落とします。
     let fgName = fg && light[fg[1]] ? fg[1] : null;
     if (!fgName) {
-      const base = sel.replace(/(\.[\w-]+)(\.[\w-]+)+$/, "$1");
-      if (base !== sel) fgName = baseColor.get(base) ?? null;
+      const bare = sel.replace(/:{1,2}[\w-]+(\([^)]*\))?/g, "").trim();
+      for (const cand of [bare, bare.replace(/(\.[\w-]+)(\.[\w-]+)+$/, "$1")]) {
+        if (cand && cand !== sel && baseColor.has(cand)) {
+          fgName = baseColor.get(cand);
+          break;
+        }
+      }
     }
     if (!fgName) continue;
 

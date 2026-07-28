@@ -148,12 +148,20 @@ Google Fonts への直参照では、閲覧者のIPアドレスが Google に渡
 | `--sw-o-tokiwa` | `--sw-o-kinari` | 5.22 | AA | `.sw-kanban.is-tokiwa` |
 | `--sw-o-enji` | `--sw-o-kinari` | 5.61 | AA | `.sw-kanban` |
 | `--sw-o-momo` | `--sw-o-sumi` | 6.15 | AA | `.sw-obi.is-momo` |
+| `--sw-o-daidai-oshi` | `--sw-o-sumi` | 6.16 | AA | `.sw-btn.is-daidai:hover` |
 | `--sw-o-asagi` | `--sw-o-sumi` | 6.66 | AA | `.sw-obi.is-asagi` |
+| `--sw-o-tokiwa-oshi` | `--sw-o-kinari` | 7.03 | AAA | `.sw-btn.is-tokiwa:hover` |
 | `--sw-o-karashi` | `--sw-o-sumi` | 7.04 | AAA | `.sw ::selection` |
 | `--sw-o-sumi` | `--sw-o-karashi` | 7.04 | AAA | `.sw-match.is-sumi` |
 | `--sw-o-mizu` | `--sw-o-sumi` | 7.31 | AAA | `.sw-obi.is-mizu` |
+| `--sw-o-enji-oshi` | `--sw-o-kinari` | 7.56 | AAA | `.sw-btn.is-enji:hover` |
+| `--sw-o-momo-oshi` | `--sw-o-sumi` | 7.68 | AAA | `.sw-btn.is-momo:hover` |
 | `--sw-o-kon` | `--sw-o-usuki` | 7.76 | AAA | `.sw-sodekanban` |
+| `--sw-o-asagi-oshi` | `--sw-o-sumi` | 8.15 | AAA | `.sw-btn.is-asagi:hover` |
+| `--sw-o-karashi-oshi` | `--sw-o-sumi` | 8.40 | AAA | `.sw-btn.is-karashi:hover` |
+| `--sw-o-mizu-oshi` | `--sw-o-sumi` | 8.67 | AAA | `.sw-btn.is-mizu:hover` |
 | `--sw-o-kon` | `--sw-o-kinari` | 9.02 | AAA | `.sw-kanban.is-kon` |
+| `--sw-o-kon-oshi` | `--sw-o-kinari` | 10.92 | AAA | `.sw-btn.is-kon:hover` |
 <!-- contrast:end -->
 
 測って分かったことを、そのまま書きます。
@@ -220,7 +228,7 @@ OS の設定に従うほか、`<html data-theme="dark">` で明示的に指定�
 
 | 役割 | 付属書体 | 昭和の何か |
 | --- | --- | --- |
-| `.sw-f-mincho` 明朝 | Zen Old Mincho | 石井明朝・本蘭明朝の方向（代用）**地の文はこれ** |
+| `.sw-f-mincho` 明朝 | 晩秋レトロミン →（欠けた字は Zen Old Mincho） | 石井明朝・本蘭明朝の方向（代用）**地の文はこれ** |
 | `.sw-f-maru` 丸ゴ | Zen Maru Gothic | ナール（1973・写研）の代用 |
 | `.sw-f-anchikku` アンチック | Shippori Antique | 漫画のセリフ書体（**昭和から続く様式**） |
 | `.sw-f-dot` ドット | DotGothic16 | 16ドットの表示装置（**昭和末期を参照**） |
@@ -235,16 +243,22 @@ OS の設定に従うほか、`<html data-theme="dark">` で明示的に指定�
 
 すずみばと書林の[晩秋レトロミン ver.3.2](https://suzumi-bato.booth.pm/items/4674383) を付属しています。利用条件でWebサイトへの埋め込みが許諾されているためです（二次配布にあたるので `fonts/bansyu-retoromin/readme.txt` を添付したまま扱ってください）。
 
-**ただし本文には使いません。収録は教育漢字＋αの1732字だけです。** 見本帳の本文に出る632字種のうち95字種（15%）が収録外で、次の書体に落ちて混植になります。落ちるのは看板・紙もの・色の名前を説明するときに使う漢字が中心で、つまりこのフレームワークが最もよく使う字です。作者も readme で「本文組というよりも、見出し向けのフォント」と明記しています。
+**これを地の文にも使っています。** このフレームワークの顔なので、見出しだけに閉じ込めていません。
 
-そこで変数を二つに分けています。
+**ただし収録は教育漢字＋αの1732字です。** 見本帳の本文に出る632字種のうち95字種（15%）が収録外で、次の書体（Zen Old Mincho）に落ちて混植になります。作者も readme で「本文組というよりも、見出し向けのフォント」と書いています。**混植を承知のうえでの既定です。**
+
+避けたい場合は `--sw-mincho` から晩秋レトロミンを外してください。字が揃った明朝に落ちて、そのまま動きます。
+
+変数は二つありますが、中身は同じです。
 
 | 変数 | 中身 | 使う場所 |
 | --- | --- | --- |
-| `--sw-mincho` | Zen Old Mincho ほか、字が欠けない明朝 | 地の文。`.sw` の既定 |
-| `--sw-retromin` | 晩秋レトロミン →（無ければ `--sw-mincho`） | 見出し・看板・POP など字数の少ない箇所 |
+| `--sw-mincho` | 晩秋レトロミン → Zen Old Mincho ほか | 地の文。`.sw` の既定 |
+| `--sw-retromin` | `--sw-mincho` と同じ | 見出し・看板・POP など「ここはレトロミンで組みたい」と部品が表明する所 |
 
-`--sw-retromin` を当てているのは `.sw-midashi` `.sw-kanban`（題字のみ。本文は `--sw-mincho` に戻します）`.sw-sodekanban` `.sw-denshou` `.sw-pop .nedan` `.sw-noren .nuno` `.sw-match .yago` `.sw-neon` の8か所です。地の文にも使いたい場合は `--sw-mincho` の先頭に足してください。混植を承知のうえで、ということになります。
+分けてあるのは、**地の文だけ別の明朝にしたくなったとき**のためです。その場合は `--sw-mincho` を差し替えれば、見出しと看板はレトロミンのまま残ります。
+
+`--sw-retromin` を当てているのは `.sw-midashi` `.sw-kanban` `.sw-sodekanban` `.sw-denshou` `.sw-pop .nedan` `.sw-noren .nuno` `.sw-match .yago` `.sw-neon` の8か所です。
 
 ### 本物に寄せる
 
