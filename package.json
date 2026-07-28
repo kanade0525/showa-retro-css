@@ -1,8 +1,16 @@
 {
   "name": "showa-retro.css",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "昭和レトロなUIを組むためのCSSフレームワーク。琺瑯看板・純喫茶のお品書き・回数券・ブラウン管。JavaScript も画像も使いません。",
-  "keywords": ["css", "framework", "retro", "showa", "japanese", "昭和", "レトロ"],
+  "keywords": [
+    "css",
+    "framework",
+    "retro",
+    "showa",
+    "japanese",
+    "昭和",
+    "レトロ"
+  ],
   "license": "MIT",
   "style": "showa-retro.css",
   "main": "showa-retro.css",
@@ -11,6 +19,24 @@
     "./min": "./dist/showa-retro.min.css",
     "./fonts": "./showa-retro-fonts.css"
   },
-  "files": ["showa-retro.css", "showa-retro-fonts.css", "dist/", "README.md"],
-  "sideEffects": ["*.css"]
+  "files": [
+    "showa-retro.css",
+    "showa-retro-fonts.css",
+    "dist/",
+    "fonts/",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "homepage": "https://kanade0525.github.io/showa-retro-css/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kanade0525/showa-retro-css.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kanade0525/showa-retro-css/issues"
+  },
+  "author": "kanade0525"
 }

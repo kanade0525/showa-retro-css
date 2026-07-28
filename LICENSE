@@ -1,0 +1,43 @@
+MIT License
+
+Copyright (c) 2026 kanade0525
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+--------------------------------------------------------------------------
+
+この MIT License が及ぶのは、このリポジトリの CSS・HTML・設定ファイルだけです。
+同梱・参照しているフォントには、それぞれ別のライセンスがあります。
+
+■ 同梱しているフォント
+
+  fonts/bansyu-retoromin/  晩秋レトロミン ver.3.2 / すずみばと書林
+      https://suzumi-bato.booth.pm/items/4674383
+      Web への埋め込みと二次配布が許諾されています（同梱の readme.txt 参照）。
+      二次配布の際は readme.txt を必ず添付してください。改変版の配布は不可です。
+
+■ 参照しているフォント（同梱していません。Google Fonts から読み込みます）
+
+  Zen Kaku Gothic New / Zen Old Mincho / Zen Maru Gothic /
+  Dela Gothic One / Hachi Maru Pop / Yusei Magic /
+  Shippori Antique / DotGothic16 / M PLUS 1 Code
+      いずれも SIL Open Font License 1.1
+
+フォントを再配布する場合は、それぞれのライセンス条件を確認してください。
+「商用利用可」と「Web フォントとして再配布可」は別の許諾です。

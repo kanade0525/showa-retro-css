@@ -1,8 +1,11 @@
-# showa-retro.css
+# 昭和レトロ.css
 
-昭和レトロ CSS フレームワーク。琺瑯看板・純喫茶のお品書き・回数券・ブラウン管・オフセットの網点を、クラス一つで再現します。
+**見本帳 → https://kanade0525.github.io/showa-retro-css/**
 
-**JavaScript も画像も使いません。** 読みに行くのは CSS だけです。圧縮版は 48KB。
+
+昭和レトロ CSS フレームワーク。琺瑯看板・純喫茶のお品書き・回数券・ブラウン管・刷りの網点を、クラス一つで再現します。
+
+**JavaScript も画像も使いません。** 読みに行くのは CSS だけです。圧縮版は 58KB。
 
 ## 導入
 
@@ -22,7 +25,7 @@ npm i showa-retro.css
 ```js
 import 'showa-retro.css';
 import 'showa-retro.css/fonts';   // 任意
-import 'showa-retro.css/min';     // 圧縮版 48KB
+import 'showa-retro.css/min';     // 圧縮版 58KB
 ```
 
 ## 色の三層
@@ -144,7 +147,16 @@ NES.css と system.css に倣い、**1カラム・上部に目次・「見出し
 
 ## ライセンス
 
-MIT。同梱書体は SIL Open Font License です。
+CSS・HTML・設定ファイルは **MIT**。詳細は [LICENSE](./LICENSE)。
+
+**書体は MIT ではありません。** それぞれ別のライセンスです。
+
+| | ライセンス | 同梱 |
+|---|---|---|
+| 晩秋レトロミン ver.3.2（すずみばと書林） | [独自条件](https://suzumi-bato.booth.pm/items/4674383)。Web埋め込みと二次配布が可。readme.txt の添付が必須、改変版の配布は不可 | `fonts/` に同梱 |
+| Zen Kaku Gothic New / Zen Old Mincho / Zen Maru Gothic / Dela Gothic One / Hachi Maru Pop / Yusei Magic / Shippori Antique / DotGothic16 / M PLUS 1 Code | SIL Open Font License 1.1 | 同梱せず Google Fonts から読み込み |
+
+再配布するときは各条件を確認してください。**「商用利用可」と「Webフォントとして再配布可」は別の許諾です。**
 
 ## 出典
 
