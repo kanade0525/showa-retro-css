@@ -24,7 +24,7 @@
 /* 見本帳の枠組み。フレームワーク本体には含めません。
    NES.css と system.css に倣い、1カラム・上部に目次・
    「見出し → 説明 → 実物 → コード」の固定順序で並べます。
-   このページのJavaScriptはコピーボタンと絞り込みのためだけに使います。 */
+   このページのJavaScriptはコピーボタンとより分けのためだけに使います。 */
 
 * { box-sizing: border-box; }
 body { margin: 0; }
@@ -71,7 +71,7 @@ body { margin: 0; }
 /* ── 項。見出し → 説明 → 実物 → コード ───────────────────────── */
 .d-item { padding-block: 1.35rem 0; }
 .d-item > h3 {
-  font-family: var(--sw-gothic); font-weight: 700; font-size: 1rem;
+  font-family: var(--sw-mincho); font-weight: 400; font-synthesis: none; font-size: 1.15rem;
   letter-spacing: .04em; margin: 0 0 0.15rem;
   display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap;
 }
@@ -100,7 +100,7 @@ body { margin: 0; }
 }
 
 /* コード。見本の直下に必ず置く。
-   黒地にすると数が多いぶんページのリズムを支配するので、薄い地にする */
+   黒地にすると数が多いぶんページのリズムを支配するので、うすい地にする */
 .d-src { position: relative; }
 .d-code {
   margin: 0; padding: 0.7rem 0.9rem;
@@ -142,7 +142,7 @@ body { margin: 0; }
 .d-ji .men { height: 5rem; border: 1px solid var(--sw-kei); }
 .d-ji figcaption { font-family: var(--sw-mono); font-size: 0.68rem; color: var(--sw-sumi-usu); margin-top: 0.2rem; }
 
-/* ── 早見表（索引） ──────────────────────────────────────────── */
+/* ── 早見表 ──────────────────────────────────────────── */
 .d-sagashi { display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; margin-bottom: 0.8rem; }
 .d-sagashi input { max-width: 18rem; }
 .d-hit { font-size: 0.78rem; color: var(--sw-sumi-usu); font-variant-numeric: tabular-nums; }
@@ -209,7 +209,7 @@ body { margin: 0; }
     <li><a href="#jimon">地模様</a></li>
     <li><a href="#ugoki">動き</a></li>
     <li><a href="#sakurei">作例</a></li>
-    <li><a href="#hayami">早見表（索引）</a></li>
+    <li><a href="#hayami">早見表</a></li>
   </ol>
 </nav>
 
@@ -217,13 +217,13 @@ body { margin: 0; }
 <section class="d-sec d-wrap" id="donyu">
   <h2>導入</h2>
   <p class="d-about">
-    CSSを読み込んで <code class="sw-code">body</code> に <code class="sw-code">sw</code> を付けるだけです。
+    CSSを読ませて <code class="sw-code">body</code> に <code class="sw-code">sw</code> を付けるだけです。
     書体ファイルは任意で、外すとOS標準の和文書体に落ちてそのまま動きます。
-    地紋も紙の粗さもさびも、すべてグラデーションと埋め込みSVGで描いているため、読みに行くファイルはCSSだけです。
+    地紋も紙のざらつきもさびも、すべてグラデーションと直に書いたSVGで描いているため、読みに行くファイルはCSSだけです。
   </p>
 
   <div class="d-item">
-    <h3>ファイルを置いて読み込む</h3>
+    <h3>ファイルを置いて読ませる</h3>
     <div class="d-src"><button type="button" class="d-copy">コピー</button><pre class="d-code"><code>&lt;link rel="stylesheet" href="showa-retro.css"&gt;
 
 &lt;body class="sw"&gt;
@@ -260,7 +260,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 
   <div class="d-item">
     <h3>昼と夜</h3>
-    <p>紙と刷り色は昼夜で入れ替わりますが、ホーロー看板や盤面といった実物の塗りは変わりません。夜になっても看板の色は変わらないからです。</p>
+    <p>紙と刷り色は昼夜で入れ替わりますが、ホーロー看板や盤面といった実物のぬりは変わりません。夜になっても看板の色は変わらないからです。</p>
     <div class="d-src"><button type="button" class="d-copy">コピー</button><pre class="d-code"><code><span class="c">&lt;!-- OSの設定に従う。明示するなら --&gt;</span>
 &lt;html data-theme="dark"&gt;
 &lt;html data-theme="light"&gt;</code></pre></div>
@@ -282,7 +282,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
       <span class="mihon sw-f-mincho">昭和レトロ　ホーロー看板　回数券</span></div>
     <div class="d-font"><span class="yaku"><b>丸ゴ</b><code>.sw-f-maru</code><br><em>ナール（1973・写研）の代用</em></span>
       <span class="mihon sw-f-maru">くじ　一回十円</span></div>
-    <div class="d-font"><span class="yaku"><b>アンチック</b><code>.sw-f-anchikku</code><br><em>漫画のセリフ書体（昭和から続く様式）</em></span>
+    <div class="d-font"><span class="yaku"><b>アンチック</b><code>.sw-f-anchikku</code><br><em>まんがのセリフ書体（昭和から続く様式）</em></span>
       <span class="mihon sw-f-anchikku">いらっしゃいませ</span></div>
     <div class="d-font"><span class="yaku"><b>ドット</b><code>.sw-f-dot</code><br><em>16ドットの表示装置（昭和末期）</em></span>
       <span class="mihon sw-f-dot">ツギハ シナガワ</span></div>
@@ -298,7 +298,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 
   <div class="d-item">
     <h3>手元の書体に差し替える</h3>
-    <p>各スタックの先頭に昭和書体の名前を並べてあります。端末に入れるか <code class="sw-code">@font-face</code> を書けば、そちらが優先されます。付属しないのは「商用利用可」と「webフォントとして再配布可」が別の許諾だからです。</p>
+    <p>各スタックの先頭に昭和書体の名前を並べてあります。端末に入れるか <code class="sw-code">@font-face</code> を書けば、そちらが優先されます。付属しないのは「商用利用可」と「webフォントとして再配布可」が別の許可だからです。</p>
     <div class="d-src"><button type="button" class="d-copy">コピー</button><pre class="d-code"><code>:root {
   --sw-mincho:   "晩秋レトロミン", serif;
   --sw-jimaku:   "しねきゃぷしょん", sans-serif;
@@ -314,7 +314,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
   <h2>色</h2>
   <p class="d-about">
     色は三層に分かれます。<strong>紙と墨</strong>と<strong>刷り色の六色</strong>は昼夜で入れ替わり、<strong>物体色</strong>（<code class="sw-code">--sw-o-*</code>）は昼夜で変わりません。ホーロー看板や盤面は実物なので、夜になっても色が変わらないからです。ここを混ぜると夜間モードで地色だけが反転して文字が読めなくなります。
-    刷り色は一枚で多くて三色までを目安に。昭和の印刷は版が少ないので、色数を絞るほど"らしく"なります。
+    刷り色は一枚で多くて三色までを目安に。昭和の印刷は版が少ないので、色数を少なくするほど"らしく"なります。
   </p>
 
   <div class="d-item">
@@ -338,10 +338,10 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
     <h3>紙と墨</h3>
     <div class="d-iro">
       <div><div class="chip" style="background:var(--sw-paper)"></div><div class="meta"><b>生成り</b><code>--sw-paper</code></div></div>
-      <div><div class="chip" style="background:var(--sw-paper-2)"></div><div class="meta"><b>沈んだ紙</b><code>--sw-paper-2</code></div></div>
-      <div><div class="chip" style="background:var(--sw-paper-3)"></div><div class="meta"><b>抜いた紙</b><code>--sw-paper-3</code></div></div>
+      <div><div class="chip" style="background:var(--sw-paper-2)"></div><div class="meta"><b>くすんだ紙</b><code>--sw-paper-2</code></div></div>
+      <div><div class="chip" style="background:var(--sw-paper-3)"></div><div class="meta"><b>明るい紙</b><code>--sw-paper-3</code></div></div>
       <div><div class="chip" style="background:var(--sw-kei)"></div><div class="meta"><b>線</b><code>--sw-kei</code></div></div>
-      <div><div class="chip" style="background:var(--sw-sumi-usu)"></div><div class="meta"><b>薄墨</b><code>--sw-sumi-usu</code></div></div>
+      <div><div class="chip" style="background:var(--sw-sumi-usu)"></div><div class="meta"><b>うす墨</b><code>--sw-sumi-usu</code></div></div>
       <div><div class="chip" style="background:var(--sw-sumi)"></div><div class="meta"><b>墨</b><code>--sw-sumi</code></div></div>
     </div>
     <div class="d-src" style="margin-top:.7rem"><button type="button" class="d-copy">コピー</button><pre class="d-code"><code><span class="c">/* 上書きして色を差し替える */</span>
@@ -358,12 +358,12 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 <!-- ══════ 文字組 ══════ -->
 <section class="d-sec d-wrap" id="moji">
   <h2>文字組</h2>
-  <p class="d-about">見出しは字間を詰めて紙を埋めます。ゆったり組むと途端に現代の顔になります。</p>
+  <p class="d-about">見出しは字間を詰めて紙をうめます。ゆったり組むと急に現代の顔になります。</p>
 
   <div class="d-item">
     <h3>見出し <code>.sw-midashi</code></h3>
     <p><code class="sw-code">is-md</code> から <code class="sw-code">is-3xl</code> で大きさ。<code class="sw-code">is-tsumeru</code> でツメ組み。</p>
-    <p>同じ文字列を並べています。下が <code class="sw-code">is-tsumeru</code> で、字間が詰まって紙が埋まります。</p>
+    <p>同じ文字列を並べています。下が <code class="sw-code">is-tsumeru</code> で、字間が詰まって紙がうまります。</p>
     <div class="d-rei is-tate">
       <p class="sw-midashi is-xl" style="margin:0">昭和レトロ</p>
       <p class="sw-midashi is-xl is-tsumeru" style="margin:0">昭和レトロ</p></div>
@@ -379,20 +379,20 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 
   <div class="d-item">
     <h3>袋文字 <code>.is-fukuro</code></h3>
-    <p>縁を取って中を紙色で抜く。看板文字の定番。</p>
+    <p>縁を取って中を紙色にする。看板文字の定番。</p>
     <div class="d-rei"><p class="sw-midashi is-2xl is-tsumeru is-fukuro" style="margin:0">本日開店</p></div>
     <div class="d-src"><button type="button" class="d-copy">コピー</button><pre class="d-code"><code>&lt;p class="sw-midashi is-2xl is-fukuro"&gt;本日開店&lt;/p&gt;</code></pre></div>
   </div>
 
   <div class="d-item">
     <h3>二重の縁取り <code>.is-fuchi</code></h3>
-    <p>歌謡番組のテロップ。縁は字面の一割ほどに留めます。太くすると字の内側が埋まります。</p>
+    <p>テレビのテロップ。縁は字面の一割ほどに留めます。太くすると字の内側がうまります。</p>
     <div class="d-rei"><p class="sw-midashi is-2xl is-tsumeru is-fuchi" style="margin:0">紅白歌合戦</p></div>
     <div class="d-src"><button type="button" class="d-copy">コピー</button><pre class="d-code"><code>&lt;p class="sw-midashi is-2xl is-fuchi"&gt;紅白歌合戦&lt;/p&gt;</code></pre></div>
   </div>
 
   <div class="d-item">
-    <h3>押し出し <code>.is-rittai</code></h3>
+    <h3>立体 <code>.is-rittai</code></h3>
     <p>奥へ伸びる立体文字。突き出し看板向き。</p>
     <div class="d-rei"><p class="sw-midashi is-2xl is-tsumeru is-rittai" style="margin:0">大特価</p></div>
     <div class="d-src"><button type="button" class="d-copy">コピー</button><pre class="d-code"><code>&lt;p class="sw-midashi is-2xl is-rittai"&gt;大特価&lt;/p&gt;</code></pre></div>
@@ -418,8 +418,8 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
         <span class="sw-marker">蛍光ペン</span>、<span class="sw-marker is-momo">桃</span>、<span class="sw-marker is-asagi">あさぎ</span>。
         <span class="sw-boten">傍点</span>と<span class="sw-boten is-sesame">ゴマ点</span>。
         価格の改定は<span class="sw-teisei">四百円</span>三百五十円。
-        <ruby>硝子<rt>ガラス</rt></ruby>のようにルビも組め、
-        写植の<span class="sw-choutai">長体</span>と<span class="sw-heitai">平体</span>も掛けられます。
+        <ruby>純喫茶<rt>じゅんきっさ</rt></ruby>のようにルビも組め、
+        写植の<span class="sw-choutai">長体</span>と<span class="sw-heitai">平体</span>もかけられます。
       </p>
     </div>
     <div class="d-src"><button type="button" class="d-copy">コピー</button><pre class="d-code"><code>&lt;span class="sw-marker"&gt;蛍光ペン&lt;/span&gt;      <span class="c">is-momo / is-asagi</span>
@@ -447,7 +447,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
   <h2>刷りの表情</h2>
   <p class="d-about">
     レトロ印刷の本質は<strong>均一にならないこと</strong>です。1色ずつ重ね刷りするためランダムに版がずれ、ベタ面にムラが出て、インクがかすれます。
-    旧版にあった「網点」は撤去しました。網点は濃度に応じて点の径が変わる仕組みで、等間隔・同一寸法の点は網点ではありません。点の地紋が要るなら <code class="sw-code">.sw-ji-amiten</code> を使ってください。
+    旧版にあった「網点」はやめました。網点は色の深さに応じて点の大きさが変わる仕組みで、同じ間・同じ大きさの点は網点ではありません。点の地紋が要るなら <code class="sw-code">.sw-ji-amiten</code> を使ってください。
   </p>
 
   <div class="d-item">
@@ -496,19 +496,19 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
   <h2>飾り</h2>
   <p class="d-about">
     実際に流通している昭和レトロのテンプレートを見て足した部品です。
-    集中線と同心円の大柄は最頻出でしたが、旧版には一つもありませんでした。
-    角丸も「昭和には無い」と思い込んで排除していましたが、実物は多用しています。
+    集中線と同心円の大柄は最も多く見ましたが、旧版には一つもありませんでした。
+    角丸も「昭和には無い」とそう思って外していましたが、実物は多用しています。
   </p>
 
   <div class="d-item">
     <h3>集中線 <code>.sw-shusen</code></h3>
-    <p>中心から放射する線。昭和の広告で最も目につく装置です。色は <code class="sw-code">--sw-shusen-c</code>、線の太さは <code class="sw-code">--sw-shusen-n</code>。題字を置くなら <code class="sw-code">is-nuki</code> で中心を抜きます。<code class="sw-code">is-sumi</code> は隅から放ちます。</p>
+    <p>中心から放射する線。昭和の広告で最も目につく装置です。色は <code class="sw-code">--sw-shusen-c</code>、線の太さは <code class="sw-code">--sw-shusen-n</code>。題字を置くなら <code class="sw-code">is-nuki</code> で中心を丸くぬきます。<code class="sw-code">is-sumi</code> は角から放ちます。</p>
     <div class="d-rei is-ue">
       <div class="sw-shusen is-nuki" style="flex:1 1 15rem; height:11rem; display:grid; place-content:center">
         <p class="sw-midashi is-lg is-tsumeru" style="margin:0">大売出し</p>
       </div>
       <div class="sw-shusen is-nuki" style="--sw-shusen-c:var(--sw-o-enji); flex:1 1 15rem; height:11rem; display:grid; place-content:center">
-        <p class="sw-midashi is-lg is-tsumeru" style="margin:0">抽選会</p>
+        <p class="sw-midashi is-lg is-tsumeru" style="margin:0">くじ引き</p>
       </div>
       <div class="sw-shusen is-sumi" style="--sw-shusen-c:var(--sw-o-mizu); flex:1 1 10rem; height:11rem"></div>
     </div>
@@ -522,7 +522,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 
   <div class="d-item">
     <h3>花の飾り <code>.sw-hana</code></h3>
-    <p>地紋の花柄とは別に、単体で置く八弁の花。見出しの脇や四隅に据えます。色は文字色、芯は <code class="sw-code">--sw-hana-shin</code> で決まります。</p>
+    <p>地紋の花柄とは別に、単体で置く八弁の花。見出しのわきや四つの角に置きます。色は文字色、中心は <code class="sw-code">--sw-hana-shin</code> で決まります。</p>
     <div class="d-rei">
       <span class="sw-hana sw-c-enji"></span>
       <span class="sw-hana sw-c-tokiwa" style="--sw-hana-shin:var(--sw-o-daidai)"></span>
@@ -555,7 +555,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
         <p style="margin:.3rem 0 0; font-size:.82rem">営業中</p>
       </div>
       <div class="sw-arch" style="flex:1 1 12rem">
-        <p class="sw-midashi is-md" style="margin:0">御案内</p>
+        <p class="sw-midashi is-md" style="margin:0">ご案内</p>
       </div>
     </div>
     <div class="d-src"><button type="button" class="d-copy">コピー</button><pre class="d-code"><code>&lt;div class="sw-arch is-nijuu"&gt;
@@ -614,7 +614,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 
   <div class="d-item">
     <h3>袖看板 <code>.sw-sodekanban</code></h3>
-    <p>壁から突き出す縦組みの看板。<code class="sw-code">is-udegane</code> で腕金が付きます。</p>
+    <p>かべから突き出す縦組みの看板。<code class="sw-code">is-udegane</code> でうで金が付きます。</p>
     <div class="d-rei">
       <span class="sw-sodekanban" style="font-size:1.2rem">大衆酒場</span>
       <span class="sw-sodekanban is-udegane is-enji" style="font-size:1.2rem">喫茶</span>
@@ -656,7 +656,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 
   <div class="d-item">
     <h3>ボタン <code>.sw-btn</code></h3>
-    <p>押すと影の分だけ本当に沈みます。刷り色六色。</p>
+    <p>触れると影の分だけ本当に下がります。刷り色六色。</p>
     <div class="d-rei">
       <button type="button" class="sw-btn">標準</button>
       <button type="button" class="sw-btn is-enji">えんじ</button>
@@ -678,7 +678,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 
   <div class="d-item">
     <h3>券売機のボタン <code>.sw-kenbai</code></h3>
-    <p>押し込む樹脂のボタン。<code class="sw-code">is-urikire</code> で売切。</p>
+    <p>指で下がる丸いボタン。<code class="sw-code">is-urikire</code> で売切。</p>
     <div class="d-rei">
       <button type="button" class="sw-kenbai">回数券<span class="nedan">450</span></button>
       <button type="button" class="sw-kenbai">定期券<span class="nedan">780</span></button>
@@ -702,7 +702,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 <!-- ══════ 記入欄 ══════ -->
 <section class="d-sec d-wrap" id="kinyu">
   <h2>記入</h2>
-  <p class="d-about">申込書と伝票の見た目に寄せています。</p>
+  <p class="d-about">申しこみ書と伝票の見た目に寄せています。</p>
 
   <div class="d-item">
     <h3>入力欄 <code>.sw-input</code> <code>.sw-select</code> <code>.sw-textarea</code></h3>
@@ -719,7 +719,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 
   <div class="d-item">
     <h3>升目の欄 <code>.is-genkou</code></h3>
-    <p>一字ずつマスに入ります。マスの幅は <code class="sw-code">--sw-masu</code> で変えられます。</p>
+    <p>一字ずつマスに入ります。マスの大きさは <code class="sw-code">--sw-masu</code> で変えられます。</p>
     <div class="d-rei is-tate">
       <input class="sw-input is-genkou" value="昭和レトロ">
       <input class="sw-input is-genkou" style="--sw-masu:1.7em" value="升目を詰める">
@@ -768,7 +768,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 
   <div class="d-item">
     <h3>お品書き <code>.sw-shinagaki</code></h3>
-    <p>品名と値段を点線のリーダーで繋ぎ、値段を右端に揃えます。</p>
+    <p>品名と値段を点線のリーダーでつなぎ、値段を右端にそろえます。</p>
     <div class="d-rei is-tate">
       <ul class="sw-shinagaki">
         <li><span class="na">ブレンドコーヒー</span><span class="nedan">450</span></li>
@@ -821,7 +821,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 
   <div class="d-item">
     <h3>判子 <code>.sw-inkan</code></h3>
-    <p>字が枠を埋めるのが実物です。書体は二種類。既定は古印体ふうで線がかすれ、<code class="sw-code">is-mincho</code> は明朝でぴたりと押したもの。<code class="sw-code">is-kaku</code> 角印、<code class="sw-code">is-beta</code> 朱を全面に。</p>
+    <p>字が枠をうめるのが実物です。書体は二種類。既定は古印体ふうで線がかすれ、<code class="sw-code">is-mincho</code> は明朝でぴたりと当てたもの。<code class="sw-code">is-kaku</code> 角印、<code class="sw-code">is-beta</code> 朱を全面に。</p>
     <div class="d-rei">
       <span class="sw-inkan">検<br>印</span>
       <span class="sw-inkan is-kaku">認</span>
@@ -839,7 +839,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
     <p>荷札にはひもを通す穴が開いています。</p>
     <div class="d-rei">
       <span class="sw-badge">新装開店</span>
-      <span class="sw-badge is-karashi">売切御免</span>
+      <span class="sw-badge is-karashi">売り切れ</span>
       <span class="sw-badge is-tokiwa">配達承ります</span>
       <span class="sw-nifuda">昭和六十三年十二月</span>
       <span class="sw-senjafuda">昭和レトロ</span>
@@ -873,23 +873,23 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 
   <div class="d-item">
     <h3>回数券 <code>.sw-kippu</code></h3>
-    <p>左右の中ほどが半円に打ち抜かれ、耳が点線で切り離せます。</p>
+    <p>左右の中ほどが半円に切りとられ、耳が点線で切りはなせます。</p>
     <div class="d-rei is-tate">
       <div class="sw-kippu" style="max-width:24rem">
         <span class="mimi">回数券</span>
-        <span class="honbun"><b style="font-size:1.15rem">コーヒー　一杯</b><br>
+        <span class="honbun"><b style="font-size:1.15rem">コーヒー　一ぱい</b><br>
         <small class="sw-c-usu" style="font-size:.78rem">有効期限　昭和六十三年十二月まで</small></span>
       </div>
     </div>
     <div class="d-src"><button type="button" class="d-copy">コピー</button><pre class="d-code"><code>&lt;div class="sw-kippu"&gt;
   &lt;span class="mimi"&gt;回数券&lt;/span&gt;
-  &lt;span class="honbun"&gt;&lt;b&gt;コーヒー　一杯&lt;/b&gt;&lt;/span&gt;
+  &lt;span class="honbun"&gt;&lt;b&gt;コーヒー　一ぱい&lt;/b&gt;&lt;/span&gt;
 &lt;/div&gt;</code></pre></div>
   </div>
 
   <div class="d-item">
     <h3>特売POP <code>.sw-pop</code></h3>
-    <p>星形の実効領域は外接長方形より狭いので、8rem 未満にすると文字が角に食い込みます。</p>
+    <p>星形の実効領域は外接長方形より小さいので、8rem 未満にすると文字が角に食いこみます。</p>
     <div class="d-rei">
       <div class="sw-pop" style="width:9rem;height:9rem;font-size:.8rem"><span>本日限り</span><span class="nedan">半額</span></div>
       <div class="sw-pop is-karashi" style="width:9rem;height:9rem;font-size:.8rem"><span>全品</span><span class="nedan">2割引</span></div>
@@ -906,7 +906,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
     <p>紅白の水引が中央で結ばれます。</p>
     <div class="d-rei is-tate">
       <div class="sw-noshi" style="max-width:16rem">
-        <p style="margin:0; font-size:.82rem">粗品</p>
+        <p style="margin:0; font-size:.88rem">お礼</p>
         <p class="sw-midashi is-md" style="margin:.2rem 0 0">昭和レトロ</p>
       </div>
     </div>
@@ -922,7 +922,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
     <div class="d-rei is-tate">
       <div class="sw-shojo" style="max-width:30rem">
         <p class="sw-midashi is-lg" style="text-align:center; margin:0 0 .7rem">感謝状</p>
-        <p style="margin:0; font-size:.88rem">永年にわたり昭和のデザインを守り伝えられました　よってこれを表彰します</p>
+        <p style="margin:0; font-size:.88rem">永年にわたり昭和のデザインを守り伝えられました　よってこれをたたえます</p>
       </div>
     </div>
     <div class="d-src"><button type="button" class="d-copy">コピー</button><pre class="d-code"><code>&lt;div class="sw-shojo"&gt;
@@ -960,18 +960,18 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 
   <div class="d-item">
     <h3>写真 <code>.sw-shashin</code></h3>
-    <p>白フチのプリント。右下に橙色の日付が焼き込まれます。</p>
+    <p>白フチのプリント。右下に橙色の日付が焼きこまれます。</p>
     <div class="d-rei">
       <div class="sw-shashin">
         <span class="ban sw-ji-tile" style="display:block"></span>
         <span class="hizuke">'88 7 24</span>
-        <span class="caption">腰壁のモザイクタイル</span>
+        <span class="caption">腰かべのモザイクタイル</span>
       </div>
     </div>
     <div class="d-src"><button type="button" class="d-copy">コピー</button><pre class="d-code"><code>&lt;div class="sw-shashin"&gt;
   &lt;span class="ban"&gt;&lt;!-- 画像でも地紋でも --&gt;&lt;/span&gt;
   &lt;span class="hizuke"&gt;'88 7 24&lt;/span&gt;
-  &lt;span class="caption"&gt;腰壁のモザイクタイル&lt;/span&gt;
+  &lt;span class="caption"&gt;腰かべのモザイクタイル&lt;/span&gt;
 &lt;/div&gt;</code></pre></div>
   </div>
 
@@ -996,7 +996,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 
   <div class="d-item">
     <h3>のれん <code>.sw-noren</code></h3>
-    <p>布の数を掲げる字数に合わせます。裾に切れ目が入ります。</p>
+    <p>布の数を掲げる字数に合わせます。すそに切れ目が入ります。</p>
     <div class="d-rei is-tate">
       <div class="sw-noren" style="max-width:22rem">
         <span class="nuno">昭</span><span class="nuno">和</span><span class="nuno">レ</span><span class="nuno">ト</span><span class="nuno">ロ</span>
@@ -1031,10 +1031,10 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 
   <div class="d-item">
     <h3>型板ガラス <code>.sw-garasu</code></h3>
-    <p>向こう側がぼやける昭和の建具。後ろの地紋が透けます。<code class="sw-code">is-nami</code> でなみ模様。</p>
+    <p>向こう側がぼやける昭和の建具。後ろの地紋がすけます。<code class="sw-code">is-nami</code> でなみ模様。</p>
     <div class="d-rei is-tate">
       <div class="sw-ji-tile" style="padding:1.2rem">
-        <div class="sw-garasu"><p style="margin:0; font-size:.9rem">後ろのモザイクタイルが透けています</p></div>
+        <div class="sw-garasu"><p style="margin:0; font-size:.9rem">後ろのモザイクタイルがすけています</p></div>
       </div>
     </div>
     <div class="d-src"><button type="button" class="d-copy">コピー</button><pre class="d-code"><code>&lt;div class="sw-ji-tile"&gt;
@@ -1047,23 +1047,23 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 <!-- ══════ 家電 ══════ -->
 <section class="d-sec d-wrap" id="kaden">
   <h2>家電</h2>
-  <p class="d-about">ネオンと蛍光灯は夜間モードで本領を出します。以下は夜の地を敷いています。</p>
+  <p class="d-about">ネオンと蛍光灯は夜間モードで本領を出します。以下は夜の地に置いています。</p>
 
   <div class="d-item">
     <h3>ブラウン管 <code>.sw-tv</code></h3>
     <p><code class="sw-code">is-nagare</code> で走査線が下り、<code class="sw-code">is-sunaarashi</code> で砂嵐になります。字幕は <code class="sw-code">.sw-jimaku</code>。</p>
     <div class="d-rei is-yoru is-ue">
       <div class="sw-tv is-nagare" style="flex:1 1 17rem">
-        <p style="margin:0 0 .3rem; letter-spacing:.2em; font-size:.82rem">＊＊＊ 深夜放送 ＊＊＊</p>
-        <p style="margin:0; line-height:1.95; font-size:.88rem">本日の放送は終了いたしました</p>
+        <p style="margin:0 0 .3rem; letter-spacing:.2em; font-size:.82rem">・・・ 深夜放送 ・・・</p>
+        <p style="margin:0; line-height:1.95; font-size:.88rem">本日の放送は終わりです</p>
       </div>
       <div class="sw-tv is-sunaarashi" style="flex:1 1 17rem; display:grid; align-items:end">
-        <p class="sw-jimaku" style="margin:0">——それは去年の夏のことだった</p>
+        <p class="sw-jimaku" style="margin:0">それは去年の夏のことだった</p>
       </div>
     </div>
-    <div class="d-src"><button type="button" class="d-copy">コピー</button><pre class="d-code"><code>&lt;div class="sw-tv is-nagare"&gt;本日の放送は終了いたしました&lt;/div&gt;
+    <div class="d-src"><button type="button" class="d-copy">コピー</button><pre class="d-code"><code>&lt;div class="sw-tv is-nagare"&gt;本日の放送は終わりです&lt;/div&gt;
 &lt;div class="sw-tv is-sunaarashi"&gt;
-  &lt;p class="sw-jimaku"&gt;——それは去年の夏のことだった&lt;/p&gt;
+  &lt;p class="sw-jimaku"&gt;それは去年の夏のことだった&lt;/p&gt;
 &lt;/div&gt;</code></pre></div>
   </div>
 
@@ -1088,7 +1088,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 
   <div class="d-item">
     <h3>電光掲示板 <code>.sw-denkou</code></h3>
-    <p>消灯した素子とすき間の格子があり、文字がLEDの粒に見えます。</p>
+    <p>消灯した素子とすき間の格子があり、文字がLEDのつぶに見えます。</p>
     <div class="d-rei is-yoru is-tate">
       <div class="sw-denkou"><span class="nagare">ツギノ デンシャハ 2バンセン フツウ デス　シロイセンノ ウチガワマデ オサガリクダサイ</span></div>
     </div>
@@ -1162,7 +1162,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 <!-- ══════ 地紋 ══════ -->
 <section class="d-sec d-wrap" id="jimon">
   <h2>地模様</h2>
-  <p class="d-about">画像は一枚も使っていません。すべてグラデーションと埋め込みSVGです。</p>
+  <p class="d-about">画像は一枚も使っていません。すべてグラデーションと直に書いたSVGです。</p>
 
   <div class="d-item">
     <h3>一覧 <code>.sw-ji-*</code></h3>
@@ -1200,10 +1200,10 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
     <h3>一覧 <code>.sw-anim-*</code></h3>
     <div class="d-rei is-yoko">
       <table class="sw-table">
-        <thead><tr><th>クラス</th><th>動き</th><th>用途</th></tr></thead>
+        <thead><tr><th>クラス</th><th>動き</th><th>使い道</th></tr></thead>
         <tbody>
           <tr><td><code class="sw-code">.sw-anim-chirachira</code></td><td>不規則に消える</td><td>接触の悪いネオン管</td></tr>
-          <tr><td><code class="sw-code">.sw-anim-tenmetsu</code></td><td>点き始めに瞬く</td><td>蛍光灯</td></tr>
+          <tr><td><code class="sw-code">.sw-anim-tenmetsu</code></td><td>点き始めにまたたく</td><td>蛍光灯</td></tr>
           <tr><td><code class="sw-code">.sw-anim-kaiten</code></td><td>回り続ける</td><td>レコード盤</td></tr>
           <tr><td><code class="sw-code">.sw-tv.is-nagare</code></td><td>走査線が下る</td><td>ブラウン管</td></tr>
           <tr><td><code class="sw-code">.sw-denkou &gt; .nagare</code></td><td>右から左へ流れる</td><td>電光掲示板</td></tr>
@@ -1242,7 +1242,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
           </ul>
           <hr class="sw-shikiri is-nami" style="margin:.9rem 0">
           <div class="sw-row" style="justify-content:space-between; gap:.5rem">
-            <p style="margin:0; font-size:.78rem">営業　午前十時 — 午後八時<br>定休　毎週水曜日</p>
+            <p style="margin:0; font-size:.78rem">営業　午前十時〜午後八時<br>定休　毎週水曜日</p>
             <span class="sw-inkan">検<br>印</span>
           </div>
         </div>
@@ -1270,16 +1270,16 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
     <h3>掲示</h3>
     <div class="sw-ji-ichimatsu" style="padding:clamp(1rem,3vw,1.75rem)">
       <div class="sw-kanban is-karashi is-sabi" style="margin-bottom:1.1rem">
-        <p class="sw-midashi is-tsumeru" style="margin:0; font-size:clamp(1.4rem,4.5vw,2rem)">火の元　御用心</p>
+        <p class="sw-midashi is-tsumeru" style="margin:0; font-size:clamp(1.4rem,4.5vw,2rem)">火の用心</p>
         <p style="margin:.4rem 0 0; font-size:.82rem">昭和レトロ　防火部</p>
       </div>
       <div style="display:grid; grid-template-columns:minmax(0,1fr) auto; gap:1.2rem; align-items:start">
         <div class="sw-waku with-title">
-          <p class="title">御願い</p>
+          <p class="title">お願い</p>
           <ol class="sw-list is-maru" style="font-size:.88rem">
-            <li>火気の取扱いに御注意ください</li>
-            <li>戸締りを御確認ください</li>
-            <li>不審な物は詰所まで</li>
+            <li>火の取りあつかいにご注意ください</li>
+            <li>戸じまりの確認をお願いします</li>
+            <li>あやしい物は詰所まで</li>
           </ol>
         </div>
         <div style="display:grid; gap:.8rem; justify-items:center">
@@ -1289,9 +1289,9 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
       </div>
     </div>
     <div class="d-src" style="margin-top:.6rem"><button type="button" class="d-copy">コピー</button><pre class="d-code"><code>&lt;div class="sw-ji-ichimatsu"&gt;
-  &lt;div class="sw-kanban is-karashi is-sabi"&gt;火の元　御用心&lt;/div&gt;
+  &lt;div class="sw-kanban is-karashi is-sabi"&gt;火の用心&lt;/div&gt;
   &lt;div class="sw-waku with-title"&gt;
-    &lt;p class="title"&gt;御願い&lt;/p&gt;
+    &lt;p class="title"&gt;お願い&lt;/p&gt;
     &lt;ol class="sw-list is-maru"&gt;…&lt;/ol&gt;
   &lt;/div&gt;
   &lt;span class="sw-senjafuda"&gt;昭和レトロ&lt;/span&gt;
@@ -1303,11 +1303,11 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
     <div style="background:#14131a; padding:clamp(1rem,3vw,1.75rem); display:grid; gap:1rem">
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(15rem,100%),1fr)); gap:1rem">
         <div class="sw-tv is-nagare">
-          <p style="margin:0 0 .3rem; letter-spacing:.2em; font-size:.82rem">＊＊＊ 深夜放送 ＊＊＊</p>
-          <p style="margin:0; line-height:1.9; font-size:.86rem">ただいまの時刻　二時十五分<br>本日の放送は終了いたしました</p>
+          <p style="margin:0 0 .3rem; letter-spacing:.2em; font-size:.82rem">・・・ 深夜放送 ・・・</p>
+          <p style="margin:0; line-height:1.9; font-size:.86rem">ただいまの時刻　二時十五分<br>本日の放送は終わりです</p>
         </div>
         <div class="sw-tv is-sunaarashi" style="display:grid; align-items:end">
-          <p class="sw-jimaku" style="margin:0">——それは去年の夏のことだった</p>
+          <p class="sw-jimaku" style="margin:0">それは去年の夏のことだった</p>
         </div>
         <div style="display:grid; place-content:center; text-align:center; gap:.2rem">
           <p class="sw-neon sw-anim-chirachira" style="margin:0; font-size:1.8rem">昭和</p>
@@ -1332,16 +1332,16 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 <!-- ══════ 早見表 ══════ -->
 <section class="d-sec d-wrap" id="hayami">
   <h2>早見表</h2>
-  <p class="d-about">全クラスの索引です。クラス名をクリックするとコピーします。</p>
+  <p class="d-about">全クラスの一覧です。クラス名をクリックするとコピーします。</p>
 
   <div class="d-sagashi">
-    <input class="sw-input" id="q" type="search" placeholder="「看板」「縦」「btn」などで絞り込む" aria-label="クラスを絞り込む">
+    <input class="sw-input" id="q" type="search" placeholder="「看板」「縦」「btn」などでより分け" aria-label="クラスをより分ける">
     <span class="d-hit" id="hit"></span>
   </div>
 
   <div class="d-rei is-yoko">
     <table class="d-hyo" id="hyo">
-      <thead><tr><th>分類</th><th>クラス</th><th>用途</th></tr></thead>
+      <thead><tr><th>分類</th><th>クラス</th><th>使い道</th></tr></thead>
       <tbody>
         <tr><td>下地</td><td><code>.sw</code></td><td>body に付ける。紙の地と、地の文の明朝</td></tr>
         <tr><td>書体</td><td><code>.sw-f-mincho</code></td><td>明朝。地の文はこれ</td></tr>
@@ -1352,44 +1352,44 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
         <tr><td>書体</td><td><code>.sw-f-gothic</code></td><td>角ゴ。ラベルとボタンに限る</td></tr>
         <tr><td>書体</td><td><code>.sw-f-jimaku</code></td><td>映画字幕体。付属なし</td></tr>
         <tr><td>文字組</td><td><code>.sw-midashi</code></td><td>見出し。is-md〜is-3xl で大きさ</td></tr>
-        <tr><td>文字組</td><td><code>.sw-midashi.is-tsumeru</code></td><td>ツメ組み。字間を詰めて紙を埋める</td></tr>
+        <tr><td>文字組</td><td><code>.sw-midashi.is-tsumeru</code></td><td>ツメ組み。字間を詰めて紙をうめる</td></tr>
         <tr><td>文字組</td><td><code>.sw-midashi.is-kage</code></td><td>影文字。版をずらして重ねる</td></tr>
-        <tr><td>文字組</td><td><code>.sw-midashi.is-fukuro</code></td><td>袋文字。縁を取って中を抜く</td></tr>
-        <tr><td>文字組</td><td><code>.sw-midashi.is-fuchi</code></td><td>二重の縁取り。歌謡番組のテロップ</td></tr>
-        <tr><td>文字組</td><td><code>.sw-midashi.is-rittai</code></td><td>押し出しの立体文字</td></tr>
+        <tr><td>文字組</td><td><code>.sw-midashi.is-fukuro</code></td><td>袋文字。縁を取って中を紙色にする</td></tr>
+        <tr><td>文字組</td><td><code>.sw-midashi.is-fuchi</code></td><td>二重の縁取り。テレビのテロップ</td></tr>
+        <tr><td>文字組</td><td><code>.sw-midashi.is-rittai</code></td><td>立体の文字</td></tr>
         <tr><td>文字組</td><td><code>.sw-tate</code></td><td>縦組み。is-hitohira で一行固定、is-mixed で混在</td></tr>
         <tr><td>文字組</td><td><code>.sw-tcy</code></td><td>縦中横。縦組みの中の数字</td></tr>
         <tr><td>文字組</td><td><code>.sw-choutai</code> <code>.sw-heitai</code></td><td>長体・平体。写植の変形</td></tr>
         <tr><td>文字組</td><td><code>.sw-marker</code></td><td>蛍光ペン。is-momo / is-asagi</td></tr>
         <tr><td>文字組</td><td><code>.sw-boten</code></td><td>傍点。is-sesame でゴマ点</td></tr>
         <tr><td>文字組</td><td><code>.sw-teisei</code></td><td>二重取り消し線。価格改定に</td></tr>
-        <tr><td>文字組</td><td><code>.sw-eyebrow</code> <code>.sw-lead</code> <code>.sw-honbun</code></td><td>肩の札・導入文・本文の読み幅</td></tr>
+        <tr><td>文字組</td><td><code>.sw-eyebrow</code> <code>.sw-lead</code> <code>.sw-honbun</code></td><td>かたの札・導入文・本文の行長</td></tr>
         <tr><td>文字組</td><td><code>.sw-shikiri</code></td><td>区切り線。is-kazari / is-nami</td></tr>
-        <tr><td>文字組</td><td><code>.sw-code</code></td><td>文中の等幅</td></tr>
+        <tr><td>文字組</td><td><code>.sw-code</code></td><td>文中のコード</td></tr>
         <tr><td>刷り</td><td><code>.sw-hanzure</code></td><td>版ズレ。is-ai / is-ookii</td></tr>
         <tr><td>刷り</td><td><code>.sw-kasure</code></td><td>かすれ。インクの乗り残し</td></tr>
         <tr><td>刷り</td><td><code>.sw-taishoku</code></td><td>退色。赤が先に飛び縁から日焼け。is-tsuyoi</td></tr>
         <tr><td>刷り</td><td><code>.sw-monokuro</code></td><td>白黒写真</td></tr>
-        <tr><td>飾り</td><td><code>.sw-shusen</code></td><td>集中線。is-nuki で中心を抜く、is-sumi で隅から</td></tr>
+        <tr><td>飾り</td><td><code>.sw-shusen</code></td><td>集中線。is-nuki で中心を丸くぬく、is-sumi で角から</td></tr>
         <tr><td>飾り</td><td><code>.sw-hana</code></td><td>八弁の花。単体で置く飾り</td></tr>
         <tr><td>飾り</td><td><code>.sw-kirakira</code></td><td>四方にとがった星</td></tr>
         <tr><td>飾り</td><td><code>.sw-arch</code></td><td>アーチ枠。かまぼこ型</td></tr>
         <tr><td>飾り</td><td><code>.sw-panel</code></td><td>角丸パネル。is-nijuu / is-maru</td></tr>
         <tr><td>飾り</td><td><code>.sw-tanzaku</code></td><td>短冊。細長い縦枠に縦組み</td></tr>
         <tr><td>看板</td><td><code>.sw-kanban</code></td><td>ホーロー看板。5色。is-sabi でさび</td></tr>
-        <tr><td>看板</td><td><code>.sw-sodekanban</code></td><td>袖看板。is-udegane で腕金</td></tr>
+        <tr><td>看板</td><td><code>.sw-sodekanban</code></td><td>袖看板。is-udegane でうで金</td></tr>
         <tr><td>看板</td><td><code>.sw-obi</code></td><td>帯。刷り色六色</td></tr>
         <tr><td>枠</td><td><code>.sw-waku</code></td><td>枠。is-nijuu / is-kage / with-title</td></tr>
-        <tr><td>ボタン</td><td><code>.sw-btn</code></td><td>ボタン。六色＋is-sm / is-lg / is-block</td></tr>
+        <tr><td>ボタン</td><td><code>.sw-btn</code></td><td>ボタン。六色・is-sm / is-lg / is-block</td></tr>
         <tr><td>ボタン</td><td><code>.sw-kenbai</code></td><td>券売機のボタン。is-urikire</td></tr>
         <tr><td>ボタン</td><td><code>.sw-tsumami</code></td><td>ラジオのつまみ</td></tr>
         <tr><td>ボタン</td><td><code>.sw-progress</code></td><td>目盛り</td></tr>
         <tr><td>記入</td><td><code>.sw-field</code> <code>.sw-label</code></td><td>ラベルと欄の組</td></tr>
-        <tr><td>記入</td><td><code>.sw-input</code></td><td>入力欄。is-genkou で升目、--sw-masu で幅</td></tr>
+        <tr><td>記入</td><td><code>.sw-input</code></td><td>入力欄。is-genkou で升目、--sw-masu で大きさ</td></tr>
         <tr><td>記入</td><td><code>.sw-select</code> <code>.sw-textarea</code></td><td>選択・複数行</td></tr>
         <tr><td>記入</td><td><code>.sw-check</code> <code>.sw-radio</code></td><td>朱で入る検印風のチェック</td></tr>
         <tr><td>表</td><td><code>.sw-table</code></td><td>線表。is-shima でしま、is-num で右寄せ</td></tr>
-        <tr><td>表</td><td><code>.sw-shinagaki</code></td><td>お品書き。点線リーダーで値段を揃える</td></tr>
+        <tr><td>表</td><td><code>.sw-shinagaki</code></td><td>お品書き。点線リーダーで値段をそろえる</td></tr>
         <tr><td>表</td><td><code>.sw-denpyo</code></td><td>複写伝票</td></tr>
         <tr><td>表</td><td><code>.sw-list</code></td><td>箇条書き。is-maru / is-nakaguro</td></tr>
         <tr><td>表</td><td><code>.sw-scroll-x</code></td><td>横にあふれる表を単体でスクロール</td></tr>
@@ -1405,7 +1405,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
         <tr><td>紙もの</td><td><code>.sw-shojo</code></td><td>賞状。縁飾りが回る</td></tr>
         <tr><td>紙もの</td><td><code>.sw-genkou</code></td><td>原稿用紙。is-tate で縦組みと魚尾</td></tr>
         <tr><td>紙もの</td><td><code>.sw-stampcard</code></td><td>スタンプカード</td></tr>
-        <tr><td>紙もの</td><td><code>.sw-shashin</code></td><td>白フチ写真。日付焼き込み</td></tr>
+        <tr><td>紙もの</td><td><code>.sw-shashin</code></td><td>白フチ写真。日付を焼きこむ</td></tr>
         <tr><td>紙もの</td><td><code>.sw-aozake</code></td><td>青焼き。仕様書やコードに</td></tr>
         <tr><td>店先</td><td><code>.sw-noren</code></td><td>のれん。is-enji / is-tokiwa / is-kinari</td></tr>
         <tr><td>店先</td><td><code>.sw-match</code></td><td>マッチラベル。is-enji / is-sumi</td></tr>
@@ -1424,9 +1424,9 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
         <tr><td>地模様</td><td><code>.sw-ji-dosen</code></td><td>同心円の大柄。駄菓子屋と包装紙の地。is-momo</td></tr>
         <tr><td>地模様</td><td><code>.sw-ji-tile</code></td><td>モザイクタイル。is-momo / is-usuki</td></tr>
         <tr><td>地模様</td><td><code>.sw-ji-garasu</code></td><td>型板ガラスのモール</td></tr>
-        <tr><td>地模様</td><td><code>.sw-ji-sofa</code></td><td>喫茶店のソファ。縫い目と沈むボタン</td></tr>
+        <tr><td>地模様</td><td><code>.sw-ji-sofa</code></td><td>喫茶店のソファ。ぬい目と下がるボタン</td></tr>
         <tr><td>地模様</td><td><code>.sw-ji-ichimatsu</code></td><td>市松</td></tr>
-        <tr><td>地模様</td><td><code>.sw-ji-yagasuri</code></td><td>矢がすり。軸を挟んだ左右の羽</td></tr>
+        <tr><td>地模様</td><td><code>.sw-ji-yagasuri</code></td><td>矢がすり。軸をはさんだ左右の羽</td></tr>
         <tr><td>地模様</td><td><code>.sw-ji-koushi</code></td><td>格子</td></tr>
         <tr><td>地模様</td><td><code>.sw-ji-mizutama</code></td><td>水玉</td></tr>
         <tr><td>地模様</td><td><code>.sw-ji-shima</code></td><td>しま</td></tr>
@@ -1435,19 +1435,19 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
         <tr><td>動き</td><td><code>.sw-anim-chirachira</code></td><td>ネオンのちらつき</td></tr>
         <tr><td>動き</td><td><code>.sw-anim-tenmetsu</code></td><td>蛍光灯の点き始め</td></tr>
         <tr><td>動き</td><td><code>.sw-anim-kaiten</code></td><td>レコードの回転</td></tr>
-        <tr><td>割付</td><td><code>.sw-wrap</code> <code>.sw-stack</code> <code>.sw-row</code> <code>.sw-cols</code></td><td>幅・縦積み・横並び・段組み</td></tr>
+        <tr><td>割付</td><td><code>.sw-wrap</code> <code>.sw-stack</code> <code>.sw-row</code> <code>.sw-cols</code></td><td>行長・縦積み・横並び・段組み</td></tr>
         <tr><td>色</td><td><code>.sw-c-enji</code> ほか六色</td><td>文字色。八色</td></tr>
         <tr><td>色</td><td><code>.sw-bg-enji</code> ほか六色</td><td>地色。八色。文字色も対で付く</td></tr>
-        <tr><td>傾き</td><td><code>.sw-katamuki-l</code> <code>.sw-katamuki-r</code></td><td>貼り紙のくせ</td></tr>
+        <tr><td>かたむき</td><td><code>.sw-katamuki-l</code> <code>.sw-katamuki-r</code></td><td>はり紙のくせ</td></tr>
       </tbody>
     </table>
   </div>
 </section>
 
 <footer class="d-foot d-wrap">
-  <p style="margin:0">昭和レトロ.css v2.1.1 — CSS は MIT License。書体は各ライセンスに従います（付属の晩秋レトロミンは OFL ではありません）。<a href="https://github.com/kanade0525/showa-retro-css/blob/main/LICENSE">詳細</a></p>
-  <p style="margin:.3rem 0 0">画像もJavaScriptも使いません。このページのJSはコピーボタンと絞り込みのためだけに使っています。</p>
-  <p style="margin:.3rem 0 0">見本の電話番号・日付・文言はすべて架空のものです。</p>
+  <p style="margin:0">昭和レトロ.css v2.1.2・CSS は MIT License。書体は各ライセンスに従います（付属の晩秋レトロミンは OFL ではありません）。<a href="https://github.com/kanade0525/showa-retro-css/blob/main/LICENSE">詳細</a></p>
+  <p style="margin:.3rem 0 0">画像もJavaScriptも使いません。このページのJSはコピーボタンとより分けのためだけに使っています。</p>
+  <p style="margin:.3rem 0 0">見本の電話番号・日付・文言はすべて実在しないものです。</p>
 </footer>
 
 <script>
