@@ -3,6 +3,28 @@
 書式は [Keep a Changelog](https://keepachangelog.com/ja/1.1.0/) に、
 版の付け方は [セマンティック バージョニング](https://semver.org/lang/ja/) に従います。
 
+## [2.0.4] — 2026-07-28
+
+**看板がレトロミンを使っていませんでした。**
+
+`.sw-kanban p` `li` `td` を一律で `--sw-mincho` に戻す指定を置いていました。
+「看板の中の地の文は収録の欠けない明朝に」という意図でしたが、看板の字は
+`<p>たばこ</p>` のように書くのが普通なので、**題字そのものが明朝に落ちて**いました。
+`--sw-retromin` を分離した目的が看板と見出しだったのに、看板で使われていない
+状態でした。
+
+### 修正
+
+- `.sw-kanban p / li / td` の一律指定を撤去。看板の中は既定でレトロミンになります。
+- 看板の中に長い地の文を置く場合は、その要素に `.sw-f-mincho` を付けてください。
+  レトロミンは1732字しか収録がないので、地の文だと収録外の字が次の書体に
+  落ちて混植になります。
+
+### 見本帳
+
+- 冒頭の看板に入っている説明文（地の文）に `.sw-f-mincho` を付けました。
+  題字はレトロミン、地の文は明朝という本来の切り分けになります。
+
 ## [2.0.3] — 2026-07-28
 
 **2.0.2 のコード欄の書体指定は、実際には効いていませんでした。** 修正します。
@@ -185,6 +207,7 @@ npm に出す前に、番号の付け方を正しておきます。今回から 
 
 - 初期の公開版
 
+[2.0.4]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.0.4
 [2.0.3]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.0.3
 [2.0.2]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.0.2
 [2.0.1]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.0.1
