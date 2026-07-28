@@ -3,6 +3,11 @@
 .DS_Store
 .light.html
 .dark.html
+_*.html
 
 # Google Fonts の原本（OFL。サイズが大きいので配布物には含めない）
 fonts/*.ttf
+
+# 配布元からダウンロードした書体の書庫。
+# 展開して必要なファイルだけ置く。書庫そのものは再配布の許諾が別なので入れない
+fonts/*.zip

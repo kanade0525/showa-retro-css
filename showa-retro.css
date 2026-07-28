@@ -15,8 +15,8 @@
  *             昭和の印刷は版が少ないので、一枚で使うのは多くて三色まで。
  *
  *   ③ 物体色   --sw-o-*
- *             琺瑯看板・提灯・レコード盤など、実物の塗り。
- *             昼夜で変えません。琺瑯看板は夜になっても色が変わらないからです。
+ *             ホーロー看板・提灯・レコード盤など、実物の塗り。
+ *             昼夜で変えません。ホーロー看板は夜になっても色が変わらないからです。
  *             地色と文字色を必ず対で持たせ、継承に頼りません。
  * ──────────────────────────────────────────────────────────────────
  */
@@ -50,13 +50,18 @@
   /* 明朝。昭和の本文組は明朝です。この書体が地の文を背負います */
   /* 晩秋レトロミン（すずみばと書林 ver.3.2）を最優先。
      Webへの埋め込みが許諾されているので showa-retro-fonts.css で読み込みます。
-     収録は「教育漢字＋α」の1732字なので、琺瑯・絣・琲・錆・罫・駄 などは
+     収録は「教育漢字＋α」の1732字なので、一部の漢字は
      次の書体（しっぽり明朝→Zen Old Mincho）に落ちます。
      見出し向けの書体で、本文組み向けではない点は作者も明記しています。 */
-  --sw-mincho: "晩秋レトロミン", "Bansyu-retoromin", "Bansyu-retoromin R",
-               "しっぽり明朝", "Shippori Mincho", "はんなり明朝", "Hannari",
-               "Zen Old Mincho", "コーポレート明朝 ver3",
+  /* 本文の明朝。全字が揃っているものだけを並べる。
+     晩秋レトロミンは収録が1732字（教育漢字＋α）しかなく、本文に使うと
+     常用漢字が18%落ちて混植になるので、ここには入れない */
+  --sw-mincho: "Zen Old Mincho", "しっぽり明朝", "Shippori Mincho",
+               "はんなり明朝", "Hannari", "コーポレート明朝 ver3",
                "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
+  /* 見出し・看板用。字数が少なく、収録内に収まることを確認した箇所にだけ使う */
+  --sw-retromin: "晩秋レトロミン", "Bansyu-retoromin", "Bansyu-retoromin R",
+                 var(--sw-mincho);
 
   /* 角ゴ。ラベル・ボタン・注記に限って使います。
      同梱の Zen Kaku Gothic New は現代の書体で、昭和ではありません */
@@ -68,23 +73,17 @@
   --sw-jimaku: "しねきゃぷしょん", "cinecaption", "うずまさ本丸ゴシック",
                "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;
 
-  /* 極太。ゴナU（1975・写研）の代用。琺瑯看板と見出しの主役 */
-  --sw-futo: "Dela Gothic One", "Zen Kaku Gothic New",
-             "Hiragino Kaku Gothic StdN", sans-serif;
+  /* 極太。ゴナU（1975・写研）の代用。ホーロー看板と見出しの主役 */
 
   /* ポスター。旧版では Reggae One を当てていましたが、あれはレゲエ由来の
      鋭角書体で昭和とは無関係でした。極太に統合しています */
-  --sw-poster: "じゃずキッサ", "Dela Gothic One", "Zen Kaku Gothic New", sans-serif;
 
   /* 立体。旧版では Rampart One を当てていましたが、あれは
      ブロックの立体書体で昭和とは無関係でした。昭和の立体文字は
      袋文字と影で作るものなので、CSS 側（is-rittai / is-fukuro）に任せ、
      書体は極太を使います */
-  --sw-rittai: "Dela Gothic One", "Zen Kaku Gothic New", sans-serif;
 
   /* 丸文字。昭和40〜50年代に流行した手書き文字 */
-  --sw-marumoji: "ポプらむ☆キュート", "Poplam Cute", "りんごひめ",
-                 "Hachi Maru Pop", "Zen Maru Gothic", sans-serif;
 
   /* 油性マジックで書いた特売POP */
   --sw-tegaki: "たぬき油性マジック", "TanukiMagic", "からかぜ",
@@ -106,7 +105,7 @@
   /* コード用。端末の Monaco に頼ると、入っていない環境で等幅にならない。
      同梱の M PLUS 1 Code（OFL・ラテン0.5em／和文1.0emの2:1等幅）を先頭に置いて、
      どの環境でも必ず等幅で出るようにする */
-  --sw-mono: "M PLUS 1 Code", Monaco, "SFMono-Regular", Menlo, Consolas, monospace;
+  --sw-mono: Monaco, "M PLUS 1 Code", "SFMono-Regular", Menlo, Consolas, monospace;
 }
 
 /* ==========================================================================
@@ -143,7 +142,7 @@
   --sw-mizu-fuka:    #41798f;
 
   /* --- ③ 物体色。昼夜で変えない --- */
-  --sw-o-kinari:  #f4ecd8;  /* 琺瑯の白 */
+  --sw-o-kinari:  #f4ecd8;  /* ホーローの白 */
   --sw-o-sumi:    #241f1a;  /* 物体の黒 */
   --sw-o-enji:    #a8332f;
   --sw-o-aka:     #bf2f2b;
@@ -289,7 +288,7 @@
    ========================================================================== */
 
 .sw-midashi {
-  font-family: var(--sw-mincho);
+  font-family: var(--sw-retromin);
   font-weight: 700;
   line-height: 1.35;
   letter-spacing: 0.06em;
@@ -318,10 +317,8 @@
 .sw-f-mincho   { font-family: var(--sw-mincho); }
 .sw-f-gothic   { font-family: var(--sw-gothic); }
 .sw-f-jimaku   { font-family: var(--sw-jimaku); letter-spacing: 0.08em; }
-.sw-f-futo     { font-family: var(--sw-futo); }
-.sw-f-poster   { font-family: var(--sw-poster); }
-.sw-f-rittai   { font-family: var(--sw-rittai); }
-.sw-f-marumoji { font-family: var(--sw-marumoji); }
+
+
 .sw-f-tegaki   { font-family: var(--sw-tegaki); }
 .sw-f-anchikku { font-family: var(--sw-anchikku); }
 .sw-f-maru     { font-family: var(--sw-maru); }
@@ -592,10 +589,10 @@
 .sw-waku.is-tokiwa.is-kage { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-tokiwa); }
 .sw-waku.is-kon.is-kage    { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-kon); }
 
-/* --- 琺瑯看板 ---------------------------------------------------------
+/* --- ホーロー看板 ---------------------------------------------------------
    実物なので物体色で塗ります。夜間モードでも色は変わりません。
    照りは天の一筋だけに留めます。斜めに大きく掛けると
-   琺瑯ではなくCSSのグラデーションに見えます。 */
+   ホーローではなくCSSのグラデーションに見えます。 */
 
 .sw-kanban {
   position: relative;
@@ -608,11 +605,11 @@
     inset 0 0 0 7px var(--sw-o-enji),
     8px 8px 0 var(--sw-shade);
   padding: calc(var(--sw-ma) * 2);
-  font-family: var(--sw-mincho);
+  font-family: var(--sw-retromin);
   overflow: hidden;
 }
 
-/* 琺瑯の照り。天に一筋、縁に僅かな落ち込み */
+/* ホーローの照り。天に一筋、縁に僅かな落ち込み */
 .sw-kanban::after {
   content: "";
   position: absolute;
@@ -656,7 +653,7 @@
     8px 8px 0 var(--sw-shade);
 }
 
-/* 錆。長く風雨にさらされた琺瑯。
+/* 錆。長く風雨にさらされたホーロー。
    multiply で重ねると地色を暗くするだけなので、緑や紺の看板では
    錆ではなくカビに見えます。錆は塗膜の上に乗るものなので通常合成で置き、
    色はSVG側で錆色に固定します。 */
@@ -679,7 +676,7 @@
   display: inline-block;
   background: var(--sw-o-kon);
   color: var(--sw-o-usuki);
-  font-family: var(--sw-rittai);
+  font-family: var(--sw-retromin);
   font-synthesis: none;
   font-size: var(--sw-t-xl);
   line-height: 1.3;
@@ -912,7 +909,6 @@
 .sw-btn.is-lg { font-size: var(--sw-t-md); padding: 0.7em 2em; }
 .sw-btn.is-block { display: block; width: 100%; }
 .sw-btn.is-mincho { font-family: var(--sw-mincho); }
-.sw-btn.is-futo { font-family: var(--sw-futo); font-weight: 400; font-synthesis: none; }
 
 .sw-btn.is-disabled,
 .sw-btn:disabled {
@@ -1265,7 +1261,15 @@
    11. 紙もの
    ========================================================================== */
 
-/* 判子。字が枠を埋めるのが実物です */
+/* 看板の中の本文。題字はレトロミンだが、地の文は収録の欠けない明朝に戻す */
+.sw-kanban p,
+.sw-kanban li,
+.sw-kanban td { font-family: var(--sw-mincho); }
+
+/* 判子。字が枠を埋めるのが実物です。
+   書体は二種類だけ。既定は古印体ふう（線がかすれて角が丸い実印の書体）、
+   is-mincho で明朝。古印体そのものは再配布できるフリーフォントが無いので、
+   書体を差し替えるのではなく、輪郭のゆらぎと線のかすれで寄せています。 */
 .sw-inkan {
   display: inline-grid;
   place-content: center;
@@ -1284,6 +1288,20 @@
   letter-spacing: 0;
   transform: rotate(-9deg);
   opacity: 0.9;
+  /* 古印体ふう。朱肉が均一に乗らず、線がかすれる */
+  font-weight: 600;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='in'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.2 1.6' numOctaves='1' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5 0 0 0 -1.15'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23in)'/%3E%3C/svg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='in'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.2 1.6' numOctaves='1' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5 0 0 0 -1.15'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23in)'/%3E%3C/svg%3E");
+  -webkit-mask-size: 120px 120px;
+          mask-size: 120px 120px;
+}
+
+/* 明朝の判子。かすれさせず、細めの線でぴたりと押したもの */
+.sw-inkan.is-mincho {
+  font-family: var(--sw-mincho);
+  font-weight: 400;
+  -webkit-mask-image: none;
+          mask-image: none;
 }
 
 /* 角印。縁を太く、字を大きく */
@@ -1311,7 +1329,7 @@
   background: var(--sw-o-karashi);
   color: var(--sw-o-sumi);
   padding: var(--sw-ma) calc(var(--sw-ma) * 1.1);
-  font-family: var(--sw-marumoji);
+  font-family: var(--sw-gothic);
   line-height: 1.8;
   box-shadow: 3px 3px 6px rgba(36, 31, 26, 0.28);
   transform: rotate(-1.2deg);
@@ -1502,7 +1520,7 @@
 
 .sw-pop .nedan {
   display: block;
-  font-family: var(--sw-futo);
+  font-family: var(--sw-retromin);
   font-synthesis: none;
   font-size: 1.5em;
   line-height: 1.1;
@@ -1697,7 +1715,7 @@
   flex: 1 1 0;
   background: var(--sw-o-kon);
   color: var(--sw-o-kinari);
-  font-family: var(--sw-mincho);
+  font-family: var(--sw-retromin);
   font-weight: 700;
   font-size: var(--sw-t-xl);
   writing-mode: vertical-rl;
@@ -1730,7 +1748,7 @@
 
 .sw-match .yago {
   display: block;
-  font-family: var(--sw-poster);
+  font-family: var(--sw-retromin);
   font-synthesis: none;
   font-size: var(--sw-t-md);
   letter-spacing: 0.04em;
@@ -1792,7 +1810,7 @@
   background: #f7f2e0;
   color: var(--sw-o-aka);
   border: 8px solid #55504a;
-  font-family: var(--sw-poster);
+  font-family: var(--sw-retromin);
   font-synthesis: none;
   font-size: var(--sw-t-xl);
   letter-spacing: 0.08em;
@@ -1858,7 +1876,7 @@
 
 /* ネオン管 */
 .sw-neon {
-  font-family: var(--sw-poster);
+  font-family: var(--sw-retromin);
   font-synthesis: none;
   color: var(--sw-o-aka);
   letter-spacing: 0.1em;

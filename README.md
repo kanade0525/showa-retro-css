@@ -3,7 +3,7 @@
 **見本帳 → https://kanade0525.github.io/showa-retro-css/**
 
 
-昭和レトロ CSS フレームワーク。琺瑯看板・純喫茶のお品書き・回数券・ブラウン管・刷りの網点を、クラス一つで再現します。
+昭和レトロ CSS フレームワーク。ホーロー看板・純喫茶のお品書き・回数券・ブラウン管・刷りの網点を、クラス一つで再現します。
 
 **JavaScript も画像も使いません。** 読みに行くのは CSS だけです。圧縮版は 58KB。
 
@@ -36,9 +36,9 @@ import 'showa-retro.css/min';     // 圧縮版 58KB
 | --- | --- | --- | --- |
 | ① 紙と墨 | `--sw-paper` `--sw-sumi` ほか | 入れ替わる | ページの地と文字 |
 | ② 刷り色 | `--sw-enji` `--sw-karashi` `--sw-tokiwa` `--sw-kon` `--sw-asagi` `--sw-momo` | 明度を調整 | 紙に刷る六色 |
-| ③ 物体色 | `--sw-o-*` | **変えない** | 琺瑯看板・提灯・レコード盤など実物の塗り |
+| ③ 物体色 | `--sw-o-*` | **変えない** | ホーロー看板・提灯・レコード盤など実物の塗り |
 
-琺瑯看板は夜になっても色が変わりません。だから物体色は昼夜で固定しています。逆に、地色をテーマ変数から取りながら文字色を直書きすると、夜に地色だけが反転して文字が読めなくなります。地色を持つ部品は文字色も対で持たせてください。
+ホーロー看板は夜になっても色が変わりません。だから物体色は昼夜で固定しています。逆に、地色をテーマ変数から取りながら文字色を直書きすると、夜に地色だけが反転して文字が読めなくなります。地色を持つ部品は文字色も対で持たせてください。
 
 刷り色は一枚で多くて三色までを目安に。昭和の印刷は版が少ないので、色数を絞るほど"らしく"なります。
 
@@ -47,14 +47,14 @@ import 'showa-retro.css/min';     // 圧縮版 58KB
 
 | 分類 | 主なクラス |
 | --- | --- |
-| 書体 | `sw-f-mincho` `sw-f-futo` `sw-f-poster` `sw-f-rittai` `sw-f-jimaku` `sw-f-marumoji` `sw-f-tegaki` `sw-f-anchikku` `sw-f-maru` `sw-f-dot` |
+| 書体 | `sw-f-mincho` `sw-f-gothic` `sw-f-jimaku` `sw-f-tegaki` `sw-f-anchikku` `sw-f-maru` `sw-f-dot` |
 | 文字組 | `sw-midashi`（`is-kage` 影文字／`is-fukuro` 袋文字／`is-fuchi` 二重縁取り／`is-rittai` 押し出し）`sw-tate` `sw-tcy` `sw-choutai` `sw-heitai` `sw-marker` `sw-boten` `sw-teisei` |
 | 印刷技法 | `sw-amiten` 網点　`sw-hanzure` 版ズレ　`sw-kasure` かすれ　`sw-taishoku` 退色　`sw-monokuro` 白黒 |
-| 枠と看板 | `sw-waku`（`is-nijuu` `is-kage` `with-title`）`sw-kanban`（`is-sabi` 錆）`sw-sodekanban` `sw-obi` |
+| 枠と看板 | `sw-waku`（`is-nijuu` `is-kage` `with-title`）`sw-kanban`（`is-sabi` さび）`sw-sodekanban` `sw-obi` |
 | ボタン | `sw-btn` ＋ 6色　`sw-kenbai` 券売機　`sw-tsumami` つまみ |
 | 記入欄 | `sw-input`（`is-genkou` 升目）`sw-select` `sw-textarea` `sw-check` `sw-radio` |
 | 表 | `sw-table` `sw-shinagaki` 品書き　`sw-denpyo` 伝票　`sw-list is-maru` 丸数字 |
-| 紙もの | `sw-inkan` `sw-fusen` `sw-fukidashi` `sw-kippu` `sw-nifuda` `sw-senjafuda` `sw-noshi` `sw-pop` 特売　`sw-shojo` 賞状　`sw-genkou` 原稿用紙　`sw-stampcard` `sw-shashin` |
+| 紙もの | `sw-inkan`（`is-mincho` 明朝／`is-kaku` 角印／`is-beta` べた）`sw-fusen` `sw-fukidashi` `sw-kippu` `sw-nifuda` `sw-senjafuda` `sw-noshi` `sw-pop` 特売　`sw-shojo` 賞状　`sw-genkou` 原稿用紙　`sw-stampcard` `sw-shashin` |
 | 店先 | `sw-noren` `sw-chochin` `sw-match` マッチラベル　`sw-garasu` 型板ガラス　`sw-denshou` 電照看板 |
 | 家電 | `sw-tv`（`is-sunaarashi` 砂嵐／`is-nagare` 走査線）`sw-jimaku` `sw-neon` `sw-denkou` 電光掲示板　`sw-patapata` `sw-keikoutou` `sw-record` `sw-cassette` `sw-dial` 黒電話 |
 | 地紋 | `sw-ji-hanagara` 花柄　`sw-ji-kikagaku` `sw-ji-tile` `sw-ji-garasu` `sw-ji-sofa` `sw-ji-ichimatsu` `sw-ji-yagasuri` `sw-ji-koushi` `sw-ji-mizutama` `sw-ji-shima` `sw-ji-amiten` `sw-ji-hougan` |
@@ -71,31 +71,35 @@ OS の設定に従うほか、`<html data-theme="dark">` で明示的に指定�
 
 ## 書体
 
-**先にお断りします。** 本物の昭和の見出し書体は写研の **ゴナU（1975）**・**ナール（1973）**・**石井明朝** で、いずれも写研の所有です。モリサワが2024年から復刻を始めましたが商用書体のため、OFLライセンスでは同梱できません。したがって同梱書体の多くは**代用**です。
+**先にお断りします。** 本物の昭和の見出し書体は写研の **ゴナU（1975）**・**ナール（1973）**・**石井明朝** で、いずれも写研の所有です。モリサワが2024年から復刻を始めましたが商用書体のため、OFLライセンスでは付属できません。したがって付属書体の多くは**代用**です。
 
-| 役割 | 同梱書体 | 昭和の何か |
+| 役割 | 付属書体 | 昭和の何か |
 | --- | --- | --- |
 | `.sw-f-mincho` 明朝 | Zen Old Mincho | 石井明朝・本蘭明朝の方向（代用）**地の文はこれ** |
-| `.sw-f-futo` 極太 | Dela Gothic One | ゴナU（1975・写研）の代用 |
 | `.sw-f-maru` 丸ゴ | Zen Maru Gothic | ナール（1973・写研）の代用 |
-| `.sw-f-marumoji` 丸文字 | Hachi Maru Pop | 昭和40〜50年代の丸文字ブーム（**直接参照**） |
 | `.sw-f-anchikku` アンチック | Shippori Antique | 漫画のセリフ書体（**昭和から続く様式**） |
 | `.sw-f-dot` ドット | DotGothic16 | 16ドットの表示装置（**昭和末期を参照**） |
 | `.sw-f-tegaki` 手書POP | Yusei Magic | 油性マジックの手書き（年代は特定しない） |
 | `.sw-f-gothic` 角ゴ | Zen Kaku Gothic New | 現代の書体。ラベルとボタンに限る |
-| `.sw-f-jimaku` 字幕 | 同梱なし | しねきゃぷしょん等。手元にあれば使う |
+| `.sw-f-jimaku` 字幕 | 付属なし | しねきゃぷしょん等。手元にあれば使う |
 
 昭和の本文組は明朝です。角ゴを地の文に敷くと現代の顔になるため、`.sw` の既定を明朝にしています。
 
-`.sw-f-poster` と `.sw-f-rittai` は極太に統合しました。旧版で当てていた Reggae One はレゲエ由来の鋭角書体、Rampart One はブロックの立体書体で、どちらも昭和とは無関係だったためです。昭和の立体文字は袋文字と影で作るものなので、書体ではなく `is-rittai` と `is-fukuro` が担います。
 
-### 晩秋レトロミン（同梱）
+### 晩秋レトロミン（付属）
 
-すずみばと書林の[晩秋レトロミン ver.3.2](https://suzumi-bato.booth.pm/items/4674383) を明朝の最優先として同梱しています。利用条件でWebサイトへの埋め込みが許諾されているためです（二次配布にあたるので `fonts/bansyu-retoromin/readme.txt` を添付したまま扱ってください）。
+すずみばと書林の[晩秋レトロミン ver.3.2](https://suzumi-bato.booth.pm/items/4674383) を付属しています。利用条件でWebサイトへの埋め込みが許諾されているためです（二次配布にあたるので `fonts/bansyu-retoromin/readme.txt` を添付したまま扱ってください）。
 
-**収録は教育漢字＋αの1732字です。** 見本帳の本文に出る632字種のうち**95字種（15%）が収録外**で、次の書体に落ちて混植になります。落ちる字には `臙脂` `芥子` `浅葱` `墨` `枠` `縁` `袋` `袖` `朱` `琺瑯` `絣` `珈琲` `錆` `罫` `駄` など、このフレームワークの中心語彙が含まれます。
+**ただし本文には使いません。収録は教育漢字＋αの1732字だけです。** 見本帳の本文に出る632字種のうち95字種（15%）が収録外で、次の書体に落ちて混植になります。落ちるのは 琺瑯・絣・珈琲・錆・罫・臙脂・芥子・浅葱・駄 といった、まさにこのフレームワークが扱う語の字です。作者も readme で「本文組というよりも、見出し向けのフォント」と明記しています。
 
-作者も readme で「本文組というよりも、見出し向けのフォント」と明記しています。混植を避けたい場合は、見出しだけに使うか、`--sw-mincho` から外してください。
+そこで変数を二つに分けています。
+
+| 変数 | 中身 | 使う場所 |
+| --- | --- | --- |
+| `--sw-mincho` | Zen Old Mincho ほか、字が欠けない明朝 | 地の文。`.sw` の既定 |
+| `--sw-retromin` | 晩秋レトロミン →（無ければ `--sw-mincho`） | 見出し・看板・POP など字数の少ない箇所 |
+
+`--sw-retromin` を当てているのは `.sw-midashi` `.sw-kanban`（題字のみ。本文は `--sw-mincho` に戻します）`.sw-sodekanban` `.sw-denshou` `.sw-pop .nedan` `.sw-noren .nuno` `.sw-match .yago` `.sw-neon` の8か所です。地の文にも使いたい場合は `--sw-mincho` の先頭に足してください。混植を承知のうえで、ということになります。
 
 ### 本物に寄せる
 
@@ -106,11 +110,10 @@ OS の設定に従うほか、`<html data-theme="dark">` で明示的に指定�
   --sw-jimaku: "しねきゃぷしょん", sans-serif;
   --sw-tegaki: "たぬき油性マジック", sans-serif;
   --sw-gothic: "かんじゅくゴシック", sans-serif;
-  --sw-marumoji: "ポプらむ☆キュート", sans-serif;
 }
 ```
 
-同梱していないのは、**「商用利用可」と「webフォントとして再配布可」が別の許諾**で、多くのフリーフォントが後者を認めていないためです。差し替え先の一覧は `showa-retro-fonts.css` のコメントにあります。
+付属していないのは、**「商用利用可」と「webフォントとして再配布可」が別の許諾**で、多くのフリーフォントが後者を認めていないためです。差し替え先の一覧は `showa-retro-fonts.css` のコメントにあります。
 
 
 ## 実物のテンプレートから学んだこと
@@ -129,11 +132,11 @@ OS の設定に従うほか、`<html data-theme="dark">` で明示的に指定�
 
 | 分類 | 例 |
 | --- | --- |
-| 昭和固有 | 琺瑯看板・袖看板・電照看板・マッチラベル・型板ガラス・モザイクタイル・花柄・券売機・回数券・特売POP・スタンプカード・複写伝票・お品書き・写真の日付焼き込み・ブラウン管・砂嵐・映画字幕・ネオン管・電光掲示板・パタパタ発車標・蛍光灯・レコード・カセット・黒電話・かすれ・版ズレ・退色・極太／丸文字／ドットの書体・写植の長体平体 |
-| 和風（江戸〜現行） | 千社札・のし紙・市松・矢絣・のれん |
-| 年代を特定しない | 判子・原稿用紙・賞状・方眼・荷札・徽章・吹き出し・付箋・蛍光ペン・水玉・縞・格子・縦組み・傍点・ルビ・各種UI部品 |
+| 昭和固有 | ホーロー看板・袖看板・電照看板・マッチラベル・型板ガラス・モザイクタイル・花柄・券売機・回数券・特売POP・スタンプカード・複写伝票・お品書き・写真の日付焼き込み・ブラウン管・砂嵐・映画字幕・ネオン管・電光掲示板・パタパタ発車標・蛍光灯・レコード・カセット・黒電話・かすれ・版ズレ・退色・ドットの書体・写植の長体平体 |
+| 和風（江戸〜現行） | 千社札・のし紙・市松・矢がすり・のれん |
+| 年代を特定しない | 判子・原稿用紙・賞状・方眼・荷札・バッジ・吹き出し・ふせん・蛍光ペン・水玉・しま・格子・縦組み・傍点・ルビ・各種UI部品 |
 
-作る過程で、実在しない意匠（等間隔の点を「網点」と称する、一様なセピアを「退色」と称する等）や、再現が中途半端な部品（縦の骨がない提灯、指止めのない黒電話）を混ぜていました。前者は撤去し、後者は作り直しています。
+作る過程で、実在しないデザイン（等間隔の点を「網点」と称する、一様なセピアを「退色」と称する等）や、再現が中途半端な部品（縦の骨がない提灯、指止めのない黒電話）を混ぜていました。前者は撤去し、後者は作り直しています。
 
 ## 見本帳
 
@@ -151,16 +154,16 @@ CSS・HTML・設定ファイルは **MIT**。詳細は [LICENSE](./LICENSE)。
 
 **書体は MIT ではありません。** それぞれ別のライセンスです。
 
-| | ライセンス | 同梱 |
+| | ライセンス | 付属 |
 |---|---|---|
-| 晩秋レトロミン ver.3.2（すずみばと書林） | [独自条件](https://suzumi-bato.booth.pm/items/4674383)。Web埋め込みと二次配布が可。readme.txt の添付が必須、改変版の配布は不可 | `fonts/` に同梱 |
-| Zen Kaku Gothic New / Zen Old Mincho / Zen Maru Gothic / Dela Gothic One / Hachi Maru Pop / Yusei Magic / Shippori Antique / DotGothic16 / M PLUS 1 Code | SIL Open Font License 1.1 | 同梱せず Google Fonts から読み込み |
+| 晩秋レトロミン ver.3.2（すずみばと書林） | [独自条件](https://suzumi-bato.booth.pm/items/4674383)。Web埋め込みと二次配布が可。readme.txt の添付が必須、改変版の配布は不可 | `fonts/` に付属 |
+| Zen Kaku Gothic New / Zen Old Mincho / Zen Maru Gothic / Yusei Magic / Shippori Antique / DotGothic16 / M PLUS 1 Code | SIL Open Font License 1.1 | 付属せず Google Fonts から読み込み |
 
 再配布するときは各条件を確認してください。**「商用利用可」と「Webフォントとして再配布可」は別の許諾です。**
 
 ## 出典
 
-意匠と書体は以下を参照しました。
+デザインと書体は以下を参照しました。
 
 - [昭和レトロ配色パターン集｜純喫茶・看板・家電の色使い](https://uto-room.com/color/pattern/showa-retro/)
 - [昭和レトロデザインの教科書](https://webdesign-master.com/webdesign/retro-design-points/)

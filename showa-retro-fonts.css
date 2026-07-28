@@ -1,13 +1,13 @@
 @charset "UTF-8";
 /*!
- * showa-retro-fonts.css — showa-retro.css の同梱書体を読み込む
+ * showa-retro-fonts.css — showa-retro.css の付属書体を読み込む
  *
  * 最初にお断りしておきます。本物の昭和の見出し書体は写研の
  * ゴナU（1975）・ナール（1973）・石井明朝 で、いずれも写研の所有です。
- * OFLでは同梱できないため、ここで読み込むのは「代用」です。
- * 年代を直接参照しているのは 丸文字・アンチック体・ドット の三つだけです。
+ * OFLでは一緒に配れないため、ここで読み込むのは「代用」です。
+ * 年代を直接参照しているのは アンチック体とドット の二つだけです。
  *
- * ここで読み込むのは SIL Open Font License の8書体だけです。
+ * ここで読み込むのは SIL Open Font License の7書体だけです。
  * OFLは埋め込み・再配布ともに認められているため、
  * 自前のサーバに置いてもCSSにbase64で同梱しても問題ありません。
  *
@@ -19,13 +19,13 @@
  *   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=...">
  */
 
-@import url("https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=M+PLUS+1+Code&family=DotGothic16&family=Hachi+Maru+Pop&family=Shippori+Antique&family=Yusei+Magic&family=Zen+Kaku+Gothic+New:wght@400;700&family=Zen+Maru+Gothic:wght@700&family=Zen+Old+Mincho:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=M+PLUS+1+Code&family=DotGothic16&family=Shippori+Antique&family=Yusei+Magic&family=Zen+Kaku+Gothic+New:wght@400;700&family=Zen+Maru+Gothic:wght@700&family=Zen+Old+Mincho:wght@400;700&display=swap");
 
 /*
  * ---------------------------------------------------------------------------
  * 手元の書体で差し替える
  * ---------------------------------------------------------------------------
- * 下の書体は同梱していません。「商用利用可」と「webフォントとして再配布可」は
+ * 下の書体は付属していません。「商用利用可」と「webフォントとして再配布可」は
  * 別の許諾です。導入する際は各配布元の規約を必ず確認してください。
  * showa-retro.css の各スタックには、これらの名前が先頭に入っています。
  * 端末に入れるかローカルに @font-face で置けば、自動的にそちらが使われます。
@@ -36,18 +36,13 @@
  *   字幕          うずまさ本丸ゴシック    フロップデザイン
  *   明朝          しっぽり明朝            FONTDASU（OFL版はGoogle Fontsにも）
  *   明朝          はんなり明朝            Typing Art
- *   明朝          幻ノにじみ明朝          フォントな
  *   本文ゴシック  かんじゅくゴシック      フロップデザイン
  *   本文ゴシック  木漏れ日ゴシック        MODI工場
  *   丸ゴシック    いろはマル              MODI工場
- *   丸文字        ポプらむ☆キュート      もじワク研究
- *   丸文字        りんごひめ              BOOTH
  *   手書きPOP     たぬき油性マジック      たぬきフォント
  *   手書き        からかぜ                BOOTH
  *   アンチック    新コミック体            FONT910
- *   ポスター      じゃずキッサ            フロップデザイン
  *   ドット        マキナスカナ            もじワク研究
- *   数字・記号    DiaPro                  but.
  *
  * ローカルに置く場合の例:
  *
@@ -62,9 +57,10 @@
  * 晩秋レトロミン ver.3.2 — すずみばと書林
  * https://suzumi-bato.booth.pm/items/4674383
  * 利用条件によりWebサイトへの埋め込みが許諾されています。
- * 二次配布にあたるため、同梱の fonts/bansyu-retoromin/readme.txt を
+ * 二次配布にあたるため、付属の fonts/bansyu-retoromin/readme.txt を
  * 添付したまま扱ってください。
- * 収録は教育漢字＋αの1732字。範囲外の字は次の書体に落ちます。
+ * 収録は教育漢字＋αの1732字。字が落ちるので本文には使いません。
+ * 当たるのは --sw-retromin（見出し・看板）だけです。
  * --------------------------------------------------------------------------- */
 @font-face {
   font-family: "晩秋レトロミン";
