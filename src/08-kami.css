@@ -27,7 +27,10 @@
   color: var(--sw-o-enji);
   background: transparent;
   font-family: var(--sw-mincho);
-  font-weight: 700;
+  /* レトロミンは weight 400 しか持たないので、太字を要求すると合成ボールドになる。
+     落ちた字は次の書体の本物の太字で出るため、太さがばらつく。合成を止める。 */
+  font-weight: 400;
+  font-synthesis: none;
   font-size: var(--sw-t-md);
   line-height: 0.98;
   text-align: center;
@@ -35,7 +38,6 @@
   transform: rotate(-9deg);
   opacity: 0.9;
   /* 古印体ふう。朱肉が均一に乗らず、線がかすれる */
-  font-weight: 600;
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='in'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.2 1.6' numOctaves='1' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5 0 0 0 -1.15'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23in)'/%3E%3C/svg%3E");
           mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='in'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.2 1.6' numOctaves='1' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5 0 0 0 -1.15'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23in)'/%3E%3C/svg%3E");
   -webkit-mask-size: 120px 120px;
@@ -200,7 +202,10 @@
   border: 3px solid var(--sw-sumi);
   padding: 1.1em 0.55em;
   font-family: var(--sw-mincho);
-  font-weight: 700;
+  /* レトロミンは weight 400 しか持たないので、700 を要求すると合成ボールドになる。
+     落ちた字は次の書体の本物の700で出るため、太さがばらつく。合成を止める。 */
+  font-weight: 400;
+  font-synthesis: none;
   font-size: var(--sw-t-md);
   writing-mode: vertical-rl;
   text-orientation: upright;

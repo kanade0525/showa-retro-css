@@ -3,6 +3,22 @@
 書式は [Keep a Changelog](https://keepachangelog.com/ja/1.1.0/) に、
 版の付け方は [セマンティック バージョニング](https://semver.org/lang/ja/) に従います。
 
+## [2.1.1] — 2026-07-28
+
+### 修正
+
+- **合成ボールドを止めました。** 晩秋レトロミンは weight 400 しか持たないのに、
+  7つの部品が太字を要求していました。レトロミンの字は偽の太字、収録外で
+  次の書体に落ちた字は本物の太字になるので、一つの見出しの中で
+  **書体と太さの両方**がばらついていました。
+
+  `.sw-midashi` `.sw-waku > .title` `.sw-obi` `.sw-tanzaku` `.sw-inkan`
+  `.sw-senjafuda` `.sw-noren > .nuno` を `font-weight: 400` +
+  `font-synthesis: none` に。**見出しは細くなりますが、レトロミン本来の
+  字面が出て、太さのばらつきが消えます。**
+- `.sw-inkan` に `font-weight` が二重に入っていたのを整理（後の `600` が
+  勝って合成ボールドが残っていました）。
+
 ## [2.1.0] — 2026-07-28
 
 ### 変更
@@ -271,6 +287,7 @@ npm に出す前に、番号の付け方を正しておきます。今回から 
 
 - 初期の公開版
 
+[2.1.1]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.1.1
 [2.1.0]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.1.0
 [2.0.5]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.0.5
 [2.0.4]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.0.4

@@ -10,7 +10,10 @@
   background: var(--sw-o-kon);
   color: var(--sw-o-kinari);
   font-family: var(--sw-retromin);
-  font-weight: 700;
+  /* レトロミンは weight 400 しか持たないので、700 を要求すると合成ボールドになる。
+     落ちた字は次の書体の本物の700で出るため、太さがばらつく。合成を止める。 */
+  font-weight: 400;
+  font-synthesis: none;
   font-size: var(--sw-t-xl);
   writing-mode: vertical-rl;
   text-orientation: upright;

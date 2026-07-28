@@ -4,7 +4,10 @@
 
 .sw-midashi {
   font-family: var(--sw-retromin);
-  font-weight: 700;
+  /* レトロミンは weight 400 しか持たないので、700 を要求すると合成ボールドになる。
+     落ちた字は次の書体の本物の700で出るため、太さがばらつく。合成を止める。 */
+  font-weight: 400;
+  font-synthesis: none;
   line-height: 1.35;
   letter-spacing: 0.06em;
   text-wrap: balance;
