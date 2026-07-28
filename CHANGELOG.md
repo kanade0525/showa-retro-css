@@ -3,6 +3,24 @@
 書式は [Keep a Changelog](https://keepachangelog.com/ja/1.1.0/) に、
 版の付け方は [セマンティック バージョニング](https://semver.org/lang/ja/) に従います。
 
+## [2.2.0] — 2026-07-29
+
+### 変更
+
+- **腕金（`.sw-sodekanban.is-udegane`）を作り直しました。** 旧版は平らな棒を
+  一本置いただけで、壁に留まる部分が描かれていませんでした。金具に見えず、
+  何に付いているのか分からない絵になっていたためです。
+
+  実物は壁に**座金**をボルトで留め、そこから**腕**が出て、下から**筋交い**で
+  支えます。その三つを描きました。`::after` を新たに使っているので、
+  ここを上書きしていた場合は当たります。
+
+  README で「縦の骨がない提灯」「指止めのない黒電話」を中途半端だから
+  作り直したと書いておいて、腕金は同じ状態で残っていました。
+
+  なお袖看板は壁から手前に直角に突き出す物です。壁の角か、視点が壁沿いの
+  ときに使ってください。コードのコメントにも書いてあります。
+
 ## [2.1.4] — 2026-07-29
 
 ### 見本帳
@@ -337,6 +355,7 @@ npm に出す前に、番号の付け方を正しておきます。今回から 
 
 - 初期の公開版
 
+[2.2.0]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.2.0
 [2.1.4]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.1.4
 [2.1.3]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.1.3
 [2.1.2]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.1.2

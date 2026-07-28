@@ -153,15 +153,44 @@
 
 .sw-sodekanban.is-enji { background: var(--sw-o-enji); }
 
-/* 腕金。壁から突き出すための金具。is-udegane で付ける */
-.sw-sodekanban.is-udegane { position: relative; margin-left: 1.6em; }
+/* 腕金。壁から突き出すための金具。is-udegane で付ける。
+   旧版は平らな棒を一本置いただけで、壁に留まる部分が無かったので
+   金具に見えず、何に付いているのか分からない絵になっていました。
+   実物は壁に座金をボルトで留め、そこから腕が出て、下から筋交いで支えます。
+   その三つを描きます。
+
+   なお袖看板は壁から手前に直角に突き出す物なので、壁を正面から見た絵に
+   正面向きの袖看板を置くと向きが矛盾します。壁の角か、視点が壁沿いの
+   ときに使ってください。 */
+.sw-sodekanban.is-udegane { position: relative; margin-left: 2.1em; }
+
+/* 腕。座金から水平に出る */
 .sw-sodekanban.is-udegane::before {
   content: "";
   position: absolute;
-  left: -1.6em; top: 0.7em;
-  width: 1.6em; height: 0.34em;
-  background: linear-gradient(#8d8578, #4e483d);
-  box-shadow: 0 1px 2px rgba(0,0,0,.5);
+  left: -1.75em; top: 0.85em;
+  width: 1.75em; height: 0.3em;
+  background: linear-gradient(#9a917f, #55503f 60%, #3c382d);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+
+/* 座金と筋交い。座金は壁に当たる縦の板、筋交いは腕を下から支える斜材 */
+.sw-sodekanban.is-udegane::after {
+  content: "";
+  position: absolute;
+  left: -2.1em; top: 0.3em;
+  width: 2.1em; height: 2.2em;
+  pointer-events: none;
+  background-image:
+    /* 座金。壁に当たる縦板 */
+    linear-gradient(#6d6555, #423d32),
+    /* 筋交い。座金の下から腕の先へ斜めに */
+    linear-gradient(to top right, transparent calc(50% - 0.09em),
+      #55503f calc(50% - 0.09em), #55503f calc(50% + 0.09em),
+      transparent calc(50% + 0.09em));
+  background-size: 0.42em 2.2em, 1.75em 1.6em;
+  background-position: left top, 0.42em 0.55em;
+  background-repeat: no-repeat;
 }
 
 /* --- 帯 --- */
