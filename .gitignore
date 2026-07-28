@@ -4,5 +4,5 @@
 .light.html
 .dark.html
 
-# 書体の原本（OFLだがサイズが大きいので配布物には含めない）
-fonts/
+# Google Fonts の原本（OFL。サイズが大きいので配布物には含めない）
+fonts/*.ttf

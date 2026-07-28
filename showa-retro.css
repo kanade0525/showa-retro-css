@@ -48,10 +48,12 @@
 
 :root {
   /* 明朝。昭和の本文組は明朝です。この書体が地の文を背負います */
-  /* 晩秋レトロミン（すずみばと書林）を最優先。同梱していません。
-     BOOTHから入手して端末に入れるか @font-face で置いてください。
-     収録が「教育漢字＋α」なので、琺瑯・絣・琲 などは次の書体に落ちます。 */
-  --sw-mincho: "晩秋レトロミン", "BansyuRetromin",
+  /* 晩秋レトロミン（すずみばと書林 ver.3.2）を最優先。
+     Webへの埋め込みが許諾されているので showa-retro-fonts.css で読み込みます。
+     収録は「教育漢字＋α」の1732字なので、琺瑯・絣・琲・錆・罫・駄 などは
+     次の書体（しっぽり明朝→Zen Old Mincho）に落ちます。
+     見出し向けの書体で、本文組み向けではない点は作者も明記しています。 */
+  --sw-mincho: "晩秋レトロミン", "Bansyu-retoromin", "Bansyu-retoromin R",
                "しっぽり明朝", "Shippori Mincho", "はんなり明朝", "Hannari",
                "Zen Old Mincho", "コーポレート明朝 ver3",
                "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
