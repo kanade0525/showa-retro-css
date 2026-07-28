@@ -3,6 +3,26 @@
 書式は [Keep a Changelog](https://keepachangelog.com/ja/1.1.0/) に、
 版の付け方は [セマンティック バージョニング](https://semver.org/lang/ja/) に従います。
 
+## [2.0.3] — 2026-07-28
+
+**2.0.2 のコード欄の書体指定は、実際には効いていませんでした。** 修正します。
+
+`code` `pre` `kbd` `samp` はブラウザ既定のスタイルシートが
+`font-family: monospace` を**要素自身に**持っています。要素に直接当たった値は
+親からの継承より強いので、`<pre class="d-code"><code>…</code></pre>` のように
+中へ `code` を入れると、そこだけブラウザ既定の等幅に落ちます。
+文字を描いているのは `code` の方なので、`--sw-mono` を何に変えても
+表示は変わっていませんでした。
+
+`.sw-code` はクラスが要素に直接付くので効いており、そちらだけ見て
+効いていると判断したのが誤りでした。
+
+### 修正
+
+- `.sw :where(pre, code, kbd, samp)` に `--sw-mono` を敷いた。
+  `:where()` で詳細度を 0 にしてあるので、`.sw-aozake` のような
+  部品側の指定が従来どおり勝ちます。
+
 ## [2.0.2] — 2026-07-28
 
 コード欄の書体を Monaco 優先に戻しました。2.0.1 で M PLUS 1 Code を先頭にしましたが、
@@ -165,6 +185,7 @@ npm に出す前に、番号の付け方を正しておきます。今回から 
 
 - 初期の公開版
 
+[2.0.3]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.0.3
 [2.0.2]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.0.2
 [2.0.1]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.0.1
 [2.0.0]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.0.0

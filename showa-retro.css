@@ -275,6 +275,15 @@
   box-sizing: border-box;
 }
 
+/* code / pre / kbd / samp はブラウザ既定が font-family: monospace を
+   要素自身に持っています。要素に直接当たった値は親からの継承より強いので、
+   <pre class="sw-aozake"><code>…</code></pre> のように中へ code を入れると、
+   そこだけブラウザ既定の等幅に落ちて指定が素通りします。
+   :where() で詳細度を 0 にして敷き、部品側の指定が勝つようにします。 */
+.sw :where(pre, code, kbd, samp) {
+  font-family: var(--sw-mono);
+}
+
 .sw {
   min-height: 100vh;
   background-color: var(--sw-paper);
