@@ -40,7 +40,9 @@
     "build": "node tools/build.mjs",
     "check": "node tools/build.mjs --check && node tools/contrast.mjs --check && node tools/check-docs.mjs && node tools/check-glyphs.mjs",
     "contrast": "node tools/contrast.mjs",
-    "prepublishOnly": "npm run build && npm run check"
+    "prepublishOnly": "npm run build && npm run check",
+    "shots": "node tools/shots.mjs",
+    "dev": "python3 -m http.server 8765"
   },
   "devDependencies": {
     "esbuild": "^0.28.1"
