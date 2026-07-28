@@ -41,11 +41,11 @@ body { margin: 0; }
 .d-mise-naka {
   max-width: 60rem; margin-inline: auto;
   padding: clamp(1.1rem, 3vw, 1.8rem) clamp(1rem, 4vw, 2rem);
-  display: grid; grid-template-columns: auto minmax(0,1fr) auto;
+  display: grid; grid-template-columns: minmax(0,1fr) auto;
   gap: clamp(0.8rem, 2.5vw, 1.5rem); align-items: center;
 }
 .d-mise-migi { display: grid; gap: 0.7rem; justify-items: center; }
-@media (max-width: 60rem) { .d-mise-naka { grid-template-columns: auto minmax(0,1fr); } .d-mise-migi { display: none; } }
+@media (max-width: 60rem) { .d-mise-naka { grid-template-columns: minmax(0,1fr); } .d-mise-migi { display: none; } }
 @media (max-width: 42rem) { .d-mise-naka { grid-template-columns: 1fr; } }
 
 /* ── 目次。飾らない入れ子の箇条書き ───────────────────────────── */
@@ -167,7 +167,6 @@ body { margin: 0; }
     <span class="nuno">昭</span><span class="nuno">和</span><span class="nuno">レ</span><span class="nuno">ト</span><span class="nuno">ロ</span>
   </div>
   <div class="d-mise-naka">
-    <span class="sw-sodekanban is-udegane" style="font-size:clamp(1.1rem,3.2vw,1.4rem);">見本</span>
     <div class="sw-kanban is-sabi">
       <p class="sw-eyebrow" style="color:rgba(244,236,216,.75); margin:0 0 .4rem;">CSS FRAMEWORK</p>
       <h1 class="sw-midashi is-2xl is-tsumeru" style="color:#f4ecd8;">昭和レトロ.css</h1>
@@ -1444,7 +1443,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 60KB / gzip 12.5K
 </section>
 
 <footer class="d-foot d-wrap">
-  <p style="margin:0">昭和レトロ.css v2.2.0・CSS は MIT License。書体は各ライセンスに従います（付属の晩秋レトロミンは OFL ではありません）。<a href="https://github.com/kanade0525/showa-retro-css/blob/main/LICENSE">詳細</a></p>
+  <p style="margin:0">昭和レトロ.css v2.2.1・CSS は MIT License。書体は各ライセンスに従います（付属の晩秋レトロミンは OFL ではありません）。<a href="https://github.com/kanade0525/showa-retro-css/blob/main/LICENSE">詳細</a></p>
   <p style="margin:.3rem 0 0">画像もJavaScriptも使いません。このページのJSはコピーボタンとより分けのためだけに使っています。</p>
   <p style="margin:.3rem 0 0">見本の電話番号・日付・文言はすべて実在しないものです。</p>
 </footer>
