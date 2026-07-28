@@ -1,0 +1,153 @@
+/* ==========================================================================
+   8. ボタンと操作
+   ========================================================================== */
+
+.sw-btn {
+  display: inline-block;
+  font-family: var(--sw-gothic);
+  font-size: var(--sw-t-base);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-indent: 0.12em;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  color: var(--sw-sumi);
+  background: var(--sw-paper-3);
+  border: var(--sw-kei-futo) solid var(--sw-sumi);
+  padding: 0.6em 1.5em;
+  cursor: pointer;
+  box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-sumi);
+  transition: transform 0.06s steps(2), box-shadow 0.06s steps(2);
+}
+
+.sw-btn:hover { background: var(--sw-paper-2); }
+
+.sw-btn:active {
+  transform: translate(var(--sw-kage), var(--sw-kage));
+  box-shadow: 0 0 0 var(--sw-sumi);
+}
+
+/* 色付きは地と字を対で持たせます */
+.sw-btn.is-enji    { background: var(--sw-o-enji);    color: var(--sw-o-kinari); }
+.sw-btn.is-enji:hover    { background: var(--sw-enji-fuka); }
+.sw-btn.is-karashi { background: var(--sw-o-karashi); color: var(--sw-o-sumi); }
+.sw-btn.is-karashi:hover { background: var(--sw-karashi-fuka); color: var(--sw-o-kinari); }
+.sw-btn.is-tokiwa  { background: var(--sw-o-tokiwa);  color: var(--sw-o-kinari); }
+.sw-btn.is-tokiwa:hover  { background: var(--sw-tokiwa-fuka); }
+.sw-btn.is-kon     { background: var(--sw-o-kon);     color: var(--sw-o-kinari); }
+.sw-btn.is-kon:hover     { background: var(--sw-kon-fuka); }
+.sw-btn.is-asagi   { background: var(--sw-o-asagi);   color: var(--sw-o-sumi); }
+.sw-btn.is-asagi:hover   { background: var(--sw-asagi-fuka); color: var(--sw-o-kinari); }
+.sw-btn.is-momo    { background: var(--sw-o-momo);    color: var(--sw-o-sumi); }
+.sw-btn.is-momo:hover    { background: var(--sw-momo-fuka); color: var(--sw-o-kinari); }
+.sw-btn.is-daidai  { background: var(--sw-o-daidai);  color: var(--sw-o-sumi); }
+.sw-btn.is-daidai:hover  { background: var(--sw-daidai-fuka); color: var(--sw-o-kinari); }
+.sw-btn.is-mizu    { background: var(--sw-o-mizu);    color: var(--sw-o-sumi); }
+.sw-btn.is-mizu:hover    { background: var(--sw-mizu-fuka); color: var(--sw-o-kinari); }
+
+.sw-btn.is-sm { font-size: var(--sw-t-sm); padding: 0.4em 1em; }
+.sw-btn.is-lg { font-size: var(--sw-t-md); padding: 0.7em 2em; }
+.sw-btn.is-block { display: block; width: 100%; }
+.sw-btn.is-mincho { font-family: var(--sw-mincho); }
+
+.sw-btn.is-disabled,
+.sw-btn:disabled {
+  background: var(--sw-paper-2);
+  color: var(--sw-kei);
+  border-color: var(--sw-kei);
+  box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-kei-usu);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) { .sw-btn { transition: none; } }
+
+/* 券売機のボタン。押し込む丸い樹脂 */
+.sw-kenbai {
+  display: inline-grid;
+  place-content: center;
+  text-align: center;
+  width: 6.5rem;
+  height: 4rem;
+  padding: 0.2em;
+  font-family: var(--sw-gothic);
+  font-size: var(--sw-t-sm);
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--sw-o-sumi);
+  background: #efe9dc;
+  border: 2px solid #b8ae99;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow:
+    inset 0 -4px 0 rgba(36, 31, 26, 0.2),
+    inset 0 2px 0 rgba(255, 255, 255, 0.8),
+    0 4px 0 #b8ae99;
+  transition: transform 0.06s, box-shadow 0.06s;
+}
+
+.sw-kenbai:active {
+  transform: translateY(4px);
+  box-shadow: inset 0 -2px 0 rgba(36, 31, 26, 0.2), 0 0 0 #b8ae99;
+}
+
+.sw-kenbai .nedan {
+  display: block;
+  font-family: var(--sw-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--sw-t-xs);
+  color: var(--sw-o-enji);
+}
+
+.sw-kenbai.is-urikire {
+  color: #9c927e;
+  background: #ddd6c6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.sw-kenbai.is-urikire .nedan { color: #9c927e; }
+
+/* ラジオのつまみ */
+.sw-tsumami {
+  display: inline-block;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  background:
+    conic-gradient(from 210deg, rgba(255,255,255,.32), rgba(0,0,0,.3) 55%, rgba(255,255,255,.22)),
+    radial-gradient(circle at 38% 32%, #6d6055, #35302a 72%);
+  border: 3px solid var(--sw-o-sumi);
+  box-shadow: 0 4px 0 var(--sw-shade), inset 0 0 12px rgba(0,0,0,.6);
+  position: relative;
+}
+
+.sw-tsumami::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 12%;
+  width: 4px;
+  height: 32%;
+  margin-left: -2px;
+  background: var(--sw-o-usuki);
+  border-radius: 2px;
+}
+
+/* 目盛り */
+.sw-progress {
+  appearance: none;
+  width: 100%;
+  height: 1.5rem;
+  background: var(--sw-paper-2);
+  border: var(--sw-kei-futo) solid var(--sw-sumi);
+}
+
+.sw-progress::-webkit-progress-bar { background: var(--sw-paper-2); }
+.sw-progress::-webkit-progress-value {
+  background: repeating-linear-gradient(90deg, var(--sw-o-enji) 0 8px, var(--sw-enji-fuka) 8px 10px);
+}
+.sw-progress::-moz-progress-bar {
+  background: repeating-linear-gradient(90deg, var(--sw-o-enji) 0 8px, var(--sw-enji-fuka) 8px 10px);
+}
+

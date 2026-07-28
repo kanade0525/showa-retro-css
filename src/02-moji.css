@@ -1,0 +1,199 @@
+/* ==========================================================================
+   5. 文字組
+   ========================================================================== */
+
+.sw-midashi {
+  font-family: var(--sw-retromin);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0.06em;
+  text-wrap: balance;
+  margin: 0;
+}
+
+.sw-midashi.is-3xl { font-size: var(--sw-t-3xl); line-height: 1.25; }
+.sw-midashi.is-2xl { font-size: var(--sw-t-2xl); }
+.sw-midashi.is-xl  { font-size: var(--sw-t-xl); }
+.sw-midashi.is-lg  { font-size: var(--sw-t-lg); }
+.sw-midashi.is-md  { font-size: var(--sw-t-md); }
+
+/* ツメ組み。昭和の見出しは字間を詰めて紙を埋めます */
+.sw-midashi.is-tsumeru { letter-spacing: -0.045em; line-height: 1.02; }
+
+/* --- 書体の差し替え --- */
+
+/* 飾り書体は太字を持たないので、合成ボールドで潰れないよう止めます */
+.sw-f-futo, .sw-f-poster, .sw-f-rittai,
+.sw-f-marumoji, .sw-f-tegaki, .sw-f-dot {
+  font-weight: 400;
+  font-synthesis: none;
+}
+
+.sw-f-mincho   { font-family: var(--sw-mincho); }
+.sw-f-gothic   { font-family: var(--sw-gothic); }
+.sw-f-jimaku   { font-family: var(--sw-jimaku); letter-spacing: 0.08em; }
+
+
+.sw-f-tegaki   { font-family: var(--sw-tegaki); }
+.sw-f-anchikku { font-family: var(--sw-anchikku); }
+.sw-f-maru     { font-family: var(--sw-maru); }
+.sw-f-dot      { font-family: var(--sw-dot); }
+
+/* --- 見出しの加工 -----------------------------------------------------
+   加工文字は物体色で組みます。刷り色を使うと夜間モードで
+   縁と抜きの明暗が入れ替わり、字が地に溶けます。 */
+
+/* 影文字。版を少しずらして重ねる */
+.sw-midashi.is-kage {
+  text-shadow: 3px 3px 0 var(--sw-karashi), 6px 6px 0 var(--sw-kei-usu);
+}
+
+/* 袋文字。縁を取って中を紙色で抜く */
+.sw-midashi.is-fukuro {
+  color: var(--sw-o-kinari);
+  -webkit-text-stroke: 2px var(--sw-o-sumi);
+  paint-order: stroke fill;
+  text-shadow: 4px 4px 0 var(--sw-o-enji);
+}
+
+/* 二重の縁取り。歌謡番組のテロップ。
+   縁は字面の一割ほどに留めます。太くすると字の内側が埋まります。 */
+.sw-midashi.is-fuchi {
+  color: var(--sw-o-usuki);
+  -webkit-text-stroke: 0.1em var(--sw-o-enji);
+  paint-order: stroke fill;
+  text-shadow: 3px 4px 0 var(--sw-o-sumi);
+}
+
+/* 立体。奥へ伸びる押し出し文字 */
+.sw-midashi.is-rittai {
+  color: var(--sw-o-usuki);
+  text-shadow:
+    1px 1px 0 var(--sw-o-kogecha), 2px 2px 0 var(--sw-o-kogecha),
+    3px 3px 0 var(--sw-o-kogecha), 4px 4px 0 var(--sw-o-kogecha),
+    5px 5px 0 var(--sw-o-kogecha), 6px 6px 0 var(--sw-o-kogecha),
+    7px 8px 6px rgba(0, 0, 0, 0.35);
+}
+
+/* --- 縦組み ---
+   高さが足りないと無言で段組みになります。一行に収めたいときは
+   is-hitohira を付けてください。 */
+.sw-tate {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-family: var(--sw-mincho);
+  line-height: 1.75;
+  letter-spacing: 0.18em;
+}
+
+.sw-tate.is-mixed { text-orientation: mixed; }
+.sw-tate.is-hitohira { white-space: nowrap; }
+
+/* 縦中横。縦組みの中で数字だけ横に寝かせる */
+.sw-tcy { text-combine-upright: all; -webkit-text-combine: horizontal; }
+
+/* 長体・平体。写植の変形指定にあたるもの */
+.sw-choutai { display: inline-block; transform: scaleX(0.82); transform-origin: left center; }
+.sw-heitai  { display: inline-block; transform: scaleY(0.82); transform-origin: center bottom; }
+
+.sw-eyebrow {
+  display: inline-block;
+  font-family: var(--sw-gothic);
+  font-size: var(--sw-t-sm);
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-indent: 0.32em;
+  color: var(--sw-enji);
+}
+
+.sw-lead {
+  font-family: var(--sw-mincho);
+  font-size: var(--sw-t-md);
+  line-height: 2;
+  max-width: 34em;
+  margin: 0;
+}
+
+.sw-honbun { max-width: 38em; margin: 0; }
+
+/* --- 文中のあしらい ---
+   蛍光ペンは地色と文字色を対で持たせます。文字色を継承させると
+   夜間モードで明色の文字が蛍光色に乗って読めなくなります。 */
+.sw-marker {
+  background-image: linear-gradient(transparent 62%, var(--sw-o-karashi) 62%);
+  color: var(--sw-o-sumi);
+  padding: 0 0.1em;
+}
+.sw-marker.is-momo  { background-image: linear-gradient(transparent 62%, var(--sw-o-momo) 62%); }
+.sw-marker.is-asagi { background-image: linear-gradient(transparent 62%, var(--sw-o-asagi) 62%); }
+
+.sw-boten {
+  text-emphasis: filled dot var(--sw-enji);
+  -webkit-text-emphasis: filled dot var(--sw-enji);
+  text-emphasis-position: over right;
+  -webkit-text-emphasis-position: over right;
+}
+.sw-boten.is-sesame {
+  text-emphasis: filled sesame currentColor;
+  -webkit-text-emphasis: filled sesame currentColor;
+}
+
+.sw-teisei {
+  text-decoration: line-through double var(--sw-enji);
+  text-decoration-thickness: 2px;
+  color: var(--sw-sumi-usu);
+}
+
+.sw ruby { ruby-position: over; }
+.sw rt {
+  font-size: 0.45em;
+  letter-spacing: 0.05em;
+  color: var(--sw-sumi-usu);
+  font-weight: 400;
+}
+
+/* 自前の地色を持つ部品は文字色も自分で決めます。
+   継承に任せると、地色の違う面に置いた途端に潰れます。 */
+.sw-code {
+  font-family: var(--sw-mono);
+  font-size: 0.9em;
+  color: var(--sw-sumi);
+  background: var(--sw-paper-2);
+  border: 1px solid var(--sw-kei);
+  padding: 0.1em 0.4em;
+}
+
+/* --- 区切り --- */
+
+.sw-shikiri {
+  border: 0;
+  height: 8px;
+  background:
+    linear-gradient(var(--sw-sumi), var(--sw-sumi)) 0 0 / 100% 2px no-repeat,
+    linear-gradient(var(--sw-sumi), var(--sw-sumi)) 0 6px / 100% 2px no-repeat;
+  margin: calc(var(--sw-ma) * 2) 0;
+}
+
+.sw-shikiri.is-kazari {
+  height: auto;
+  background: none;
+  text-align: center;
+  color: var(--sw-sumi-usu);
+}
+.sw-shikiri.is-kazari::before {
+  content: "❖　❖　❖";
+  letter-spacing: 0.4em;
+  font-size: var(--sw-t-sm);
+}
+
+.sw-shikiri.is-nami {
+  height: 10px;
+  background: none;
+  background-image:
+    radial-gradient(circle 6px at 50% 100%, transparent 0 4px, var(--sw-sumi-usu) 4px 6px, transparent 6px),
+    radial-gradient(circle 6px at 50% 0, transparent 0 4px, var(--sw-sumi-usu) 4px 6px, transparent 6px);
+  background-size: 12px 10px;
+  background-position: 0 0, 6px 0;
+  background-repeat: repeat-x;
+}
+

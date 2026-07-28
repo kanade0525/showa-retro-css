@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # 生成物が src/ と一致しているか、コントラスト表が最新か、
+      # ドキュメントに書いたクラスが実在するか。
+      # dist が古いまま公開される事故と、消したクラスが README に残る事故を
+      # 繰り返しているので、ここで止める。
+      - name: 生成物・表・ドキュメントの整合
+        run: npm run check
+
+      # 念のためビルドし直して、差分が出ないことも見る
+      - name: ビルドして差分が出ないこと
+        run: |
+          npm run build
+          git diff --exit-code -- showa-retro.css dist/
+
+      # 付属フォントの利用条件で readme.txt の添付が必須
+      - name: 晩秋レトロミンの readme.txt があるか
+        run: test -f fonts/bansyu-retoromin/readme.txt
+
+      # npm 配布物に何が入るか。書庫や作業ファイルの混入を落とす
+      - name: 配布物の中身
+        run: |
+          npm pack --dry-run --json > /tmp/pack.json
+          node -e '
+            const f = require("/tmp/pack.json")[0].files.map(x => x.path);
+            const bad = f.filter(p => /\.zip$|(^|\/)_.*\.html$|node_modules/.test(p));
+            if (bad.length) { console.error("配布物に入ってはいけないもの:", bad); process.exit(1); }
+            console.log(f.length + " ファイル / " + (require("/tmp/pack.json")[0].unpackedSize/1024).toFixed(0) + "KB");
+          '

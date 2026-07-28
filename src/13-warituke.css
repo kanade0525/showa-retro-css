@@ -1,0 +1,46 @@
+/* ==========================================================================
+   16. 割付とユーティリティ
+   ========================================================================== */
+
+.sw-wrap {
+  max-width: 68rem;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 2.5rem);
+}
+
+.sw-stack { display: flex; flex-direction: column; gap: var(--sw-ma); }
+.sw-stack.is-lg { gap: calc(var(--sw-ma) * 2); }
+.sw-stack.is-sm { gap: calc(var(--sw-ma) * 0.5); }
+
+.sw-row { display: flex; flex-wrap: wrap; gap: var(--sw-ma); align-items: center; }
+
+.sw-cols {
+  display: grid;
+  gap: calc(var(--sw-ma) * 1.5);
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+}
+
+/* 文字色。刷り色六色と薄墨 */
+.sw-c-enji    { color: var(--sw-enji); }
+.sw-c-karashi { color: var(--sw-karashi); }
+.sw-c-tokiwa  { color: var(--sw-tokiwa); }
+.sw-c-kon     { color: var(--sw-kon); }
+.sw-c-asagi   { color: var(--sw-asagi); }
+.sw-c-momo    { color: var(--sw-momo); }
+.sw-c-daidai  { color: var(--sw-daidai); }
+.sw-c-mizu    { color: var(--sw-mizu); }
+.sw-c-usu     { color: var(--sw-sumi-usu); }
+
+/* 地色。地と字を対で当てます */
+.sw-bg-enji    { background-color: var(--sw-o-enji);    color: var(--sw-o-kinari); }
+.sw-bg-karashi { background-color: var(--sw-o-karashi); color: var(--sw-o-sumi); }
+.sw-bg-tokiwa  { background-color: var(--sw-o-tokiwa);  color: var(--sw-o-kinari); }
+.sw-bg-kon     { background-color: var(--sw-o-kon);     color: var(--sw-o-kinari); }
+.sw-bg-asagi   { background-color: var(--sw-o-asagi);   color: var(--sw-o-sumi); }
+.sw-bg-momo    { background-color: var(--sw-o-momo);    color: var(--sw-o-sumi); }
+.sw-bg-daidai  { background-color: var(--sw-o-daidai);  color: var(--sw-o-sumi); }
+.sw-bg-mizu    { background-color: var(--sw-o-mizu);    color: var(--sw-o-sumi); }
+
+/* 傾き。貼り紙の癖 */
+.sw-katamuki-l { transform: rotate(-2.5deg); }
+.sw-katamuki-r { transform: rotate(2.5deg); }

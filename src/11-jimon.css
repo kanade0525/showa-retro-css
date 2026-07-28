@@ -1,0 +1,158 @@
+/* ==========================================================================
+   14. 地紋
+   ========================================================================== */
+
+/* 市松 */
+.sw-ji-ichimatsu {
+  background-color: var(--sw-paper);
+  background-image:
+    linear-gradient(45deg, var(--sw-pattern) 25%, transparent 25% 75%, var(--sw-pattern) 75%),
+    linear-gradient(45deg, var(--sw-pattern) 25%, transparent 25% 75%, var(--sw-pattern) 75%);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+}
+
+/* 矢絣。矢羽根は軸を挟んだ左右一対の羽。
+   中央に軸ぶんの空きを作らないと、ただのジグザグに見える */
+.sw-ji-yagasuri {
+  background-color: var(--sw-paper);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='52' viewBox='0 0 36 52'%3E%3Cg fill='%232a2622' fill-opacity='.14'%3E%3Cpath d='M15.4 3 L2 17 L2 27 L15.4 13 Z'/%3E%3Cpath d='M20.6 3 L34 17 L34 27 L20.6 13 Z'/%3E%3Cpath d='M15.4 29 L2 43 L2 53 L15.4 39 Z'/%3E%3Cpath d='M20.6 29 L34 43 L34 53 L20.6 39 Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 36px 52px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .sw-ji-yagasuri {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='52' viewBox='0 0 36 52'%3E%3Cg fill='%23ece2cc' fill-opacity='.14'%3E%3Cpath d='M15.4 3 L2 17 L2 27 L15.4 13 Z'/%3E%3Cpath d='M20.6 3 L34 17 L34 27 L20.6 13 Z'/%3E%3Cpath d='M15.4 29 L2 43 L2 53 L15.4 39 Z'/%3E%3Cpath d='M20.6 29 L34 43 L34 53 L20.6 39 Z'/%3E%3C/g%3E%3C/svg%3E");
+  }
+}
+:root[data-theme="dark"] .sw-ji-yagasuri {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='52' viewBox='0 0 36 52'%3E%3Cg fill='%23ece2cc' fill-opacity='.14'%3E%3Cpath d='M15.4 3 L2 17 L2 27 L15.4 13 Z'/%3E%3Cpath d='M20.6 3 L34 17 L34 27 L20.6 13 Z'/%3E%3Cpath d='M15.4 29 L2 43 L2 53 L15.4 39 Z'/%3E%3Cpath d='M20.6 29 L34 43 L34 53 L20.6 39 Z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* 水玉 */
+.sw-ji-mizutama {
+  background-color: var(--sw-paper);
+  background-image:
+    radial-gradient(circle at 50% 50%, var(--sw-pattern) 3.5px, transparent 4px),
+    radial-gradient(circle at 50% 50%, var(--sw-pattern) 3.5px, transparent 4px);
+  background-size: 26px 26px;
+  background-position: 0 0, 13px 13px;
+}
+
+/* 縞 */
+.sw-ji-shima {
+  background-color: var(--sw-paper);
+  background-image: repeating-linear-gradient(90deg, var(--sw-pattern) 0 6px, transparent 6px 16px);
+}
+
+/* 格子。こたつ布団と学生服の柄 */
+.sw-ji-koushi {
+  background-color: var(--sw-paper);
+  background-image:
+    repeating-linear-gradient(0deg,  var(--sw-pattern) 0 11px, transparent 11px 44px),
+    repeating-linear-gradient(90deg, var(--sw-pattern) 0 11px, transparent 11px 44px),
+    repeating-linear-gradient(0deg,  var(--sw-pattern) 0 2px, transparent 2px 22px),
+    repeating-linear-gradient(90deg, var(--sw-pattern) 0 2px, transparent 2px 22px);
+}
+
+/* 方眼 */
+.sw-ji-hougan {
+  background-color: var(--sw-paper-3);
+  background-image:
+    linear-gradient(var(--sw-kei-usu) 1px, transparent 1px),
+    linear-gradient(90deg, var(--sw-kei-usu) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* 網点 */
+.sw-ji-amiten {
+  background-color: var(--sw-paper);
+  background-image: radial-gradient(circle at center, var(--sw-pattern) 2px, transparent 2.4px);
+  background-size: 7px 7px;
+}
+
+/* 同心円の大柄。昭和の駄菓子屋や包装紙の地。
+   旧版では「大柄幾何学」として橙の大円＋緑の点を置いていましたが、
+   実物は色違いの同心円がびっしり並ぶ柄でした。撤去ではなく作り直しです。 */
+.sw-ji-dosen {
+  background-color: #f0e6cd;
+  background-image: repeating-radial-gradient(
+    circle at 50% 50%,
+    #d4491a 0 7px, transparent 7px 13px,
+    #3c6b52 13px 20px, transparent 20px 26px,
+    #28405c 26px 33px, transparent 33px 39px
+  );
+  background-size: 78px 78px;
+}
+
+.sw-ji-dosen.is-momo {
+  background-color: #f6efe4;
+  background-image: repeating-radial-gradient(
+    circle at 50% 50%,
+    #cf8e8e 0 7px, transparent 7px 13px,
+    #6cb8cf 13px 20px, transparent 20px 26px,
+    #d3a333 26px 33px, transparent 33px 39px
+  );
+}
+
+/* モザイクタイル。銭湯と喫茶店の腰壁 */
+.sw-ji-tile {
+  background-color: #79b0a5;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.28) 0 1px, transparent 1px 100%),
+    linear-gradient(#e5d9bf 2px, transparent 2px),
+    linear-gradient(90deg, #e5d9bf 2px, transparent 2px);
+  background-size: 20px 20px;
+}
+
+.sw-ji-tile.is-momo  { background-color: #cf8e8e; }
+.sw-ji-tile.is-usuki { background-color: #f7db76; }
+
+/* 型板ガラス。モール */
+.sw-ji-garasu {
+  background-color: #e5d9bf;
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.55) 0 2px,
+    rgba(255, 255, 255, 0.12) 2px 7px,
+    rgba(36, 31, 26, 0.10) 7px 13px,
+    rgba(255, 255, 255, 0.12) 13px 18px
+  );
+}
+
+/* 花柄。昭和の花柄ポットと布団の柄。
+   色は図案に焼き込んであるので、三通りを用意しています */
+.sw-ji-hanagara {
+  background-color: #f7db76;
+  background-size: 120px 120px;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27120%27%20height%3D%27120%27%20viewBox%3D%270%200%20120%20120%27%3E%3Cg%20fill%3D%27%23a8332f%27%3E%3Ccircle%20cx%3D%2730.0%27%20cy%3D%2718.0%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2741.4%27%20cy%3D%2726.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2737.1%27%20cy%3D%2739.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2722.9%27%20cy%3D%2739.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2718.6%27%20cy%3D%2726.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2790.0%27%20cy%3D%2778.0%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%27101.4%27%20cy%3D%2786.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2797.1%27%20cy%3D%2799.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2782.9%27%20cy%3D%2799.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2778.6%27%20cy%3D%2786.3%27%20r%3D%2710.4%27%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2730%27%20r%3D%277.5%27%20fill%3D%27%23d6a83c%27%2F%3E%3Ccircle%20cx%3D%2790%27%20cy%3D%2790%27%20r%3D%277.5%27%20fill%3D%27%23d6a83c%27%2F%3E%3Cg%20fill%3D%27%23d6a83c%27%20opacity%3D%27.55%27%3E%3Ccircle%20cx%3D%2790.0%27%20cy%3D%2723.4%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2796.3%27%20cy%3D%2728.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2793.9%27%20cy%3D%2735.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2786.1%27%20cy%3D%2735.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2783.7%27%20cy%3D%2728.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2730.0%27%20cy%3D%2783.4%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2736.3%27%20cy%3D%2788.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2733.9%27%20cy%3D%2795.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2726.1%27%20cy%3D%2795.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2723.7%27%20cy%3D%2788.0%27%20r%3D%275.7%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+}
+
+.sw-ji-hanagara.is-tokiwa {
+  background-color: #f0ead2;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27120%27%20height%3D%27120%27%20viewBox%3D%270%200%20120%20120%27%3E%3Cg%20fill%3D%27%233c6b52%27%3E%3Ccircle%20cx%3D%2730.0%27%20cy%3D%2718.0%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2741.4%27%20cy%3D%2726.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2737.1%27%20cy%3D%2739.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2722.9%27%20cy%3D%2739.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2718.6%27%20cy%3D%2726.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2790.0%27%20cy%3D%2778.0%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%27101.4%27%20cy%3D%2786.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2797.1%27%20cy%3D%2799.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2782.9%27%20cy%3D%2799.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2778.6%27%20cy%3D%2786.3%27%20r%3D%2710.4%27%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2730%27%20r%3D%277.5%27%20fill%3D%27%23e8a30c%27%2F%3E%3Ccircle%20cx%3D%2790%27%20cy%3D%2790%27%20r%3D%277.5%27%20fill%3D%27%23e8a30c%27%2F%3E%3Cg%20fill%3D%27%23e8a30c%27%20opacity%3D%27.55%27%3E%3Ccircle%20cx%3D%2790.0%27%20cy%3D%2723.4%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2796.3%27%20cy%3D%2728.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2793.9%27%20cy%3D%2735.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2786.1%27%20cy%3D%2735.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2783.7%27%20cy%3D%2728.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2730.0%27%20cy%3D%2783.4%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2736.3%27%20cy%3D%2788.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2733.9%27%20cy%3D%2795.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2726.1%27%20cy%3D%2795.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2723.7%27%20cy%3D%2788.0%27%20r%3D%275.7%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+}
+
+.sw-ji-hanagara.is-momo {
+  background-color: #f6efe4;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27120%27%20height%3D%27120%27%20viewBox%3D%270%200%20120%20120%27%3E%3Cg%20fill%3D%27%23cf8e8e%27%3E%3Ccircle%20cx%3D%2730.0%27%20cy%3D%2718.0%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2741.4%27%20cy%3D%2726.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2737.1%27%20cy%3D%2739.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2722.9%27%20cy%3D%2739.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2718.6%27%20cy%3D%2726.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2790.0%27%20cy%3D%2778.0%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%27101.4%27%20cy%3D%2786.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2797.1%27%20cy%3D%2799.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2782.9%27%20cy%3D%2799.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2778.6%27%20cy%3D%2786.3%27%20r%3D%2710.4%27%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2730%27%20r%3D%277.5%27%20fill%3D%27%2379b0a5%27%2F%3E%3Ccircle%20cx%3D%2790%27%20cy%3D%2790%27%20r%3D%277.5%27%20fill%3D%27%2379b0a5%27%2F%3E%3Cg%20fill%3D%27%2379b0a5%27%20opacity%3D%27.55%27%3E%3Ccircle%20cx%3D%2790.0%27%20cy%3D%2723.4%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2796.3%27%20cy%3D%2728.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2793.9%27%20cy%3D%2735.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2786.1%27%20cy%3D%2735.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2783.7%27%20cy%3D%2728.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2730.0%27%20cy%3D%2783.4%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2736.3%27%20cy%3D%2788.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2733.9%27%20cy%3D%2795.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2726.1%27%20cy%3D%2795.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2723.7%27%20cy%3D%2788.0%27%20r%3D%275.7%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+}
+
+/* 喫茶店のソファ。ビニールレザー。
+   升目が膨らみ、交点のボタンが沈む。旧版は平らな面に点を置いただけだった。
+   縫い目の間隔62pxに対し、斜めの筋は 62/√2 ≒ 44px で交点が合う。 */
+.sw-ji-sofa {
+  background-color: #7d211e;
+  background-image:
+    /* 交点に沈むボタン */
+    radial-gradient(circle 5px at 50% 50%, #360f0e 0 46%, rgba(0,0,0,.55) 62%, transparent 74%),
+    radial-gradient(circle 5px at 50% 50%, #360f0e 0 46%, rgba(0,0,0,.55) 62%, transparent 74%),
+    /* 升目の膨らみ */
+    radial-gradient(circle at 50% 38%, rgba(255,255,255,.17), transparent 60%),
+    radial-gradient(circle at 50% 38%, rgba(255,255,255,.17), transparent 60%),
+    /* 縫い目 */
+    repeating-linear-gradient(45deg,  rgba(0,0,0,.26) 0 1.5px, transparent 1.5px 44px),
+    repeating-linear-gradient(-45deg, rgba(0,0,0,.26) 0 1.5px, transparent 1.5px 44px);
+  background-size: 62px 62px, 62px 62px, 62px 62px, 62px 62px, auto, auto;
+  background-position: 0 0, 31px 31px, 0 0, 31px 31px, 0 0, 0 0;
+}
+

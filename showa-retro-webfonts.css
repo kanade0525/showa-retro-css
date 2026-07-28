@@ -1,0 +1,62 @@
+@charset "UTF-8";
+/*!
+ * showa-retro-webfonts.css — Google Fonts から代用書体を読む（お手軽版・低速）
+ *
+ * ★ 速さを気にするなら、このファイルではなく HTML に <link> を置いてください。
+ *   @import は親CSSのパースが終わるまでリクエストが出ないため、
+ *   ここを通すと直列2ホップになります。<link> なら並列に走ります。
+ *
+ *     <link rel="preconnect" href="https://fonts.googleapis.com">
+ *     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ *     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code&family=DotGothic16&family=Shippori+Antique&family=Yusei+Magic&family=Zen+Kaku+Gothic+New:wght@400;700&family=Zen+Maru+Gothic:wght@700&family=Zen+Old+Mincho:wght@400;700&display=swap">
+ *
+ * ★ 第三者接続について
+ *   Google Fonts への直参照は、閲覧者のIPアドレスが Google に渡ります。
+ *   ドイツの地裁でこれが問題とされた事例があり、EU向けのサイトでは
+ *   自前ホスティングが無難です。手順は README の「書体を自前で持つ」を
+ *   見てください。7書体とも SIL Open Font License なので、
+ *   ダウンロードして自分のサーバに置くことが認められています。
+ *
+ * ★ 読み込まないという選択
+ *   このファイルも <link> も置かなければ、showa-retro.css は
+ *   OS標準の和文書体に落ちて、そのまま動きます。
+ *
+ * 最初にお断りしておきます。本物の昭和の見出し書体は写研の
+ * ゴナU（1975）・ナール（1973）・石井明朝 で、いずれも写研の所有です。
+ * OFLでは一緒に配れないため、ここで読み込むのは「代用」です。
+ * 年代を直接参照しているのは アンチック体とドット の二つだけです。
+ */
+
+@import url("https://fonts.googleapis.com/css2?family=M+PLUS+1+Code&family=DotGothic16&family=Shippori+Antique&family=Yusei+Magic&family=Zen+Kaku+Gothic+New:wght@400;700&family=Zen+Maru+Gothic:wght@700&family=Zen+Old+Mincho:wght@400;700&display=swap");
+
+/*
+ * ---------------------------------------------------------------------------
+ * 手元の書体で差し替える
+ * ---------------------------------------------------------------------------
+ * 下の書体は付属していません。「商用利用可」と「webフォントとして再配布可」は
+ * 別の許諾です。導入する際は各配布元の規約を必ず確認してください。
+ * showa-retro.css の各スタックには、これらの名前が先頭に入っています。
+ * 端末に入れるかローカルに @font-face で置けば、自動的にそちらが使われます。
+ *
+ *   役割          書体                    配布元
+ *   --------------------------------------------------------------
+ *   字幕          しねきゃぷしょん        FONT FREE
+ *   字幕          うずまさ本丸ゴシック    フロップデザイン
+ *   明朝          しっぽり明朝            FONTDASU（OFL版はGoogle Fontsにも）
+ *   明朝          はんなり明朝            Typing Art
+ *   本文ゴシック  かんじゅくゴシック      フロップデザイン
+ *   本文ゴシック  木漏れ日ゴシック        MODI工場
+ *   丸ゴシック    いろはマル              MODI工場
+ *   手書きPOP     たぬき油性マジック      たぬきフォント
+ *   手書き        からかぜ                BOOTH
+ *   アンチック    新コミック体            FONT910
+ *   ドット        マキナスカナ            もじワク研究
+ *
+ * ローカルに置く場合の例:
+ *
+ *   @font-face {
+ *     font-family: "しねきゃぷしょん";
+ *     src: url("./fonts/cinecaption226.woff2") format("woff2");
+ *     font-display: swap;
+ *   }
+ */

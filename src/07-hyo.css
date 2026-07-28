@@ -1,0 +1,145 @@
+/* ==========================================================================
+   10. 表・お品書き・伝票
+   ========================================================================== */
+
+.sw-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--sw-paper-3);
+  border: var(--sw-kei-futo) solid var(--sw-sumi);
+  font-variant-numeric: tabular-nums;
+}
+
+.sw-table th,
+.sw-table td {
+  border: 1px solid var(--sw-kei);
+  padding: 0.55em 0.9em;
+  text-align: left;
+}
+
+.sw-table thead th {
+  background: var(--sw-sumi);
+  color: var(--sw-paper);
+  font-family: var(--sw-mincho);
+  letter-spacing: 0.16em;
+  border-color: var(--sw-sumi);
+}
+
+.sw-table.is-shima tbody tr:nth-child(odd) { background: var(--sw-paper-2); }
+.sw-table .is-num { text-align: right; }
+
+.sw-scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* --- お品書き --- */
+
+.sw-shinagaki {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--sw-mincho);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.sw-shinagaki > li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+  font-size: var(--sw-t-md);
+}
+
+.sw-shinagaki .na { white-space: nowrap; }
+
+/* 伸縮する擬似要素が値段を右端まで押しやります */
+.sw-shinagaki > li::after {
+  content: "";
+  flex: 1 1 auto;
+  order: 1;
+  border-bottom: 2px dotted var(--sw-kei);
+  transform: translateY(-0.3em);
+  min-width: 1.5em;
+}
+
+.sw-shinagaki .nedan {
+  order: 2;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.sw-shinagaki .nedan::after {
+  content: "円";
+  font-size: 0.7em;
+  font-weight: 400;
+  margin-left: 0.15em;
+}
+
+/* --- 箇条書き --- */
+
+.sw-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.sw-list.is-nakaguro > li::before {
+  content: "・";
+  color: var(--sw-enji);
+  font-weight: 700;
+}
+
+.sw-list.is-maru { counter-reset: sw-maru; }
+
+.sw-list.is-maru > li { display: flex; gap: 0.55em; align-items: baseline; }
+
+.sw-list.is-maru > li::before {
+  counter-increment: sw-maru;
+  content: counter(sw-maru);
+  flex: 0 0 auto;
+  width: 1.6em;
+  height: 1.6em;
+  border: 2px solid var(--sw-enji);
+  border-radius: 50%;
+  color: var(--sw-enji);
+  font-size: 0.78em;
+  font-weight: 700;
+  display: grid;
+  place-content: center;
+  transform: translateY(0.15em);
+}
+
+/* --- 伝票。複写式の薄い紙 --- */
+
+.sw-denpyo {
+  background: var(--sw-paper-2);
+  border: 1px solid var(--sw-kei);
+  padding: var(--sw-ma);
+  font-family: var(--sw-mono);
+  font-size: var(--sw-t-sm);
+  line-height: 2.2;
+  background-image: repeating-linear-gradient(
+    var(--sw-paper-2) 0 calc(2.2em - 1px),
+    var(--sw-kei-usu) calc(2.2em - 1px) 2.2em
+  );
+  background-origin: content-box;
+  box-shadow: 2px 2px 0 var(--sw-kei-usu);
+}
+
+.sw-denpyo .gyou {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  font-variant-numeric: tabular-nums;
+}
+
+.sw-denpyo .gokei {
+  border-top: 2px solid var(--sw-sumi);
+  margin-top: 0.4em;
+  padding-top: 0.2em;
+  font-weight: 700;
+}
+

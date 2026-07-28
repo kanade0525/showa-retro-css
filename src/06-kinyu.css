@@ -1,0 +1,102 @@
+/* ==========================================================================
+   9. 記入欄
+   ========================================================================== */
+
+.sw-field { display: flex; flex-direction: column; gap: 0.35rem; }
+
+.sw-label {
+  font-family: var(--sw-gothic);
+  font-size: var(--sw-t-sm);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.sw-input,
+.sw-textarea,
+.sw-select {
+  font-family: inherit;
+  font-size: var(--sw-t-base);
+  color: var(--sw-sumi);
+  background: var(--sw-paper-3);
+  border: var(--sw-kei-futo) solid var(--sw-sumi);
+  padding: 0.55em 0.75em;
+  width: 100%;
+  box-shadow: inset 2px 2px 0 rgba(42, 38, 34, 0.12);
+}
+
+.sw-textarea { resize: vertical; min-height: 6em; line-height: 1.8; }
+
+.sw-select {
+  appearance: none;
+  padding-right: 2.4em;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--sw-sumi) 50%),
+    linear-gradient(135deg, var(--sw-sumi) 50%, transparent 50%);
+  background-position: right 1.15em top 55%, right 0.75em top 55%;
+  background-size: 7px 7px, 7px 7px;
+  background-repeat: no-repeat;
+}
+
+.sw-input::placeholder,
+.sw-textarea::placeholder { color: var(--sw-kei); }
+
+/* 升目に一字ずつ入れる欄
+   送りをマスの幅にぴったり合わせる必要があります。
+   letter-spacing は字の「後ろ」にだけ空きを作るので、
+   マス2.2em・字1em なら送りは1.2em、字下げは左右の余りの半分の0.6em。
+   さらに横のpaddingを0にして、罫の原点と字の原点を揃えます。 */
+.sw-input.is-genkou {
+  --sw-masu: 2.2em;
+  padding-inline: 0;
+  background:
+    repeating-linear-gradient(90deg,
+      transparent 0 calc(var(--sw-masu) - 1px),
+      var(--sw-o-asagi) calc(var(--sw-masu) - 1px) var(--sw-masu)) 0 0 / var(--sw-masu) 100%,
+    var(--sw-paper-3);
+  letter-spacing: calc(var(--sw-masu) - 1em);
+  text-indent: calc((var(--sw-masu) - 1em) / 2);
+  font-family: var(--sw-mincho);
+  text-align: left;
+}
+
+.sw-check,
+.sw-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  cursor: pointer;
+  line-height: 1.5;
+}
+
+.sw-check > input,
+.sw-radio > input {
+  appearance: none;
+  margin: 0;
+  width: 1.15em;
+  height: 1.15em;
+  flex: 0 0 auto;
+  background: var(--sw-paper-3);
+  border: var(--sw-kei-futo) solid var(--sw-sumi);
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+}
+
+.sw-radio > input { border-radius: 50%; }
+
+.sw-check > input:checked::before {
+  content: "✓";
+  font-size: 1em;
+  line-height: 1;
+  font-weight: 700;
+  color: var(--sw-enji);
+}
+
+.sw-radio > input:checked::before {
+  content: "";
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: var(--sw-enji);
+}
+

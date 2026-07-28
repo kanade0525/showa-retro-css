@@ -1,0 +1,66 @@
+/* ==========================================================================
+   6. 刷りの表情
+
+   旧版はここに「網点」「版ズレ」「退色」を置いていましたが、いずれも
+   実在の現象になっていませんでした。作り直したものと外したものを記します。
+
+   外した — 網点
+     網点は濃度に応じて点の径が変わることで階調を作る仕組みです。
+     等間隔・同一寸法の点は網点ではありません。点の地紋が要るなら
+     .sw-ji-amiten を使ってください。あれは網点と称していません。
+
+   作り直した — 版ズレ
+     旧版はシアンとマゼンタを左右に振っていました。あれはRGBの色収差で、
+     版ズレとは別の現象です。版ズレは一つの版が平行移動するので、
+     特色を一方向にだけずらします。
+
+   作り直した — 退色
+     旧版は一様な sepia() でした。実物は赤の顔料が先に飛んで青緑に寄り、
+     日焼けは縁から進みます。赤を落とすSVGフィルタと、縁に寄せた
+     黄変を重ねています。
+   ========================================================================== */
+
+/* 版ズレ。一つの版が一方向にずれる */
+.sw-hanzure {
+  text-shadow: 2px 1px 0 rgba(200, 62, 40, 0.55);
+}
+.sw-hanzure.is-ai   { text-shadow: -2px 1px 0 rgba(38, 74, 128, 0.5); }
+.sw-hanzure.is-ookii { text-shadow: 4px 2px 0 rgba(200, 62, 40, 0.6); }
+
+/* かすれ。インクが乗り切らなかった刷り面 */
+.sw-kasure {
+  -webkit-mask-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='k'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9 0.45' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 7 0 0 0 -2.6'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23k)'/%3E%3C/svg%3E");
+  mask-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='k'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9 0.45' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 7 0 0 0 -2.6'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23k)'/%3E%3C/svg%3E");
+}
+
+/* 退色。赤の顔料が先に飛ぶ。feColorMatrix で赤だけを落とす */
+.sw-taishoku {
+  position: relative;
+  isolation: isolate;
+  filter: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f' color-interpolation-filters='sRGB'%3E%3CfeColorMatrix type='matrix' values='0.62 0.24 0.10 0 0.06  0.03 0.90 0.05 0 0.02  0.02 0.14 0.80 0 0.01  0 0 0 1 0'/%3E%3C/filter%3E%3C/svg%3E#f");
+}
+
+/* 日焼けは縁から進む。中央は残る */
+.sw-taishoku::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(115% 125% at 50% 45%,
+    rgba(196, 158, 96, 0) 42%, rgba(180, 140, 74, 0.34) 100%);
+  mix-blend-mode: multiply;
+}
+
+.sw-taishoku.is-tsuyoi {
+  filter: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f' color-interpolation-filters='sRGB'%3E%3CfeColorMatrix type='matrix' values='0.40 0.34 0.16 0 0.11  0.04 0.82 0.08 0 0.05  0.03 0.20 0.70 0 0.03  0 0 0 1 0'/%3E%3C/filter%3E%3C/svg%3E#f");
+}
+.sw-taishoku.is-tsuyoi::after {
+  background: radial-gradient(110% 120% at 50% 42%,
+    rgba(196, 158, 96, 0) 28%, rgba(168, 126, 62, 0.5) 100%);
+}
+
+/* 白黒写真 */
+.sw-monokuro { filter: grayscale(1) contrast(1.08) brightness(1.02); }
+

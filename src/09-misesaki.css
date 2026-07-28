@@ -1,0 +1,116 @@
+/* ==========================================================================
+   12. 店先
+   ========================================================================== */
+
+/* のれん。裾に切れ目が入る */
+.sw-noren { display: flex; justify-content: center; gap: 4px; background: transparent; }
+
+.sw-noren > .nuno {
+  flex: 1 1 0;
+  background: var(--sw-o-kon);
+  color: var(--sw-o-kinari);
+  font-family: var(--sw-retromin);
+  font-weight: 700;
+  font-size: var(--sw-t-xl);
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  letter-spacing: 0.22em;
+  padding: 1.6rem 0.4rem 2.4rem;
+  display: grid;
+  place-content: center start;
+  box-shadow: inset 0 6px 0 rgba(0, 0, 0, 0.22);
+}
+
+.sw-noren.is-enji > .nuno   { background: var(--sw-o-enji); }
+.sw-noren.is-tokiwa > .nuno { background: var(--sw-o-tokiwa); }
+.sw-noren.is-kinari > .nuno { background: #e7dcc2; color: var(--sw-o-sumi); }
+
+/* マッチラベル。純喫茶の卓上にあったもの */
+.sw-match {
+  display: grid;
+  place-content: center;
+  text-align: center;
+  width: 13.5rem;
+  padding: 1.6rem 1rem;
+  background: var(--sw-o-kon);
+  color: var(--sw-o-usuki);
+  border: 2px solid var(--sw-o-sumi);
+  box-shadow: inset 0 0 0 3px var(--sw-o-usuki), inset 0 0 0 5px var(--sw-o-kon);
+  font-family: var(--sw-mincho);
+  line-height: 1.6;
+}
+
+.sw-match .yago {
+  display: block;
+  font-family: var(--sw-retromin);
+  font-synthesis: none;
+  font-size: var(--sw-t-md);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.3em;
+}
+
+.sw-match .tel {
+  display: block;
+  font-family: var(--sw-mono);
+  font-size: var(--sw-t-xs);
+  letter-spacing: 0.1em;
+  margin-top: 0.5em;
+  opacity: 0.85;
+}
+
+.sw-match.is-enji {
+  background: var(--sw-o-enji);
+  box-shadow: inset 0 0 0 3px var(--sw-o-usuki), inset 0 0 0 5px var(--sw-o-enji);
+}
+.sw-match.is-sumi {
+  background: var(--sw-o-sumi);
+  color: var(--sw-o-karashi);
+  box-shadow: inset 0 0 0 3px var(--sw-o-karashi), inset 0 0 0 5px var(--sw-o-sumi);
+}
+
+/* 型板ガラス。向こう側がぼやける昭和の建具 */
+.sw-garasu {
+  position: relative;
+  backdrop-filter: blur(5px) saturate(0.85);
+  -webkit-backdrop-filter: blur(5px) saturate(0.85);
+  color: var(--sw-o-sumi);
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.34) 0 2px,
+    rgba(255, 255, 255, 0.08) 2px 7px,
+    rgba(36, 31, 26, 0.07) 7px 13px,
+    rgba(255, 255, 255, 0.08) 13px 18px
+  );
+  border: 6px solid var(--sw-o-kogecha);
+  box-shadow: inset 0 0 24px rgba(36, 31, 26, 0.18);
+  padding: calc(var(--sw-ma) * 1.5);
+}
+
+.sw-garasu.is-nami {
+  background-image: repeating-radial-gradient(
+    circle at 50% 0,
+    rgba(255, 255, 255, 0.3) 0 6px,
+    rgba(36, 31, 26, 0.06) 6px 13px
+  );
+  background-size: 34px 34px;
+}
+
+/* 電照看板。夜に内側から光る */
+.sw-denshou {
+  display: grid;
+  place-content: center;
+  text-align: center;
+  padding: calc(var(--sw-ma) * 1.6) calc(var(--sw-ma) * 2);
+  background: #f7f2e0;
+  color: var(--sw-o-aka);
+  border: 8px solid #55504a;
+  font-family: var(--sw-retromin);
+  font-synthesis: none;
+  font-size: var(--sw-t-xl);
+  letter-spacing: 0.08em;
+  box-shadow:
+    inset 0 0 40px rgba(255, 240, 190, 0.9),
+    0 0 0 2px var(--sw-o-sumi),
+    0 0 34px rgba(255, 236, 170, 0.55);
+}
+

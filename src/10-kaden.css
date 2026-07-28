@@ -1,0 +1,400 @@
+/* ==========================================================================
+   13. 家電
+   ========================================================================== */
+
+/* ブラウン管 */
+.sw-tv {
+  position: relative;
+  background: #14110e;
+  color: var(--sw-o-asagi);
+  border: 12px solid #3b332a;
+  border-radius: 22px / 34px;
+  box-shadow:
+    inset 0 0 0 3px #171310,
+    inset 0 0 60px rgba(0, 0, 0, 0.9),
+    6px 8px 0 var(--sw-shade);
+  padding: calc(var(--sw-ma) * 1.8);
+  overflow: hidden;
+  font-family: var(--sw-jimaku);
+}
+
+.sw-tv::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(to bottom,
+      rgba(0, 0, 0, 0) 0 2px,
+      rgba(0, 0, 0, 0.32) 2px 4px),
+    radial-gradient(120% 120% at 50% 50%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.75) 100%);
+}
+
+.sw-tv > * { position: relative; }
+
+/* 砂嵐 */
+.sw-tv.is-sunaarashi {
+  color: #cfcac0;
+  background-color: #2b2b2b;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='z'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23z)' opacity='0.55'/%3E%3C/svg%3E");
+}
+
+/* 映画字幕。画面下に白抜きで乗る */
+.sw-jimaku {
+  font-family: var(--sw-jimaku);
+  font-size: var(--sw-t-md);
+  text-align: center;
+  color: #fdfaf2;
+  letter-spacing: 0.1em;
+  text-shadow:
+    0 0 2px #000, 1px 1px 2px #000,
+   -1px 1px 2px #000, 1px -1px 2px #000, -1px -1px 2px #000;
+}
+
+/* ネオン管 */
+.sw-neon {
+  font-family: var(--sw-retromin);
+  font-synthesis: none;
+  color: var(--sw-o-aka);
+  letter-spacing: 0.1em;
+  text-shadow:
+    0 0 4px var(--sw-glow),
+    0 0 14px var(--sw-glow),
+    0 0 34px var(--sw-glow);
+}
+
+.sw-neon.is-asagi   { color: var(--sw-o-asagi); }
+.sw-neon.is-karashi { color: var(--sw-o-usuki); }
+.sw-neon.is-momo    { color: var(--sw-o-momo); }
+
+/* 電光掲示板。ドットが右から左へ流れる。
+   最初から字が見えている位置で始めます。空の板を数秒見せないためです。 */
+/* 電光掲示板。素子の格子が見えるのが実物。
+   旧版は暗い面にドット書体を置いただけだった。 */
+.sw-denkou {
+  position: relative;
+  overflow: hidden;
+  background: #120f0c;
+  border: 4px solid #3b332a;
+  padding: 0.6em 0;
+  box-shadow: inset 0 0 22px rgba(0, 0, 0, 0.9);
+}
+
+/* 消灯している素子 */
+.sw-denkou::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,122,26,.10) 0 1.2px, transparent 1.5px);
+  background-size: 5px 5px;
+}
+
+/* 素子の隙間。文字がLEDの粒に見える */
+.sw-denkou::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(0,0,0,.5) 0 1.7px, transparent 1.7px 5px),
+    repeating-linear-gradient(0deg,  rgba(0,0,0,.5) 0 1.7px, transparent 1.7px 5px);
+}
+
+.sw-denkou > .nagare { position: relative; z-index: 1; }
+
+.sw-denkou > .nagare {
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 1.5em;
+  font-family: var(--sw-dot);
+  font-size: var(--sw-t-md);
+  color: #ff7a1a;
+  letter-spacing: 0.18em;
+  text-shadow: 0 0 8px rgba(255, 122, 26, 0.85);
+  animation: sw-nagare 20s linear infinite;
+}
+
+@keyframes sw-nagare {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+
+/* パタパタ。駅の発車標 */
+.sw-patapata { display: inline-flex; gap: 3px; font-family: var(--sw-dot); }
+
+.sw-patapata > .koma {
+  position: relative;
+  display: grid;
+  place-content: center;
+  min-width: 1.9em;
+  padding: 0.35em 0.25em;
+  background: linear-gradient(#2c2822 0 49.5%, #1b1814 50.5% 100%);
+  color: #f0ebdd;
+  border: 1px solid #4b443a;
+  border-radius: 2px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.8);
+}
+
+.sw-patapata > .koma::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 50%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.85);
+}
+
+/* 蛍光灯 */
+.sw-keikoutou {
+  display: block;
+  height: 1.1rem;
+  border-radius: 999px;
+  background: linear-gradient(#fffdf2, #e8f2ea 45%, #cfe0d6);
+  box-shadow:
+    0 0 12px rgba(226, 244, 232, 0.9),
+    0 0 40px rgba(200, 230, 212, 0.55);
+}
+
+/* レコード盤 */
+.sw-record {
+  display: inline-block;
+  width: 11rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  position: relative;
+  background:
+    radial-gradient(circle, transparent 0 5%, var(--sw-o-enji) 5% 30%, transparent 30%),
+    repeating-radial-gradient(circle, #191512 0 1.5px, #241f1a 1.5px 3px);
+  box-shadow: 0 6px 16px var(--sw-shade);
+}
+
+.sw-record::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 210deg,
+    rgba(255,255,255,0) 0deg, rgba(255,255,255,0.16) 35deg,
+    rgba(255,255,255,0) 90deg, rgba(255,255,255,0) 190deg,
+    rgba(255,255,255,0.13) 225deg, rgba(255,255,255,0) 280deg
+  );
+}
+
+.sw-record::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 7px; height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  border-radius: 50%;
+  background: #efe6d2;
+}
+
+/* カセットテープ
+   実物の要点は四つ。
+   ① 窓から見える褐色のテープ。これが一番の目印
+   ② 歯の付いた白いハブ。テープはこれに巻かれる
+   ③ 四隅のネジ
+   ④ 下端のテープ開口
+   寸法は --sw-cas-w で変えてください。 */
+.sw-cassette {
+  --sw-cas-w: 17rem;
+  position: relative;
+  display: inline-block;
+  width: var(--sw-cas-w);
+  padding: calc(var(--sw-cas-w) * 0.045);
+  padding-bottom: calc(var(--sw-cas-w) * 0.075);
+  border: 2px solid var(--sw-o-sumi);
+  border-radius: calc(var(--sw-cas-w) * 0.018);
+  /* ③ 四隅のネジ */
+  background:
+    radial-gradient(circle at calc(var(--sw-cas-w) * 0.035) calc(var(--sw-cas-w) * 0.035),
+      #8d8578 0 calc(var(--sw-cas-w) * 0.011), transparent calc(var(--sw-cas-w) * 0.013)),
+    radial-gradient(circle at calc(100% - var(--sw-cas-w) * 0.035) calc(var(--sw-cas-w) * 0.035),
+      #8d8578 0 calc(var(--sw-cas-w) * 0.011), transparent calc(var(--sw-cas-w) * 0.013)),
+    radial-gradient(circle at calc(var(--sw-cas-w) * 0.035) calc(100% - var(--sw-cas-w) * 0.035),
+      #8d8578 0 calc(var(--sw-cas-w) * 0.011), transparent calc(var(--sw-cas-w) * 0.013)),
+    radial-gradient(circle at calc(100% - var(--sw-cas-w) * 0.035) calc(100% - var(--sw-cas-w) * 0.035),
+      #8d8578 0 calc(var(--sw-cas-w) * 0.011), transparent calc(var(--sw-cas-w) * 0.013)),
+    linear-gradient(#514a41, #3b352e);
+  box-shadow: inset 0 2px 0 rgba(255,255,255,.16), 3px 4px 0 var(--sw-shade);
+}
+
+/* ④ 下端のテープ開口 */
+.sw-cassette::after {
+  content: "";
+  position: absolute;
+  left: 50%; bottom: 0;
+  width: 46%;
+  height: calc(var(--sw-cas-w) * 0.032);
+  transform: translateX(-50%);
+  background: #171410;
+  border-radius: calc(var(--sw-cas-w) * 0.01) calc(var(--sw-cas-w) * 0.01) 0 0;
+  box-shadow: inset 0 2px 3px rgba(0,0,0,.8);
+}
+
+.sw-cassette > .label {
+  background: #f7f1e1;
+  color: var(--sw-o-sumi);
+  border: 1px solid #b9a988;
+  padding: calc(var(--sw-cas-w) * 0.035) calc(var(--sw-cas-w) * 0.045);
+  font-family: var(--sw-tegaki);
+  font-size: calc(var(--sw-cas-w) * 0.048);
+  line-height: 1.6;
+  /* 記入用の横罫。内容領域を原点にしないと罫が文字を横切ります */
+  background-origin: content-box;
+  background-image: repeating-linear-gradient(
+    #f7f1e1 0 calc(1.6em - 1px),
+    #cf8e8e calc(1.6em - 1px) 1.6em
+  );
+}
+
+/* 窓。筐体が薄く透けて中が見える */
+.sw-cassette > .mado {
+  margin-top: calc(var(--sw-cas-w) * 0.035);
+  height: calc(var(--sw-cas-w) * 0.23);
+  background: linear-gradient(rgba(28,24,20,.92), rgba(44,38,32,.92));
+  border: 1px solid #1b1813;
+  border-radius: calc(var(--sw-cas-w) * 0.012);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-inline: calc(var(--sw-cas-w) * 0.07);
+  box-shadow: inset 0 2px 5px rgba(0,0,0,.7);
+}
+
+/* ①② 褐色のテープが巻かれた歯付きハブ */
+.sw-cassette > .mado > .reel {
+  width: calc(var(--sw-cas-w) * 0.165);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    /* 歯 */
+    repeating-conic-gradient(from 0deg, #e6e0d2 0 9deg, #b3ab9a 9deg 18deg) ,
+    #6b4526;
+  /* ハブの外側に褐色のテープが厚く巻かれている */
+  -webkit-mask-image: radial-gradient(circle, #000 0 100%);
+  box-shadow:
+    inset 0 0 0 calc(var(--sw-cas-w) * 0.028) #6b4526,
+    inset 0 0 0 calc(var(--sw-cas-w) * 0.031) #3f2913,
+    inset 0 0 6px rgba(0,0,0,.6);
+}
+
+.sw-cassette > .mado > .reel:first-child {
+  /* 巻き取り側はテープが厚い */
+  box-shadow:
+    inset 0 0 0 calc(var(--sw-cas-w) * 0.042) #6b4526,
+    inset 0 0 0 calc(var(--sw-cas-w) * 0.045) #3f2913,
+    inset 0 0 6px rgba(0,0,0,.6);
+}
+
+/* 黒電話のダイヤル（600型）
+   実物の要点は四つ。
+   ① 指止めの金具。外周に張り出す。ダイヤルで最も目を引く部品
+   ② 中央の番号札。透明板の下に電話番号を書いた紙が入る。径は全体の三割
+   ③ ベークライトの照り。艶のある黒
+   ④ 指を掛ける穴は指板に開いた窓。縁が板の厚みで暗く落ちる
+   数字は指板の下の文字盤に印刷され、窓から覗いて見えます。
+   時計回りに回すので、1が指止めのすぐ手前に来ます。
+
+   寸法は --sw-dial-d で変えてください。width を直接指定すると
+   穴の位置が追従しません。
+     <span class="sw-dial" style="--sw-dial-d: 9rem"> */
+.sw-dial {
+  --sw-dial-d: 12rem;
+  display: inline-block;
+  position: relative;
+  width: var(--sw-dial-d);
+  height: var(--sw-dial-d);
+  border-radius: 50%;
+  /* 艶のある黒。上方からの光を強く受ける */
+  background:
+    radial-gradient(circle at 34% 24%, rgba(255,255,255,.32) 0 5%, rgba(255,255,255,0) 34%),
+    radial-gradient(circle at 44% 34%, #4e463c, #17130f 74%);
+  border: 4px solid #0d0b08;
+  box-shadow:
+    inset 0 0 26px rgba(0,0,0,.8),
+    inset 0 3px 6px rgba(255,255,255,.13),
+    0 6px 14px var(--sw-shade);
+}
+
+/* ② 中央の番号札。径は全体の三割 */
+.sw-dial::before {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 30%; height: 30%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 30%, #fdfaf0, #ddd2ba 84%);
+  box-shadow:
+    inset 0 0 0 2px #b3a892,
+    inset 0 2px 5px rgba(0,0,0,.26),
+    0 1px 3px rgba(0,0,0,.5);
+}
+
+/* ① 指止めの金具。外周に張り出す */
+.sw-dial::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  width: calc(var(--sw-dial-d) * 0.065);
+  height: calc(var(--sw-dial-d) * 0.17);
+  margin: calc(var(--sw-dial-d) * -0.085) 0 0 calc(var(--sw-dial-d) * -0.0325);
+  border-radius: calc(var(--sw-dial-d) * 0.035);
+  background: linear-gradient(102deg, #e8e3d8 0 16%, #9a917f 50%, #454036 100%);
+  box-shadow: 0 1px 3px rgba(0,0,0,.65);
+  transform: rotate(158deg) translateY(calc(var(--sw-dial-d) * -0.435));
+}
+
+/* 番号札に載せる電話番号 */
+.sw-dial > .bango {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--sw-mono);
+  font-size: calc(var(--sw-dial-d) * 0.062);
+  letter-spacing: 0.04em;
+  color: #4a4235;
+  text-align: center;
+  line-height: 1.35;
+  z-index: 2;
+}
+
+/* ④ 指を掛ける穴。指板に開いた窓。縁が板の厚みで暗く落ちる */
+.sw-dial > .ana {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--sw-dial-d) * 0.125);
+  height: calc(var(--sw-dial-d) * 0.125);
+  margin: calc(var(--sw-dial-d) * -0.0625) 0 0 calc(var(--sw-dial-d) * -0.0625);
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 66%, #efe6d2 0 66%, #c8bda3 100%);
+  box-shadow:
+    inset 0 0 0 2px rgba(10,8,6,.72),
+    inset 0 4px 6px rgba(0,0,0,.6),
+    0 1px 0 rgba(255,255,255,.12);
+  display: grid;
+  place-content: center;
+  font-family: var(--sw-mono);
+  font-size: calc(var(--sw-dial-d) * 0.058);
+  color: #241f1a;
+  /* 中心から外へ押し出し、数字だけ元の向きへ戻す */
+  transform: rotate(var(--a)) translateY(calc(var(--sw-dial-d) * -0.355)) rotate(calc(-1 * var(--a)));
+}
+
+/* 1が指止めの手前。そこから反時計回りに0まで */
+.sw-dial > .ana:nth-child(1)  { --a: 120deg; }
+.sw-dial > .ana:nth-child(2)  { --a: 90deg; }
+.sw-dial > .ana:nth-child(3)  { --a: 60deg; }
+.sw-dial > .ana:nth-child(4)  { --a: 30deg; }
+.sw-dial > .ana:nth-child(5)  { --a: 0deg; }
+.sw-dial > .ana:nth-child(6)  { --a: -30deg; }
+.sw-dial > .ana:nth-child(7)  { --a: -60deg; }
+.sw-dial > .ana:nth-child(8)  { --a: -90deg; }
+.sw-dial > .ana:nth-child(9)  { --a: -120deg; }
+.sw-dial > .ana:nth-child(10) { --a: -150deg; }
+

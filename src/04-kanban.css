@@ -1,0 +1,309 @@
+/* ==========================================================================
+   7. 枠と看板
+   ========================================================================== */
+
+.sw-waku {
+  position: relative;
+  background: var(--sw-paper-3);
+  border: var(--sw-kei-futo) solid var(--sw-sumi);
+  padding: calc(var(--sw-ma) * 1.5);
+}
+
+.sw-waku.is-nijuu {
+  box-shadow: inset 0 0 0 3px var(--sw-paper-3), inset 0 0 0 5px var(--sw-sumi);
+  padding: calc(var(--sw-ma) * 1.75);
+}
+
+.sw-waku.is-kage { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-sumi); }
+.sw-waku.with-title { padding-top: calc(var(--sw-ma) * 2); }
+
+.sw-waku > .title {
+  position: absolute;
+  top: 0;
+  left: var(--sw-ma);
+  transform: translateY(-50%);
+  background: var(--sw-paper-3);
+  padding: 0 0.7em;
+  margin: 0;
+  font-family: var(--sw-mincho);
+  font-weight: 700;
+  font-size: var(--sw-t-base);
+  letter-spacing: 0.14em;
+}
+
+.sw-waku.is-enji   { border-color: var(--sw-enji); }
+.sw-waku.is-tokiwa { border-color: var(--sw-tokiwa); }
+.sw-waku.is-kon    { border-color: var(--sw-kon); }
+
+.sw-waku.is-enji.is-kage   { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-enji); }
+.sw-waku.is-tokiwa.is-kage { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-tokiwa); }
+.sw-waku.is-kon.is-kage    { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-kon); }
+
+/* --- ホーロー看板 ---------------------------------------------------------
+   実物なので物体色で塗ります。夜間モードでも色は変わりません。
+   照りは天の一筋だけに留めます。斜めに大きく掛けると
+   ホーローではなくCSSのグラデーションに見えます。 */
+
+.sw-kanban {
+  position: relative;
+  display: block;
+  background: var(--sw-o-enji);
+  color: var(--sw-o-kinari);
+  border: 5px solid var(--sw-o-sumi);
+  box-shadow:
+    inset 0 0 0 4px var(--sw-o-kinari),
+    inset 0 0 0 7px var(--sw-o-enji),
+    8px 8px 0 var(--sw-shade);
+  padding: calc(var(--sw-ma) * 2);
+  font-family: var(--sw-retromin);
+  overflow: hidden;
+}
+
+/* ホーローの照り。天に一筋、縁に僅かな落ち込み */
+.sw-kanban::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.2) 0, rgba(255, 255, 255, 0) 22%),
+    radial-gradient(120% 130% at 50% 40%, rgba(0, 0, 0, 0) 62%, rgba(0, 0, 0, 0.16) 100%);
+}
+
+.sw-kanban.is-karashi {
+  background: var(--sw-o-karashi);
+  color: var(--sw-o-sumi);
+  box-shadow:
+    inset 0 0 0 4px var(--sw-o-sumi),
+    inset 0 0 0 7px var(--sw-o-karashi),
+    8px 8px 0 var(--sw-shade);
+}
+
+.sw-kanban.is-tokiwa {
+  background: var(--sw-o-tokiwa);
+  box-shadow:
+    inset 0 0 0 4px var(--sw-o-kinari),
+    inset 0 0 0 7px var(--sw-o-tokiwa),
+    8px 8px 0 var(--sw-shade);
+}
+
+.sw-kanban.is-kon {
+  background: var(--sw-o-kon);
+  box-shadow:
+    inset 0 0 0 4px var(--sw-o-kinari),
+    inset 0 0 0 7px var(--sw-o-kon),
+    8px 8px 0 var(--sw-shade);
+}
+
+.sw-kanban.is-aka {
+  background: var(--sw-o-aka);
+  box-shadow:
+    inset 0 0 0 4px var(--sw-o-kinari),
+    inset 0 0 0 7px var(--sw-o-aka),
+    8px 8px 0 var(--sw-shade);
+}
+
+/* 錆。長く風雨にさらされたホーロー。
+   multiply で重ねると地色を暗くするだけなので、緑や紺の看板では
+   錆ではなくカビに見えます。錆は塗膜の上に乗るものなので通常合成で置き、
+   色はSVG側で錆色に固定します。 */
+.sw-kanban.is-sabi::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.22' numOctaves='5' seed='7'/%3E%3CfeColorMatrix values='0.42 0 0 0 0.34 0.16 0 0 0 0.13 0.06 0 0 0 0.04 11 0 0 0 -7.2'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23s)'/%3E%3C/svg%3E");
+  /* 錆は縁と角から出ます。中央は薄く抜きます */
+  -webkit-mask-image: radial-gradient(115% 125% at 50% 45%, rgba(0,0,0,.1) 38%, #000 100%);
+  mask-image: radial-gradient(115% 125% at 50% 45%, rgba(0,0,0,.1) 38%, #000 100%);
+  opacity: 0.9;
+}
+
+/* --- 突き出し看板。袖看板 --- */
+
+.sw-sodekanban {
+  display: inline-block;
+  background: var(--sw-o-kon);
+  color: var(--sw-o-usuki);
+  font-family: var(--sw-retromin);
+  font-synthesis: none;
+  font-size: var(--sw-t-xl);
+  line-height: 1.3;
+  padding: calc(var(--sw-ma) * 1.2) calc(var(--sw-ma) * 0.9);
+  border: 4px solid var(--sw-o-sumi);
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  letter-spacing: 0.1em;
+  box-shadow: inset 0 0 0 3px var(--sw-o-usuki), 10px 6px 0 var(--sw-shade);
+}
+
+.sw-sodekanban.is-enji { background: var(--sw-o-enji); }
+
+/* 腕金。壁から突き出すための金具。is-udegane で付ける */
+.sw-sodekanban.is-udegane { position: relative; margin-left: 1.6em; }
+.sw-sodekanban.is-udegane::before {
+  content: "";
+  position: absolute;
+  left: -1.6em; top: 0.7em;
+  width: 1.6em; height: 0.34em;
+  background: linear-gradient(#8d8578, #4e483d);
+  box-shadow: 0 1px 2px rgba(0,0,0,.5);
+}
+
+/* --- 帯 --- */
+
+.sw-obi {
+  display: block;
+  background: var(--sw-sumi);
+  color: var(--sw-paper);
+  font-family: var(--sw-mincho);
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-indent: 0.24em;
+  padding: 0.45em 1em;
+}
+
+.sw-obi.is-enji    { background: var(--sw-o-enji);    color: var(--sw-o-kinari); }
+.sw-obi.is-tokiwa  { background: var(--sw-o-tokiwa);  color: var(--sw-o-kinari); }
+.sw-obi.is-kon     { background: var(--sw-o-kon);     color: var(--sw-o-kinari); }
+.sw-obi.is-karashi { background: var(--sw-o-karashi); color: var(--sw-o-sumi); }
+.sw-obi.is-asagi   { background: var(--sw-o-asagi);   color: var(--sw-o-sumi); }
+.sw-obi.is-momo    { background: var(--sw-o-momo);    color: var(--sw-o-sumi); }
+.sw-obi.is-daidai  { background: var(--sw-o-daidai);  color: var(--sw-o-sumi); }
+.sw-obi.is-mizu    { background: var(--sw-o-mizu);    color: var(--sw-o-sumi); }
+
+/* ── 集中線 ─────────────────────────────────────────────────────
+   昭和の広告で最も目につく装置。中心から放射する線で紙を埋めます。
+   Canvaに並ぶ実物のテンプレートでも最頻出でした。
+   色は --sw-shusen-c、本数は --sw-shusen-n で変えます。 */
+.sw-shusen {
+  --sw-shusen-c: var(--sw-o-daidai);
+  --sw-shusen-n: 5deg;
+  position: relative;
+  background-color: var(--sw-o-kinari);
+  background-image: repeating-conic-gradient(
+    from 0deg at 50% 50%,
+    var(--sw-shusen-c) 0deg var(--sw-shusen-n),
+    transparent var(--sw-shusen-n) calc(var(--sw-shusen-n) * 2)
+  );
+  overflow: hidden;
+}
+
+/* 中心を抜いて題字を置けるようにする */
+.sw-shusen.is-nuki::before {
+  content: "";
+  position: absolute;
+  inset: 22%;
+  border-radius: 50%;
+  background: var(--sw-o-kinari);
+}
+.sw-shusen > * { position: relative; }
+
+/* 隅から放つ。角に据える見出し向き */
+.sw-shusen.is-sumi {
+  background-image: repeating-conic-gradient(
+    from 0deg at 0% 100%,
+    var(--sw-shusen-c) 0deg var(--sw-shusen-n),
+    transparent var(--sw-shusen-n) calc(var(--sw-shusen-n) * 2)
+  );
+}
+
+/* ── 花の飾り ───────────────────────────────────────────────────
+   地紋の花柄とは別に、単体で大きく置く飾り。実物のテンプレートでは
+   これが見出しの脇や四隅に据えられます。
+   色は文字色と --sw-hana-shin（芯）で決まります。 */
+.sw-hana {
+  --sw-hana-shin: var(--sw-o-usuki);
+  position: relative;
+  display: inline-block;
+  width: 3rem;
+  height: 3rem;
+  background-color: currentColor;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='%23000'%3E%3Ccircle cx='50' cy='24' r='19'/%3E%3Ccircle cx='68.4' cy='31.6' r='19'/%3E%3Ccircle cx='76' cy='50' r='19'/%3E%3Ccircle cx='68.4' cy='68.4' r='19'/%3E%3Ccircle cx='50' cy='76' r='19'/%3E%3Ccircle cx='31.6' cy='68.4' r='19'/%3E%3Ccircle cx='24' cy='50' r='19'/%3E%3Ccircle cx='31.6' cy='31.6' r='19'/%3E%3C/g%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='%23000'%3E%3Ccircle cx='50' cy='24' r='19'/%3E%3Ccircle cx='68.4' cy='31.6' r='19'/%3E%3Ccircle cx='76' cy='50' r='19'/%3E%3Ccircle cx='68.4' cy='68.4' r='19'/%3E%3Ccircle cx='50' cy='76' r='19'/%3E%3Ccircle cx='31.6' cy='68.4' r='19'/%3E%3Ccircle cx='24' cy='50' r='19'/%3E%3Ccircle cx='31.6' cy='31.6' r='19'/%3E%3C/g%3E%3C/svg%3E");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+/* 芯。花の中心に別の色を置く */
+.sw-hana::after {
+  content: "";
+  position: absolute;
+  inset: 34%;
+  border-radius: 50%;
+  background: var(--sw-hana-shin);
+}
+
+/* ── キラキラ ───────────────────────────────────────────────────
+   四方に尖った星。レトロポップの定番装飾 */
+.sw-kirakira {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background: currentColor;
+  vertical-align: -0.1em;
+  clip-path: polygon(50% 0%, 57% 43%, 100% 50%, 57% 57%, 50% 100%, 43% 57%, 0% 50%, 43% 43%);
+}
+
+/* ── アーチ枠 ───────────────────────────────────────────────────
+   かまぼこ型の枠。喫茶店の案内や看板に使われる形 */
+.sw-arch {
+  display: block;
+  background: var(--sw-paper-3);
+  border: var(--sw-kei-futo) solid var(--sw-sumi);
+  border-radius: 50% 50% 0.4rem 0.4rem / 40% 40% 0.4rem 0.4rem;
+  padding: calc(var(--sw-ma) * 2.6) calc(var(--sw-ma) * 1.4) calc(var(--sw-ma) * 1.4);
+  text-align: center;
+  font-family: var(--sw-mincho);
+}
+
+.sw-arch.is-nijuu {
+  box-shadow: inset 0 0 0 3px var(--sw-paper-3), inset 0 0 0 5px var(--sw-sumi);
+}
+
+/* ── 角丸パネル ─────────────────────────────────────────────────
+   色地の上に置く角丸の白パネル。実物のテンプレートで非常に多い型です。
+   角丸は昭和に無いと思い込んでいましたが、実物は多用しています。 */
+.sw-panel {
+  display: block;
+  background: var(--sw-paper-3);
+  color: var(--sw-sumi);
+  border-radius: 1.1rem;
+  padding: calc(var(--sw-ma) * 1.4);
+  box-shadow: 0 3px 0 rgba(36, 31, 26, 0.18);
+}
+
+.sw-panel.is-nijuu {
+  box-shadow:
+    inset 0 0 0 3px var(--sw-paper-3),
+    inset 0 0 0 5px var(--sw-sumi),
+    0 3px 0 rgba(36, 31, 26, 0.18);
+  padding: calc(var(--sw-ma) * 1.7);
+}
+
+.sw-panel.is-maru { border-radius: 999px; padding-inline: calc(var(--sw-ma) * 2); }
+
+/* ── 短冊 ───────────────────────────────────────────────────────
+   細長い縦枠に縦組みの題字。駄菓子屋や喫茶の掲示に多い形 */
+.sw-tanzaku {
+  display: inline-block;
+  background: var(--sw-paper-3);
+  color: var(--sw-sumi);
+  border: 4px solid var(--sw-sumi);
+  box-shadow: inset 0 0 0 2px var(--sw-paper-3), inset 0 0 0 5px var(--sw-sumi);
+  padding: 1.5em 0.75em;
+  font-family: var(--sw-mincho);
+  font-weight: 700;
+  font-size: var(--sw-t-xl);
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+}
+
+.sw-tanzaku.is-enji { background: var(--sw-o-enji); color: var(--sw-o-kinari);
+  box-shadow: inset 0 0 0 2px var(--sw-o-enji), inset 0 0 0 5px var(--sw-o-kinari); }
+

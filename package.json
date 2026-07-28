@@ -1,6 +1,6 @@
 {
   "name": "showa-retro.css",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "description": "昭和レトロなUIを組むためのCSSフレームワーク。ホーロー看板・純喫茶のお品書き・回数券・ブラウン管。JavaScript も画像も使いません。",
   "keywords": [
     "css",
@@ -17,19 +17,34 @@
   "exports": {
     ".": "./showa-retro.css",
     "./min": "./dist/showa-retro.min.css",
-    "./fonts": "./showa-retro-fonts.css"
+    "./fonts": "./showa-retro-fonts.css",
+    "./webfonts": "./showa-retro-webfonts.css",
+    "./src/*": "./src/*"
   },
   "files": [
     "showa-retro.css",
     "showa-retro-fonts.css",
+    "showa-retro-webfonts.css",
+    "src/",
     "dist/",
-    "fonts/",
+    "fonts/bansyu-retoromin/",
     "README.md",
+    "README.en.md",
+    "CHANGELOG.md",
     "LICENSE"
   ],
   "sideEffects": [
     "*.css"
   ],
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "check": "node tools/build.mjs --check && node tools/contrast.mjs --check && node tools/check-docs.mjs",
+    "contrast": "node tools/contrast.mjs",
+    "prepublishOnly": "npm run build && npm run check"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.1"
+  },
   "homepage": "https://kanade0525.github.io/showa-retro-css/",
   "repository": {
     "type": "git",

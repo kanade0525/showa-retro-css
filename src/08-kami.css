@@ -1,0 +1,447 @@
+/* ==========================================================================
+   11. 紙もの
+   ========================================================================== */
+
+/* 看板の中の本文。題字はレトロミンだが、地の文は収録の欠けない明朝に戻す */
+.sw-kanban p,
+.sw-kanban li,
+.sw-kanban td { font-family: var(--sw-mincho); }
+
+/* 判子。字が枠を埋めるのが実物です。
+   書体は二種類だけ。既定は古印体ふう（線がかすれて角が丸い実印の書体）、
+   is-mincho で明朝。古印体そのものは再配布できるフリーフォントが無いので、
+   書体を差し替えるのではなく、輪郭のゆらぎと線のかすれで寄せています。 */
+.sw-inkan {
+  display: inline-grid;
+  place-content: center;
+  width: 3.5em;
+  height: 3.5em;
+  padding: 0.15em;
+  border: 0.14em solid var(--sw-o-enji);
+  border-radius: 50%;
+  color: var(--sw-o-enji);
+  background: transparent;
+  font-family: var(--sw-mincho);
+  font-weight: 700;
+  font-size: var(--sw-t-md);
+  line-height: 0.98;
+  text-align: center;
+  letter-spacing: 0;
+  transform: rotate(-9deg);
+  opacity: 0.9;
+  /* 古印体ふう。朱肉が均一に乗らず、線がかすれる */
+  font-weight: 600;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='in'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.2 1.6' numOctaves='1' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5 0 0 0 -1.15'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23in)'/%3E%3C/svg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='in'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.2 1.6' numOctaves='1' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5 0 0 0 -1.15'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23in)'/%3E%3C/svg%3E");
+  -webkit-mask-size: 120px 120px;
+          mask-size: 120px 120px;
+}
+
+/* 明朝の判子。かすれさせず、細めの線でぴたりと押したもの */
+.sw-inkan.is-mincho {
+  font-family: var(--sw-mincho);
+  font-weight: 400;
+  -webkit-mask-image: none;
+          mask-image: none;
+}
+
+/* 角印。縁を太く、字を大きく */
+/* 角印。実物は縁が太く、字が枠を埋める */
+.sw-inkan.is-kaku {
+  border-radius: 0;
+  border-width: 0.26em;
+  padding: 0.04em;
+  font-size: var(--sw-t-lg);
+  width: 3.1em;
+  height: 3.1em;
+  transform: rotate(-5deg);
+}
+
+/* 朱を全面に置いた印 */
+.sw-inkan.is-beta {
+  background: var(--sw-o-enji);
+  color: var(--sw-o-kinari);
+  border-color: var(--sw-o-enji);
+}
+
+/* 付箋 */
+.sw-fusen {
+  display: block;
+  background: var(--sw-o-karashi);
+  color: var(--sw-o-sumi);
+  padding: var(--sw-ma) calc(var(--sw-ma) * 1.1);
+  font-family: var(--sw-gothic);
+  line-height: 1.8;
+  box-shadow: 3px 3px 6px rgba(36, 31, 26, 0.28);
+  transform: rotate(-1.2deg);
+}
+
+.sw-fusen.is-momo  { background: var(--sw-o-momo); }
+.sw-fusen.is-asagi { background: var(--sw-o-asagi); }
+
+/* 吹き出し。台詞はアンチック体で */
+.sw-fukidashi {
+  position: relative;
+  display: inline-block;
+  background: var(--sw-paper-3);
+  border: var(--sw-kei-futo) solid var(--sw-sumi);
+  padding: var(--sw-ma) calc(var(--sw-ma) * 1.2);
+  margin-bottom: 0.9rem;
+  font-family: var(--sw-anchikku);
+}
+
+.sw-fukidashi::before,
+.sw-fukidashi::after {
+  content: "";
+  position: absolute;
+  border-style: solid;
+  width: 0;
+  height: 0;
+}
+
+.sw-fukidashi::before {
+  bottom: -14px; left: 2rem;
+  border-width: 14px 12px 0 0;
+  border-color: var(--sw-sumi) transparent transparent transparent;
+}
+
+.sw-fukidashi::after {
+  bottom: -10px; left: calc(2rem + 2px);
+  border-width: 11px 9px 0 0;
+  border-color: var(--sw-paper-3) transparent transparent transparent;
+}
+
+.sw-fukidashi.from-right::before { left: auto; right: 2rem; border-width: 14px 0 0 12px; }
+.sw-fukidashi.from-right::after  { left: auto; right: calc(2rem + 2px); border-width: 11px 0 0 9px; }
+
+/* 回数券 */
+.sw-kippu {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  background: var(--sw-paper-3);
+  border: var(--sw-kei-futo) dashed var(--sw-sumi);
+  font-family: var(--sw-mincho);
+  -webkit-mask-image:
+    radial-gradient(circle 9px at 0 50%, transparent 98%, #000 100%),
+    radial-gradient(circle 9px at 100% 50%, transparent 98%, #000 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    radial-gradient(circle 9px at 0 50%, transparent 98%, #000 100%),
+    radial-gradient(circle 9px at 100% 50%, transparent 98%, #000 100%);
+  mask-composite: intersect;
+}
+
+.sw-kippu > .mimi {
+  flex: 0 0 auto;
+  display: grid;
+  place-content: center;
+  padding: var(--sw-ma) 0.8rem;
+  border-right: 2px dashed var(--sw-kei);
+  background: var(--sw-paper-2);
+  writing-mode: vertical-rl;
+  letter-spacing: 0.3em;
+  font-size: var(--sw-t-sm);
+}
+
+.sw-kippu > .honbun { flex: 1 1 auto; padding: var(--sw-ma) calc(var(--sw-ma) * 1.2); }
+
+/* 荷札。片端を尖らせ、紐を通す穴を開けます */
+.sw-nifuda {
+  display: inline-block;
+  position: relative;
+  background: var(--sw-paper-2);
+  border: var(--sw-kei-futo) solid var(--sw-sumi);
+  padding: 0.5em 1em 0.5em 2.6em;
+  font-family: var(--sw-mincho);
+  clip-path: polygon(1.1em 0, 100% 0, 100% 100%, 1.1em 100%, 0 50%);
+}
+
+.sw-nifuda::before {
+  content: "";
+  position: absolute;
+  left: 1.45em;
+  top: 50%;
+  width: 0.42em;
+  height: 0.42em;
+  margin-top: -0.21em;
+  border-radius: 50%;
+  background: var(--sw-sumi);
+  opacity: 0.75;
+}
+
+/* 徽章 */
+.sw-badge {
+  display: inline-block;
+  background: var(--sw-o-enji);
+  color: var(--sw-o-kinari);
+  font-size: var(--sw-t-sm);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-indent: 0.12em;
+  padding: 0.15em 0.7em;
+  border: 2px solid var(--sw-o-sumi);
+}
+
+.sw-badge.is-karashi { background: var(--sw-o-karashi); color: var(--sw-o-sumi); }
+.sw-badge.is-tokiwa  { background: var(--sw-o-tokiwa); }
+.sw-badge.is-kon     { background: var(--sw-o-kon); }
+
+/* 千社札 */
+.sw-senjafuda {
+  display: inline-block;
+  background: var(--sw-paper-3);
+  color: var(--sw-sumi);
+  border: 3px solid var(--sw-sumi);
+  padding: 1.1em 0.55em;
+  font-family: var(--sw-mincho);
+  font-weight: 700;
+  font-size: var(--sw-t-md);
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  letter-spacing: 0.16em;
+  box-shadow: inset 0 0 0 2px var(--sw-paper-3), inset 0 0 0 4px var(--sw-sumi);
+}
+
+/* のし紙。紅白の水引を中央で結ぶ */
+.sw-noshi {
+  position: relative;
+  background: var(--sw-paper-3);
+  border: 1px solid var(--sw-kei);
+  padding: calc(var(--sw-ma) * 2.4) var(--sw-ma) var(--sw-ma);
+  text-align: center;
+  font-family: var(--sw-mincho);
+  overflow: hidden;
+  /* 中央の結び目。二本の水引がここで結ばれる */
+  background-image:
+    radial-gradient(ellipse 0.62em 0.46em at 50% 1.15em,
+      #c0302b 0 66%, #8e1f1c 68% 78%, transparent 80%);
+  background-repeat: no-repeat;
+}
+
+/* 左右から中央へ寄る二本の水引 */
+.sw-noshi::before,
+.sw-noshi::after {
+  content: "";
+  position: absolute;
+  top: 0.9em;
+  width: 47%;
+  height: 0.5em;
+  background: linear-gradient(var(--sw-o-aka) 0 50%, var(--sw-paper-3) 50% 100%);
+  box-shadow: 0 1px 0 rgba(36, 31, 26, 0.18);
+}
+
+.sw-noshi::before { left: 1%; transform: rotate(3.2deg); transform-origin: left center; }
+.sw-noshi::after  { right: 1%; transform: rotate(-3.2deg); transform-origin: right center; }
+
+/* 特売POP。爆発
+   星形の実効領域は外接矩形より狭いので、余白を割合で持たせます。
+   8rem 未満にすると文字が角に食い込みます。 */
+.sw-pop {
+  display: grid;
+  place-content: center;
+  text-align: center;
+  width: 11rem;
+  height: 11rem;
+  min-width: 8rem;
+  min-height: 8rem;
+  padding: 21%;
+  background: var(--sw-o-shu);
+  color: var(--sw-o-usuki);
+  font-family: var(--sw-tegaki);
+  font-synthesis: none;
+  font-size: var(--sw-t-md);
+  line-height: 1.25;
+  transform: rotate(-6deg);
+  clip-path: polygon(50.0% 0.0%, 55.8% 13.5%, 65.5% 2.4%, 66.8% 17.0%, 79.4% 9.5%, 76.2% 23.8%, 90.5% 20.6%, 83.0% 33.2%, 97.6% 34.5%, 86.5% 44.2%, 100.0% 50.0%, 86.5% 55.8%, 97.6% 65.5%, 83.0% 66.8%, 90.5% 79.4%, 76.2% 76.2%, 79.4% 90.5%, 66.8% 83.0%, 65.5% 97.6%, 55.8% 86.5%, 50.0% 100.0%, 44.2% 86.5%, 34.5% 97.6%, 33.2% 83.0%, 20.6% 90.5%, 23.8% 76.2%, 9.5% 79.4%, 17.0% 66.8%, 2.4% 65.5%, 13.5% 55.8%, 0.0% 50.0%, 13.5% 44.2%, 2.4% 34.5%, 17.0% 33.2%, 9.5% 20.6%, 23.8% 23.8%, 20.6% 9.5%, 33.2% 17.0%, 34.5% 2.4%, 44.2% 13.5%);
+}
+
+.sw-pop.is-karashi { background: var(--sw-o-karashi); color: var(--sw-o-enji); }
+.sw-pop.is-tokiwa  { background: var(--sw-o-tokiwa);  color: var(--sw-o-usuki); }
+
+.sw-pop .nedan {
+  display: block;
+  font-family: var(--sw-retromin);
+  font-synthesis: none;
+  font-size: 1.5em;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 賞状 */
+.sw-shojo {
+  position: relative;
+  background: var(--sw-paper-3);
+  border: 3px solid var(--sw-o-kogecha);
+  padding: calc(var(--sw-ma) * 2.5);
+  font-family: var(--sw-mincho);
+  line-height: 2.2;
+  /* 縁飾り。旧版は同心の線だけだった。雷文風の連続模様を回す */
+  border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23f7f1e1'/%3E%3Cg stroke='%237d4f22' stroke-width='1.6' fill='none'%3E%3Cpath d='M0 8 H3 M13 8 H16'/%3E%3Cpath d='M8 3 L13 8 L8 13 L3 8 Z'/%3E%3C/g%3E%3C/svg%3E") 6 round;
+  border-width: 12px;
+  box-shadow:
+    inset 0 0 0 3px var(--sw-paper-3),
+    inset 0 0 0 4px var(--sw-o-karashi),
+    inset 0 0 0 6px var(--sw-paper-3);
+}
+
+/* 原稿用紙 */
+.sw-genkou {
+  --sw-masu: 2.2em;
+  background-color: var(--sw-paper-3);
+  background-image:
+    linear-gradient(var(--sw-o-asagi) 1px, transparent 1px),
+    linear-gradient(90deg, var(--sw-o-asagi) 1px, transparent 1px);
+  background-size: var(--sw-masu) var(--sw-masu);
+  border: 2px solid var(--sw-o-asagi);
+  padding: 0;
+  font-family: var(--sw-mincho);
+  font-size: var(--sw-t-base);
+  line-height: var(--sw-masu);
+  letter-spacing: calc(var(--sw-masu) - 1em);
+  text-indent: calc((var(--sw-masu) - 1em) / 2);
+  color: var(--sw-sumi);
+}
+
+/* 縦組みの原稿用紙。実物はこちらが本来の形 */
+.sw-genkou.is-tate {
+  position: relative;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  line-height: var(--sw-masu);
+  letter-spacing: calc(var(--sw-masu) - 1em);
+  text-indent: calc((var(--sw-masu) - 1em) / 2);
+  /* 天に魚尾ぶんの余白を取る。ここが無いと本文に重なる */
+  padding-top: 1.5em;
+  padding-bottom: 0;
+}
+
+/* 魚尾。中央の綴じ目に入る印 */
+.sw-genkou.is-tate::before {
+  content: "";
+  position: absolute;
+  left: 50%; top: 0.18em;
+  width: 0.85em; height: 1.05em;
+  transform: translateX(-50%);
+  background: var(--sw-o-asagi);
+  clip-path: polygon(0 0, 100% 0, 100% 55%, 50% 100%, 0 55%);
+}
+
+/* スタンプカード */
+.sw-stampcard {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  background: var(--sw-paper-3);
+  border: 2px solid var(--sw-sumi);
+}
+
+.sw-stampcard > .masu {
+  position: relative;
+  aspect-ratio: 1;
+  display: grid;
+  place-content: center;
+  border: 1px dashed var(--sw-kei);
+  font-family: var(--sw-mincho);
+  font-size: var(--sw-t-sm);
+  color: var(--sw-kei);
+}
+
+.sw-stampcard > .masu.is-oshita {
+  color: var(--sw-o-enji);
+  font-size: var(--sw-t-md);
+  font-weight: 700;
+}
+
+.sw-stampcard > .masu.is-oshita::before {
+  content: "";
+  position: absolute;
+  inset: 16%;
+  border: 2px solid var(--sw-o-enji);
+  border-radius: 50%;
+  transform: rotate(-8deg);
+  opacity: 0.85;
+}
+
+/* 写真。白フチのプリントに日付が焼き込まれている */
+.sw-shashin {
+  display: inline-block;
+  background: #fbf8f0;
+  padding: 0.7rem 0.7rem 2.6rem;
+  box-shadow: 2px 3px 8px rgba(36, 31, 26, 0.3);
+  transform: rotate(-1.5deg);
+  position: relative;
+}
+
+.sw-shashin > .ban {
+  display: block;
+  background: #7a5a42;
+  filter: sepia(0.45) contrast(1.05);
+  min-height: 8rem;
+  min-width: 11rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.sw-shashin > .hizuke {
+  position: absolute;
+  right: 1.2rem;
+  bottom: 3.1rem;
+  font-family: var(--sw-dot);
+  font-size: var(--sw-t-xs);
+  color: #ff9a2e;
+  text-shadow: 0 0 4px rgba(255, 154, 46, 0.8);
+  letter-spacing: 0.05em;
+}
+
+.sw-shashin > .caption {
+  position: absolute;
+  left: 0; right: 0; bottom: 0.7rem;
+  text-align: center;
+  font-family: var(--sw-tegaki);
+  font-size: var(--sw-t-sm);
+  color: #6b6157;
+}
+
+/* 青焼き。版下を確認するために焼いた青写しの紙 */
+.sw-aozake {
+  background-color: #dde6ec;
+  color: #0f3d6b;
+  border: 1px solid #93aabd;
+  font-family: var(--sw-mono);
+  font-size: var(--sw-t-sm);
+  line-height: 1.85;
+  padding: 0.9rem 1.1rem;
+  overflow-x: auto;
+  tab-size: 2;
+  background-image:
+    linear-gradient(103deg, rgba(255,255,255,.5) 0%, rgba(255,255,255,0) 42%, rgba(15,61,107,.06) 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2'/%3E%3C/filter%3E%3Crect width='150' height='150' filter='url(%23a)' opacity='0.05'/%3E%3C/svg%3E");
+  box-shadow: 2px 2px 0 rgba(15, 61, 107, 0.18);
+}
+
+.sw-aozake .chu { color: #5d7f9c; }
+
+/* 夜は青写真。地と線が入れ替わる */
+:root[data-theme="dark"] .sw-aozake,
+.sw-aozake.is-shashin {
+  background-color: #0d2b4d;
+  color: #d5e6f5;
+  border-color: #24537f;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.45);
+}
+
+:root[data-theme="dark"] .sw-aozake .chu,
+.sw-aozake.is-shashin .chu { color: #7fa8cc; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .sw-aozake {
+    background-color: #0d2b4d;
+    color: #d5e6f5;
+    border-color: #24537f;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.45);
+  }
+  :root:not([data-theme="light"]) .sw-aozake .chu { color: #7fa8cc; }
+}
+

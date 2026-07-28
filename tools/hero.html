@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!-- README の紹介画像を撮るためのページ。フレームワークには含みません。
+
+     docs/hero.png と docs/hero-dark.png を撮り直す:
+
+       CH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+       "$CH" --headless --disable-gpu --hide-scrollbars --window-size=1200,620 \
+         --screenshot=docs/hero.png --virtual-time-budget=8000 \
+         "file://$PWD/tools/hero.html"
+
+     暗い方は data-theme="dark" に差し替えて同じことをします。 -->
+<html lang="ja" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<title>showa-retro.css</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code&family=DotGothic16&family=Shippori+Antique&family=Yusei+Magic&family=Zen+Kaku+Gothic+New:wght@400;700&family=Zen+Maru+Gothic:wght@700&family=Zen+Old+Mincho:wght@400;700&display=swap">
+<link rel="stylesheet" href="../showa-retro-fonts.css">
+<link rel="stylesheet" href="../showa-retro.css">
+<style>
+  html, body { margin: 0; }
+  body { padding: 1.6rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.4rem 1.6rem;
+    align-items: start;
+    max-width: 66rem;
+    margin-inline: auto;
+  }
+  .cell { min-width: 0; display: flex; flex-direction: column; gap: .9rem; align-items: flex-start; }
+</style>
+</head>
+<body class="sw">
+<div class="grid">
+
+  <div class="cell">
+    <div class="sw-kanban is-sabi" style="width:100%">
+      <p class="sw-midashi" style="margin:0">大黒屋洋品店</p>
+      <p style="margin:.35rem 0 0; font-size:.9rem">呉服・洋装・寝具</p>
+    </div>
+    <div class="sw-row">
+      <span class="sw-sodekanban" style="font-size:1.1rem">喫茶</span>
+      <span class="sw-inkan">検<br>印</span>
+      <span class="sw-inkan is-mincho is-beta">済</span>
+    </div>
+  </div>
+
+  <div class="cell">
+    <table class="sw-shinagaki" style="width:100%">
+      <tr><td>珈琲</td><td>三五〇円</td></tr>
+      <tr><td>クリームソーダ</td><td>五〇〇円</td></tr>
+      <tr><td>ナポリタン</td><td>七〇〇円</td></tr>
+    </table>
+    <div class="sw-row">
+      <button class="sw-btn is-enji">注文</button>
+      <button class="sw-btn is-kon">戻る</button>
+      <span class="sw-badge is-karashi">MIT</span>
+    </div>
+  </div>
+
+  <div class="cell">
+    <div class="sw-tv is-nagare" style="width:100%">
+      <p class="sw-jimaku" style="margin:0">こんばんは</p>
+    </div>
+    <span class="sw-record sw-anim-kaiten" style="width:4.5rem"></span>
+  </div>
+
+  <div class="cell">
+    <div class="sw-kippu" style="width:100%">
+      <span class="mimi">回数券</span>
+      <span class="honbun"><b style="font-size:1.05rem">コーヒー　一杯</b><br>
+      <small class="sw-c-usu" style="font-size:.75rem">有効期限　昭和六十三年十二月まで</small></span>
+    </div>
+    <span class="sw-fusen">忘れずに</span>
+  </div>
+
+  <div class="cell">
+    <div style="display:flex;gap:.8rem;flex-wrap:nowrap;align-items:center">
+      <div class="sw-pop" style="width:7.5rem;height:7.5rem;min-width:0;min-height:0;font-size:.62rem"><span>本日限り</span><span class="nedan">半額</span></div>
+      <div class="sw-pop is-tokiwa sw-katamuki-r" style="width:7.5rem;height:7.5rem;min-width:0;min-height:0;font-size:.62rem"><span>先着</span><span class="nedan">百名様</span></div>
+    </div>
+  </div>
+
+  <div class="cell">
+    <div class="sw-bg-mizu" style="padding:1.1rem; width:100%">
+      <div class="sw-panel"><p style="margin:0; font-size:.9rem">色地に置く角丸パネル</p></div>
+    </div>
+    <div class="sw-stampcard" style="width:100%">
+      <span class="masu is-oshita">済</span><span class="masu is-oshita">済</span>
+      <span class="masu is-oshita">済</span><span class="masu">4</span><span class="masu">5</span>
+      <span class="masu">6</span><span class="masu">7</span><span class="masu">8</span>
+      <span class="masu">9</span><span class="masu">満</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

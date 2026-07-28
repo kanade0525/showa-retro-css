@@ -1,0 +1,87 @@
+/* ==========================================================================
+   17. 強制配色（Windows ハイコントラスト）
+
+   forced-colors: active では、作者の指定した色・背景画像・box-shadow が
+   利用者の選んだ配色に置き換えられます。このフレームワークは意匠の大半を
+   グラデーションと埋め込みSVGと box-shadow で描いているので、
+   何もしないとホーロー看板がただの白い箱になります。
+
+   方針は二つに分けています。
+
+     ① 実物の意匠   色そのものが中身。写真や図版と同じ扱いで、
+                    forced-color-adjust: none にして作者の色を残します。
+                    看板の赤や袖看板の紺は「装飾」ではなく「その物の色」です。
+
+     ② UI部品       システム配色に委ねます。ただし境界を box-shadow だけで
+                    描いている所は線が消えて輪郭を失うので、border を補います。
+
+   ①に不服がある場合（利用者の配色で塗り潰してほしい場合）は、
+   .sw に forced-color-adjust: auto を上書きしてください。
+   ========================================================================== */
+
+@media (forced-colors: active) {
+
+  /* --- 紙の質感と地紋。情報を持たないので落とす --- */
+  .sw,
+  .sw-ji-hanagara, .sw-ji-tile, .sw-ji-garasu, .sw-ji-sofa,
+  .sw-ji-ichimatsu, .sw-ji-yagasuri, .sw-ji-koushi, .sw-ji-mizutama,
+  .sw-ji-shima, .sw-ji-amiten, .sw-ji-hougan, .sw-ji-dosen {
+    background-image: none;
+  }
+
+  /* --- 装飾だけの重ね。消えないと汚れに見える --- */
+  .sw-shusen::before, .sw-shusen::after,
+  .sw-kirakira::before, .sw-kirakira::after,
+  .sw-hana::before, .sw-hana::after,
+  .sw-kasure::after, .sw-taishoku::after, .sw-hanzure::before, .sw-hanzure::after {
+    display: none;
+  }
+
+  /* かすれ・退色・白黒は「読みにくくする」ための効果なので、
+     強制配色では素直に無効にする */
+  .sw-kasure, .sw-taishoku, .sw-monokuro {
+    opacity: 1;
+    filter: none;
+    -webkit-mask-image: none;
+            mask-image: none;
+  }
+
+  /* --- ① 実物の意匠。色が中身なので作者の指定を残す --- */
+  .sw-kanban, .sw-sodekanban, .sw-denshou, .sw-match, .sw-noren, .sw-garasu,
+  .sw-record, .sw-cassette, .sw-dial, .sw-tv, .sw-neon, .sw-keikoutou,
+  .sw-denkou, .sw-patapata, .sw-obi, .sw-pop, .sw-inkan, .sw-senjafuda,
+  .sw-noshi, .sw-kippu, .sw-shashin, .sw-tanzaku, .sw-arch {
+    forced-color-adjust: none;
+  }
+
+  /* --- ② UI部品。境界を box-shadow で描いている所に線を補う --- */
+  .sw-btn, .sw-kenbai, .sw-tsumami,
+  .sw-input, .sw-select, .sw-textarea,
+  .sw-panel, .sw-fukidashi, .sw-fusen, .sw-nifuda,
+  .sw-stampcard, .sw-shojo, .sw-genkou {
+    border: 1px solid;
+    box-shadow: none;
+  }
+
+  .sw-btn:disabled, .sw-btn.is-disabled {
+    color: GrayText;
+    border-color: GrayText;
+  }
+
+  /* 表の罫。--sw-kei は強制配色で潰れるので currentColor に寄せる */
+  .sw-table, .sw-table th, .sw-table td,
+  .sw-shinagaki, .sw-denpyo, .sw-denpyo th, .sw-denpyo td,
+  .sw-waku {
+    border-color: currentColor;
+  }
+
+  /* チェックと丸。地と印の区別が付かなくなるのを防ぐ */
+  .sw-check, .sw-radio {
+    forced-color-adjust: none;
+  }
+
+  /* 焦点はシステム色で。芥子色は強制配色では見えない */
+  .sw :focus-visible {
+    outline-color: Highlight;
+  }
+}

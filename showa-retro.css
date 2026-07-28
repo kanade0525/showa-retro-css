@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*!
- * 昭和レトロ.css v1.4.0 — 昭和レトロ CSS フレームワーク
+ * 昭和レトロ.css v2.0.0 — 昭和レトロ CSS フレームワーク
  * MIT License
  *
  * ── 色の三層 ────────────────────────────────────────────────────────
@@ -15,7 +15,7 @@
  *             昭和の印刷は版が少ないので、一枚で使うのは多くて三色まで。
  *
  *   ③ 物体色   --sw-o-*
- *             ホーロー看板・提灯・レコード盤など、実物の塗り。
+ *             ホーロー看板・袖看板・レコード盤など、実物の塗り。
  *             昼夜で変えません。ホーロー看板は夜になっても色が変わらないからです。
  *             地色と文字色を必ず対で持たせ、継承に頼りません。
  * ──────────────────────────────────────────────────────────────────
@@ -202,8 +202,6 @@
     --sw-kon:     #7ba2d4;
     --sw-asagi:   #86cdc0;
     --sw-momo:    #e0a3a3;
-  --sw-daidai:  #ef8a54;
-  --sw-mizu:    #7cc0d6;
     --sw-daidai:  #ef8a54;
     --sw-mizu:    #7cc0d6;
 
@@ -213,8 +211,6 @@
     --sw-kon-fuka:     #52739e;
     --sw-asagi-fuka:   #5c9c91;
     --sw-momo-fuka:    #b57a7a;
-  --sw-daidai-fuka:  #c26b3c;
-  --sw-mizu-fuka:    #5c99ac;
     --sw-daidai-fuka:  #c26b3c;
     --sw-mizu-fuka:    #5c99ac;
 
@@ -263,6 +259,18 @@
 /* ==========================================================================
    4. 下地
    ========================================================================== */
+
+/* 部品はどれも太い枠と広い余白を持ちます。content-box のままだと
+   width を指定した時に枠と余白がその外側に付いて、親からはみ出します。
+   v1 では見本帳の側で * { box-sizing: border-box } を書いていたので
+   見本帳だけ辻褄が合い、素の HTML に置いた人の所で崩れていました。
+   .sw の内側に閉じて当てます。ページ全体には触れません。 */
+.sw,
+.sw *,
+.sw *::before,
+.sw *::after {
+  box-sizing: border-box;
+}
 
 .sw {
   min-height: 100vh;
@@ -2477,3 +2485,90 @@
 /* 傾き。貼り紙の癖 */
 .sw-katamuki-l { transform: rotate(-2.5deg); }
 .sw-katamuki-r { transform: rotate(2.5deg); }
+/* ==========================================================================
+   17. 強制配色（Windows ハイコントラスト）
+
+   forced-colors: active では、作者の指定した色・背景画像・box-shadow が
+   利用者の選んだ配色に置き換えられます。このフレームワークは意匠の大半を
+   グラデーションと埋め込みSVGと box-shadow で描いているので、
+   何もしないとホーロー看板がただの白い箱になります。
+
+   方針は二つに分けています。
+
+     ① 実物の意匠   色そのものが中身。写真や図版と同じ扱いで、
+                    forced-color-adjust: none にして作者の色を残します。
+                    看板の赤や袖看板の紺は「装飾」ではなく「その物の色」です。
+
+     ② UI部品       システム配色に委ねます。ただし境界を box-shadow だけで
+                    描いている所は線が消えて輪郭を失うので、border を補います。
+
+   ①に不服がある場合（利用者の配色で塗り潰してほしい場合）は、
+   .sw に forced-color-adjust: auto を上書きしてください。
+   ========================================================================== */
+
+@media (forced-colors: active) {
+
+  /* --- 紙の質感と地紋。情報を持たないので落とす --- */
+  .sw,
+  .sw-ji-hanagara, .sw-ji-tile, .sw-ji-garasu, .sw-ji-sofa,
+  .sw-ji-ichimatsu, .sw-ji-yagasuri, .sw-ji-koushi, .sw-ji-mizutama,
+  .sw-ji-shima, .sw-ji-amiten, .sw-ji-hougan, .sw-ji-dosen {
+    background-image: none;
+  }
+
+  /* --- 装飾だけの重ね。消えないと汚れに見える --- */
+  .sw-shusen::before, .sw-shusen::after,
+  .sw-kirakira::before, .sw-kirakira::after,
+  .sw-hana::before, .sw-hana::after,
+  .sw-kasure::after, .sw-taishoku::after, .sw-hanzure::before, .sw-hanzure::after {
+    display: none;
+  }
+
+  /* かすれ・退色・白黒は「読みにくくする」ための効果なので、
+     強制配色では素直に無効にする */
+  .sw-kasure, .sw-taishoku, .sw-monokuro {
+    opacity: 1;
+    filter: none;
+    -webkit-mask-image: none;
+            mask-image: none;
+  }
+
+  /* --- ① 実物の意匠。色が中身なので作者の指定を残す --- */
+  .sw-kanban, .sw-sodekanban, .sw-denshou, .sw-match, .sw-noren, .sw-garasu,
+  .sw-record, .sw-cassette, .sw-dial, .sw-tv, .sw-neon, .sw-keikoutou,
+  .sw-denkou, .sw-patapata, .sw-obi, .sw-pop, .sw-inkan, .sw-senjafuda,
+  .sw-noshi, .sw-kippu, .sw-shashin, .sw-tanzaku, .sw-arch {
+    forced-color-adjust: none;
+  }
+
+  /* --- ② UI部品。境界を box-shadow で描いている所に線を補う --- */
+  .sw-btn, .sw-kenbai, .sw-tsumami,
+  .sw-input, .sw-select, .sw-textarea,
+  .sw-panel, .sw-fukidashi, .sw-fusen, .sw-nifuda,
+  .sw-stampcard, .sw-shojo, .sw-genkou {
+    border: 1px solid;
+    box-shadow: none;
+  }
+
+  .sw-btn:disabled, .sw-btn.is-disabled {
+    color: GrayText;
+    border-color: GrayText;
+  }
+
+  /* 表の罫。--sw-kei は強制配色で潰れるので currentColor に寄せる */
+  .sw-table, .sw-table th, .sw-table td,
+  .sw-shinagaki, .sw-denpyo, .sw-denpyo th, .sw-denpyo td,
+  .sw-waku {
+    border-color: currentColor;
+  }
+
+  /* チェックと丸。地と印の区別が付かなくなるのを防ぐ */
+  .sw-check, .sw-radio {
+    forced-color-adjust: none;
+  }
+
+  /* 焦点はシステム色で。芥子色は強制配色では見えない */
+  .sw :focus-visible {
+    outline-color: Highlight;
+  }
+}
