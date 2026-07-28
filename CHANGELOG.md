@@ -3,6 +3,25 @@
 書式は [Keep a Changelog](https://keepachangelog.com/ja/1.1.0/) に、
 版の付け方は [セマンティック バージョニング](https://semver.org/lang/ja/) に従います。
 
+## [2.0.5] — 2026-07-28
+
+### 修正
+
+- **見本帳の「火の元用心」を「火の用心」に。** 定型句は「火の用心」です。
+  「火の元」は火を使う場所を指す名詞で、標語としては成立していませんでした。
+- **コントラスト計測が色の修飾子を取りこぼしていた。** `.sw-kanban.is-kon` の
+  ように `background` だけ書き替えて文字色は基底の指定をそのまま使う書き方を、
+  「対で指定されていない」と見なして表から落としていました。基底セレクタの
+  文字色を引き継いで測るようにしたので、対象が11件から15件に増えています。
+  取りこぼしていた4件はいずれも AA 以上でした。
+
+  | 追加された組み合わせ | 比 |
+  | --- | --- |
+  | `.sw-kanban.is-aka` | 4.88 |
+  | `.sw-kanban.is-tokiwa` | 5.22 |
+  | `.sw-kanban.is-kon` | 9.02 |
+  | `.sw-sodekanban.is-enji` | 4.83 |
+
 ## [2.0.4] — 2026-07-28
 
 **看板がレトロミンを使っていませんでした。**
@@ -207,6 +226,7 @@ npm に出す前に、番号の付け方を正しておきます。今回から 
 
 - 初期の公開版
 
+[2.0.5]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.0.5
 [2.0.4]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.0.4
 [2.0.3]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.0.3
 [2.0.2]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.0.2

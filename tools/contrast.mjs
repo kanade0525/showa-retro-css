@@ -121,17 +121,33 @@ for (const [v, name] of SURI) {
 
 // CSS の中で background と color が対で指定されている箇所を拾う。
 // 物体色は昼夜で変わらないので一度測れば足ります。
+// 色の修飾子（.sw-kanban.is-kon など）は background だけ書き替えて、
+// 文字色は基底（.sw-kanban）の指定をそのまま使うことが多い。
+// 同じブロックに両方揃っている場合だけ見ていると、そういう組み合わせを
+// 取りこぼして「測ってある」つもりで穴が空く。基底の色を覚えて補う。
+const baseColor = new Map(); // セレクタ → 文字色の変数名
 const pairs = new Map();
+
 for (const f of readdirSync(p("src")).filter((x) => /^\d\d-.+\.css$/.test(x))) {
   const css = readFileSync(p("src", f), "utf8");
   for (const m of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
     const sel = m[1].trim().split("\n").pop().trim();
     const bg = /background(?:-color)?:\s*var\((--sw-o-[\w-]+)\)/.exec(m[2]);
     const fg = /(?:^|[;\s])color:\s*var\((--sw-o-[\w-]+)\)/.exec(m[2]);
-    if (bg && fg && light[bg[1]] && light[fg[1]]) {
-      const key = `${bg[1]}|${fg[1]}`;
-      if (!pairs.has(key)) pairs.set(key, { bg: bg[1], fg: fg[1], sel });
+
+    if (fg && light[fg[1]]) baseColor.set(sel, fg[1]);
+    if (!bg || !light[bg[1]]) continue;
+
+    // 同じブロックの色、無ければ基底セレクタの色（.a.is-b → .a）
+    let fgName = fg && light[fg[1]] ? fg[1] : null;
+    if (!fgName) {
+      const base = sel.replace(/(\.[\w-]+)(\.[\w-]+)+$/, "$1");
+      if (base !== sel) fgName = baseColor.get(base) ?? null;
     }
+    if (!fgName) continue;
+
+    const key = `${bg[1]}|${fgName}`;
+    if (!pairs.has(key)) pairs.set(key, { bg: bg[1], fg: fgName, sel });
   }
 }
 

@@ -143,7 +143,9 @@ Google Fonts への直参照では、閲覧者のIPアドレスが Google に渡
 | `--sw-o-shu` | `--sw-o-usuki` | 3.22 | AA大のみ | `.sw-pop` |
 | `--sw-o-tokiwa` | `--sw-o-usuki` | 4.49 | AA大のみ | `.sw-pop.is-tokiwa` |
 | `--sw-o-daidai` | `--sw-o-sumi` | 4.80 | AA | `.sw-obi.is-daidai` |
-| `--sw-o-tokiwa` | `--sw-o-kinari` | 5.22 | AA | `.sw-obi.is-tokiwa` |
+| `--sw-o-enji` | `--sw-o-usuki` | 4.83 | AA | `.sw-sodekanban.is-enji` |
+| `--sw-o-aka` | `--sw-o-kinari` | 4.88 | AA | `.sw-kanban.is-aka` |
+| `--sw-o-tokiwa` | `--sw-o-kinari` | 5.22 | AA | `.sw-kanban.is-tokiwa` |
 | `--sw-o-enji` | `--sw-o-kinari` | 5.61 | AA | `.sw-kanban` |
 | `--sw-o-momo` | `--sw-o-sumi` | 6.15 | AA | `.sw-obi.is-momo` |
 | `--sw-o-asagi` | `--sw-o-sumi` | 6.66 | AA | `.sw-obi.is-asagi` |
@@ -151,7 +153,7 @@ Google Fonts への直参照では、閲覧者のIPアドレスが Google に渡
 | `--sw-o-sumi` | `--sw-o-karashi` | 7.04 | AAA | `.sw-match.is-sumi` |
 | `--sw-o-mizu` | `--sw-o-sumi` | 7.31 | AAA | `.sw-obi.is-mizu` |
 | `--sw-o-kon` | `--sw-o-usuki` | 7.76 | AAA | `.sw-sodekanban` |
-| `--sw-o-kon` | `--sw-o-kinari` | 9.02 | AAA | `.sw-obi.is-kon` |
+| `--sw-o-kon` | `--sw-o-kinari` | 9.02 | AAA | `.sw-kanban.is-kon` |
 <!-- contrast:end -->
 
 測って分かったことを、そのまま書きます。
