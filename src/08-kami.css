@@ -409,7 +409,11 @@
   background-color: #dde6ec;
   color: #0f3d6b;
   border: 1px solid #93aabd;
-  font-family: var(--sw-mono);
+  /* 青焼きに載るのは品名と単価のような表組みで、和文が桁の途中に入ります。
+     --sw-mono の先頭は Monaco ですが、Monaco の空白は 0.6em、和文は
+     M PLUS 1 Code の 1.0em なので 2:1 にならず、桁が行ごとにずれます。
+     ラテン0.5em／和文1.0emの M PLUS 1 Code をここだけ先に置きます。 */
+  font-family: "M PLUS 1 Code", var(--sw-mono);
   font-size: var(--sw-t-sm);
   line-height: 1.85;
   padding: 0.9rem 1.1rem;

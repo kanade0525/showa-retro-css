@@ -3,6 +3,30 @@
 書式は [Keep a Changelog](https://keepachangelog.com/ja/1.1.0/) に、
 版の付け方は [セマンティック バージョニング](https://semver.org/lang/ja/) に従います。
 
+## [2.0.2] — 2026-07-28
+
+コード欄の書体を Monaco 優先に戻しました。2.0.1 で M PLUS 1 Code を先頭にしましたが、
+「和欧の混植で字面が揃わない」という判断は過剰でした。実際に並べて確かめたところ、
+コードは行頭から揃え位置までが欧文なので、Monaco が先でも桁は崩れません。
+
+桁が実際に崩れるのは、**和文が桁の途中に入る表組み**だけです。詰め物の空白が
+Monaco の 0.6em、和文が M PLUS 1 Code の 1.0em になり、2:1 の関係が壊れるためです。
+該当するのは `.sw-aozake` なので、そこだけ M PLUS 1 Code を先頭に置いて両立させました。
+
+なお Monaco は macOS にしかありません。Windows と Linux では M PLUS 1 Code が出ます。
+環境によって顔が変わることを承知のうえでの選択です。
+
+### 変更
+
+- `--sw-mono` の先頭を Monaco に戻した
+- `.sw-aozake` だけ `"M PLUS 1 Code", var(--sw-mono)` にして桁揃えを保つ
+
+### 見本帳
+
+- 青焼きの見本を、和文の地の文から品名と単価の表組みに変更。
+  等幅で組む意味がある内容にしました。地の文を等幅で組んでいたのが、
+  「ここだけ書体が違う」と見えていた原因です。
+
 ## [2.0.1] — 2026-07-28
 
 見本帳を通しで見て出てきた不具合の修正です。意匠の変更を二つ含みます。
@@ -141,6 +165,7 @@ npm に出す前に、番号の付け方を正しておきます。今回から 
 
 - 初期の公開版
 
+[2.0.2]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.0.2
 [2.0.1]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.0.1
 [2.0.0]: https://github.com/kanade0525/showa-retro-css/releases/tag/v2.0.0
 [1.4.0]: https://github.com/kanade0525/showa-retro-css/releases/tag/v1.4.0
