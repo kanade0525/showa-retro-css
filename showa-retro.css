@@ -101,7 +101,9 @@
   --sw-dot: "マキナスカナ", "DotGothic16", "Osaka-Mono", monospace;
 
   /* 等幅。時刻表と伝票の数字 */
-  --sw-mono: Monaco, "DiaPro", "Osaka-Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  /* コード用。Monaco が和文を持たないので、和文は等幅のコーディング書体に渡す。
+     M PLUS 1 Code はラテン 0.5em / 和文 1.0em の 2:1 等幅（OFL） */
+  --sw-mono: Monaco, "M PLUS 1 Code", "Osaka-Mono", "SFMono-Regular", Menlo, Consolas, monospace;
 }
 
 /* ==========================================================================
