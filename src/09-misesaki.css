@@ -3,7 +3,19 @@
    ========================================================================== */
 
 /* のれん。裾に切れ目が入る */
-.sw-noren { display: flex; justify-content: center; gap: 4px; background: transparent; }
+/* のれん。上端は縫い合わさった一枚の布で、切れ目は裾にだけ入る。
+   旧版は gap が布の全高に効いて上まで割れており、5枚の別々の布に
+   見えていた（説明文の「すそに切れ目が入ります」とも食い違い）。
+   容器に地色を敷いて上端を繋ぎ、切れ目は下からの高さぶんだけ見せる。 */
+.sw-noren {
+  --sw-noren-ji: var(--sw-o-kon);
+  --sw-noren-kire: 62%;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  background-color: var(--sw-noren-ji);
+  background-image: linear-gradient(var(--sw-noren-ji) 0 calc(100% - var(--sw-noren-kire)), transparent 0);
+}
 
 .sw-noren > .nuno {
   flex: 1 1 0;
@@ -24,9 +36,9 @@
   box-shadow: inset 0 6px 0 rgba(0, 0, 0, 0.22);
 }
 
-.sw-noren.is-enji > .nuno   { background: var(--sw-o-enji); }
-.sw-noren.is-tokiwa > .nuno { background: var(--sw-o-tokiwa); }
-.sw-noren.is-kinari > .nuno { background: #e7dcc2; color: var(--sw-o-sumi); }
+.sw-noren.is-enji > .nuno   { background: var(--sw-o-enji); color: var(--sw-o-kinari); }
+.sw-noren.is-tokiwa > .nuno { background: var(--sw-o-tokiwa); color: var(--sw-o-kinari); }
+.sw-noren.is-kinari > .nuno { background: var(--sw-o-kinari); color: var(--sw-o-sumi); }
 
 /* マッチラベル。純喫茶の卓上にあったもの */
 .sw-match {
@@ -54,7 +66,9 @@
 
 .sw-match .tel {
   display: block;
-  font-family: var(--sw-mono);
+  /* 印刷物なので等幅のコーディング書体は使わない。
+     桁を揃えたいだけなら数字だけ等幅にする */
+  font-variant-numeric: tabular-nums;
   font-size: var(--sw-t-xs);
   letter-spacing: 0.1em;
   margin-top: 0.5em;

@@ -17,10 +17,13 @@ const p = (...xs) => join(root, ...xs);
 
 /* ---- CSS に定義されているクラスを集める -------------------------------- */
 
+// コメントは落とす。コメントに書いたクラス名を「実在する」と誤認して、
+// 存在しないクラスの掲載を見逃していた（.sw-amiten が幽霊として残った）
 const css = readdirSync(p("src"))
   .filter((f) => /^\d\d-.+\.css$/.test(f))
   .map((f) => readFileSync(p("src", f), "utf8"))
-  .join("\n");
+  .join("\n")
+  .replace(/\/\*[\s\S]*?\*\//g, " ");
 
 const defined = new Set();
 for (const m of css.matchAll(/\.(sw[\w-]*)/g)) defined.add(m[1]);

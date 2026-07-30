@@ -37,8 +37,10 @@
   background-repeat: no-repeat;
 }
 
+/* プレースホルダは WCAG の対象。罫線用の --sw-kei を流用すると
+   2.05:1 で読めないので、文字用の薄墨にする */
 .sw-input::placeholder,
-.sw-textarea::placeholder { color: var(--sw-kei); }
+.sw-textarea::placeholder { color: var(--sw-sumi-usu); }
 
 /* 升目に一字ずつ入れる欄
    送りをマスの幅にぴったり合わせる必要があります。
@@ -84,12 +86,16 @@
 
 .sw-radio > input { border-radius: 50%; }
 
+/* チェック。✓（U+2713）は晩秋レトロミンにも Zen Old Mincho にも無く、
+   環境ごとに違う形で出ていました。線二本で描きます。 */
 .sw-check > input:checked::before {
-  content: "✓";
-  font-size: 1em;
-  line-height: 1;
-  font-weight: 700;
-  color: var(--sw-enji);
+  content: "";
+  width: 0.34em;
+  height: 0.62em;
+  margin-top: -0.14em;
+  border: solid var(--sw-enji);
+  border-width: 0 0.16em 0.16em 0;
+  transform: rotate(42deg);
 }
 
 .sw-radio > input:checked::before {

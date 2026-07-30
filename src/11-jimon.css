@@ -63,8 +63,12 @@
   background-size: 22px 22px;
 }
 
-/* 網点 */
-.sw-ji-amiten {
+/* 点の地紋。
+   かつて「網点」と称していたものです。網点は色の深さに
+   応じて点の径が変わる仕組みで、等間隔・同一径の点は網点ではありません。
+   README で「撤去した」と書きながら、名前に網点を残したまま改名しただけで
+   名前も実装も残っていたので、名前から網点を落としました。 */
+.sw-ji-ten {
   background-color: var(--sw-paper);
   background-image: radial-gradient(circle at center, var(--sw-pattern) 2px, transparent 2.4px);
   background-size: 7px 7px;
@@ -75,7 +79,9 @@
    実物は色違いの同心円がびっしり並ぶ柄でした。撤去ではなく作り直しです。 */
 .sw-ji-dosen {
   background-color: #f0e6cd;
-  background-image: repeating-radial-gradient(
+  /* 同心円は一組で閉じる。repeating- のままだとタイルの隅で
+     二周目が始まり、円の外周が四角く切り落とされた破片が残る。 */
+  background-image: radial-gradient(
     circle at 50% 50%,
     #d4491a 0 7px, transparent 7px 13px,
     #3c6b52 13px 20px, transparent 20px 26px,
@@ -86,7 +92,7 @@
 
 .sw-ji-dosen.is-momo {
   background-color: #f6efe4;
-  background-image: repeating-radial-gradient(
+  background-image: radial-gradient(
     circle at 50% 50%,
     #cf8e8e 0 7px, transparent 7px 13px,
     #6cb8cf 13px 20px, transparent 20px 26px,
@@ -153,6 +159,9 @@
     repeating-linear-gradient(45deg,  rgba(0,0,0,.26) 0 1.5px, transparent 1.5px 44px),
     repeating-linear-gradient(-45deg, rgba(0,0,0,.26) 0 1.5px, transparent 1.5px 44px);
   background-size: 62px 62px, 62px 62px, 62px 62px, 62px 62px, auto, auto;
-  background-position: 0 0, 31px 31px, 0 0, 31px 31px, 0 0, 0 0;
+  /* 膨らみはボタンの「あいだ」が持ち上がる。旧版は膨らみ2層と
+     ボタン2層が同じ格子で、ボタンの真上が最も明るくなっていた（明暗が逆）。
+     膨らみを半升ずらす。 */
+  background-position: 31px 0, 0 31px, 0 0, 31px 31px, 0 0, 0 0;
 }
 

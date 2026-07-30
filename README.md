@@ -8,7 +8,7 @@
 
 昭和レトロ CSS フレームワーク。ホーロー看板・純喫茶のお品書き・回数券・ブラウン管・刷りのかすれを、クラス一つで再現します。
 
-**JavaScript も画像も使いません。** 読みに行くのは CSS だけです。全部入りで 60KB（**gzip 後 12.5KB**）。必要なところだけ読めば 8KB まで落ちます。
+**JavaScript も画像も使いません。** 読みに行くのは CSS だけです。全部入りで 62.4KB（**gzip 後 13.1KB**）。必要なところだけ読めば 8KB まで落ちます。
 
 ## 導入
 
@@ -28,7 +28,7 @@ npm i showa-retro.css
 
 ```js
 import 'showa-retro.css';        // 全部入り
-import 'showa-retro.css/min';    // 圧縮版 60KB / gzip 12.5KB
+import 'showa-retro.css/min';    // 圧縮版 62.4KB / gzip 13.1KB
 ```
 
 ### 必要なところだけ読む
@@ -37,9 +37,9 @@ import 'showa-retro.css/min';    // 圧縮版 60KB / gzip 12.5KB
 
 | 読むもの | 最小化後 | gzip後 |
 | --- | --- | --- |
-| 全部入り | 60.0KB | 12.5KB |
-| よく使う一式（base・文字組・看板・ボタン・表・割付・強制配色） | 23.8KB | 6.0KB |
-| base と文字組だけ | 7.9KB | 2.7KB |
+| 全部入り | 62.4KB | 13.1KB |
+| よく使う一式（base・文字組・看板・ボタン・表・割付・強制配色） | 25.4KB | 6.3KB |
+| base と文字組だけ | 8.7KB | 2.8KB |
 
 大きいのは紙もの（13.8KB）・家電（12.6KB）・地紋（11.7KB）・看板（11.7KB）です。
 
@@ -105,7 +105,7 @@ Google Fonts への直参照では、閲覧者のIPアドレスが Google に渡
 | 層 | トークン | 昼夜 | 用途 |
 | --- | --- | --- | --- |
 | ① 紙と墨 | `--sw-paper` `--sw-sumi` ほか | 入れ替わる | ページの地と文字 |
-| ② 刷り色 | `--sw-enji` `--sw-karashi` `--sw-tokiwa` `--sw-kon` `--sw-asagi` `--sw-momo` | 明度を調整 | 紙に刷る六色 |
+| ② 刷り色 | `--sw-enji` `--sw-karashi` `--sw-tokiwa` `--sw-kon` `--sw-asagi` `--sw-momo` `--sw-daidai` `--sw-mizu` | 明度を調整 | 紙に刷る八色 |
 | ③ 物体色 | `--sw-o-*` | **変えない** | ホーロー看板・袖看板・レコード盤など実物の塗り |
 
 ![同じ画面の夜間モード。紙と文字は反転しているが、看板・袖看板・POPの色はそのまま](./docs/hero-dark.png)
@@ -162,6 +162,7 @@ Google Fonts への直参照では、閲覧者のIPアドレスが Google に渡
 | `--sw-o-mizu-oshi` | `--sw-o-sumi` | 8.67 | AAA | `.sw-btn.is-mizu:hover` |
 | `--sw-o-kon` | `--sw-o-kinari` | 9.02 | AAA | `.sw-kanban.is-kon` |
 | `--sw-o-kon-oshi` | `--sw-o-kinari` | 10.92 | AAA | `.sw-btn.is-kon:hover` |
+| `--sw-o-kinari` | `--sw-o-sumi` | 13.87 | AAA | `.sw-shusen` |
 <!-- contrast:end -->
 
 測って分かったことを、そのまま書きます。
@@ -209,7 +210,7 @@ Google Fonts への直参照では、閲覧者のIPアドレスが Google に渡
 | 紙もの | `sw-inkan`（`is-mincho` 明朝／`is-kaku` 角印／`is-beta` べた）`sw-fusen` `sw-fukidashi` `sw-kippu` `sw-nifuda` `sw-senjafuda` `sw-noshi` `sw-badge` 徽章　`sw-aozake` 青焼き　`sw-pop` 特売　`sw-shojo` 賞状　`sw-genkou` 原稿用紙　`sw-stampcard` `sw-shashin` |
 | 店先 | `sw-noren` `sw-match` マッチラベル　`sw-garasu` 型板ガラス　`sw-denshou` 電照看板 |
 | 家電 | `sw-tv`（`is-sunaarashi` 砂嵐／`is-nagare` 走査線）`sw-jimaku` `sw-neon` `sw-denkou` 電光掲示板　`sw-patapata` `sw-keikoutou` `sw-record` `sw-cassette` `sw-dial` 黒電話 |
-| 地紋 | `sw-ji-hanagara` 花柄　`sw-ji-dosen` 同心円　`sw-ji-tile` `sw-ji-garasu` `sw-ji-sofa` `sw-ji-ichimatsu` `sw-ji-yagasuri` `sw-ji-koushi` `sw-ji-mizutama` `sw-ji-shima` `sw-ji-amiten` `sw-ji-hougan` |
+| 地紋 | `sw-ji-hanagara` 花柄　`sw-ji-dosen` 同心円　`sw-ji-tile` `sw-ji-garasu` `sw-ji-sofa` `sw-ji-ichimatsu` `sw-ji-yagasuri` `sw-ji-koushi` `sw-ji-mizutama` `sw-ji-shima` `sw-ji-ten` `sw-ji-hougan` |
 | 飾り | `sw-shusen` 集中線　`sw-hana` 花　`sw-kirakira` キラキラ　`sw-arch` アーチ枠　`sw-panel` 角丸パネル　`sw-tanzaku` 短冊 |
 | 割付 | `sw-wrap` 中央寄せ　`sw-stack` 縦並び　`sw-row` 横並び　`sw-cols` 段組　`sw-c-*` 文字色　`sw-bg-*` 地色　`sw-katamuki-l` `sw-katamuki-r` 傾き |
 | 動き | `sw-anim-chirachira` ネオン　`sw-anim-tenmetsu` 蛍光灯　`sw-anim-kaiten` レコード |
@@ -226,14 +227,14 @@ OS の設定に従うほか、`<html data-theme="dark">` で明示的に指定�
 
 **下表は代用です。** 本物の昭和の見出し書体（ゴナU 1975・ナール 1973・石井明朝）は写研の所有で、モリサワの復刻も商用書体のため、OFL で一緒に配れません。
 
-| 役割 | 付属書体 | 昭和の何か |
+| 役割 | 書体（入手先） | 昭和の何か |
 | --- | --- | --- |
-| `.sw-f-mincho` 明朝 | 晩秋レトロミン →（欠けた字は Zen Old Mincho） | 石井明朝・本蘭明朝の方向（代用）**地の文はこれ** |
-| `.sw-f-maru` 丸ゴ | Zen Maru Gothic | ナール（1973・写研）の代用 |
-| `.sw-f-anchikku` アンチック | Shippori Antique | 漫画のセリフ書体（**昭和から続く様式**） |
-| `.sw-f-dot` ドット | DotGothic16 | 16ドットの表示装置（**昭和末期を参照**） |
-| `.sw-f-tegaki` 手書POP | Yusei Magic | 油性マジックの手書き（年代は特定しない） |
-| `.sw-f-gothic` 角ゴ | Zen Kaku Gothic New | 現代の書体。ラベルとボタンに限る |
+| `.sw-f-mincho` 明朝 | **同梱**：晩秋レトロミン →（欠けた字は Zen Old Mincho） | 石井明朝・本蘭明朝の方向（代用）**地の文はこれ** |
+| `.sw-f-maru` 丸ゴ | Google Fonts：Zen Maru Gothic | ナール（1973・写研）の代用 |
+| `.sw-f-anchikku` アンチック | Google Fonts：Shippori Antique | 漫画のセリフ書体（**昭和から続く様式**） |
+| `.sw-f-dot` ドット | Google Fonts：DotGothic16 | 16ドットの表示装置（**昭和末期を参照**） |
+| `.sw-f-tegaki` 手書POP | Google Fonts：Yusei Magic | 油性マジックの手書き（年代は特定しない） |
+| `.sw-f-gothic` 角ゴ | Google Fonts：Zen Kaku Gothic New | 現代の書体。ラベルとボタンに限る |
 | `.sw-f-jimaku` 字幕 | 付属なし | しねきゃぷしょん等。手元にあれば使う |
 
 昭和の本文組は明朝です。角ゴを地の文に敷くと現代の顔になるため、`.sw` の既定を明朝にしています。

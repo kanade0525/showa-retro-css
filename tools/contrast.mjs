@@ -126,6 +126,7 @@ for (const [v, name] of SURI) {
 // 同じブロックに両方揃っている場合だけ見ていると、そういう組み合わせを
 // 取りこぼして「測ってある」つもりで穴が空く。基底の色を覚えて補う。
 const baseColor = new Map(); // セレクタ → 文字色の変数名
+const danger = []; // 物体色の地に文字色を書いていない箇所
 const pairs = new Map();
 
 for (const f of readdirSync(p("src")).filter((x) => /^\d\d-.+\.css$/.test(x))) {
@@ -152,7 +153,14 @@ for (const f of readdirSync(p("src")).filter((x) => /^\d\d-.+\.css$/.test(x))) {
         }
       }
     }
-    if (!fgName) continue;
+    if (!fgName) {
+      // content:"" だけの擬似要素は文字を持たないので対象外
+      if (/::(before|after)/.test(sel) && /content:\s*""/.test(m[2])) continue;
+      // 地を物体色で置きながら文字色を書いていない箇所。
+      // 夜にテーマ変数の文字色が反転して地に溶ける（集中線が 1.09 で消えていた）。
+      danger.push({ sel, bg: bg[1] });
+      continue;
+    }
 
     const key = `${bg[1]}|${fgName}`;
     if (!pairs.has(key)) pairs.set(key, { bg: bg[1], fg: fgName, sel });
@@ -183,6 +191,13 @@ if (!re.test(readme)) {
   process.exit(1);
 }
 const next = readme.replace(re, section);
+
+if (danger.length) {
+  console.error("✗ 地を物体色で置きながら文字色を書いていない箇所があります。");
+  console.error("  夜にテーマ変数の文字色が反転して地に溶けます。物体色で対にしてください。");
+  for (const d of danger) console.error(`  ${d.sel}  地 ${d.bg}`);
+  process.exit(1);
+}
 
 if (CHECK) {
   if (next !== readme) {

@@ -2,9 +2,13 @@
    13. 家電
    ========================================================================== */
 
-/* ブラウン管 */
+/* ブラウン管。昭和の受像機は4:3。横長のパネルにならないよう
+   最小の縦横比を持たせる。字幕は画面の下に出るので下寄せ。 */
 .sw-tv {
   position: relative;
+  aspect-ratio: 4 / 3;
+  display: grid;
+  align-items: end;
   background: #14110e;
   color: var(--sw-o-asagi);
   border: 12px solid #3b332a;
@@ -52,9 +56,10 @@
    -1px 1px 2px #000, 1px -1px 2px #000, -1px -1px 2px #000;
 }
 
-/* ネオン管 */
+/* ネオン管。一定径のガラス管を曲げて作るので、線の太細もウロコも
+   物理的に出ない。明朝ではなく線幅の一定な丸ゴで組む。 */
 .sw-neon {
-  font-family: var(--sw-retromin);
+  font-family: var(--sw-maru);
   font-synthesis: none;
   color: var(--sw-o-aka);
   letter-spacing: 0.1em;
@@ -148,16 +153,32 @@
   background: rgba(0, 0, 0, 0.85);
 }
 
-/* 蛍光灯 */
+/* 直管蛍光灯。両端に口金があり、ソケットに嵌まって初めて成立する。
+   旧版は両端が丸い裸の光る棒だった。 */
 .sw-keikoutou {
+  position: relative;
   display: block;
   height: 1.1rem;
-  border-radius: 999px;
+  border-radius: 4px;
   background: linear-gradient(#fffdf2, #e8f2ea 45%, #cfe0d6);
   box-shadow:
     0 0 12px rgba(226, 244, 232, 0.9),
     0 0 40px rgba(200, 230, 212, 0.55);
 }
+
+/* 口金。両端の金具 */
+.sw-keikoutou::before,
+.sw-keikoutou::after {
+  content: "";
+  position: absolute;
+  top: -0.1rem;
+  width: 0.55rem;
+  height: 1.3rem;
+  border-radius: 2px;
+  background: linear-gradient(#b9b2a4, #6e6759 60%, #4a453b);
+}
+.sw-keikoutou::before { left: -0.15rem; }
+.sw-keikoutou::after  { right: -0.15rem; }
 
 /* レコード盤 */
 .sw-record {
@@ -167,7 +188,7 @@
   border-radius: 50%;
   position: relative;
   background:
-    radial-gradient(circle, transparent 0 5%, var(--sw-o-enji) 5% 30%, transparent 30%),
+    radial-gradient(circle, transparent 0 2.4%, var(--sw-o-enji) 2.4% 16.5%, transparent 16.5%),
     repeating-radial-gradient(circle, #191512 0 1.5px, #241f1a 1.5px 3px);
   box-shadow: 0 6px 16px var(--sw-shade);
 }
@@ -189,8 +210,9 @@
   content: "";
   position: absolute;
   left: 50%; top: 50%;
-  width: 7px; height: 7px;
-  margin: -3.5px 0 0 -3.5px;
+  /* 中心穴は径の約2.4%。旧版は 7px 固定で、小さい盤ほど穴が大きく見えた */
+  width: 4.8%; height: 4.8%;
+  transform: translate(-50%, -50%);
   border-radius: 50%;
   background: #efe6d2;
 }
@@ -349,7 +371,10 @@
   border-radius: calc(var(--sw-dial-d) * 0.035);
   background: linear-gradient(102deg, #e8e3d8 0 16%, #9a917f 50%, #454036 100%);
   box-shadow: 0 1px 3px rgba(0,0,0,.65);
-  transform: rotate(158deg) translateY(calc(var(--sw-dial-d) * -0.435));
+  /* 600型の指止めは右下・4時方向。旧版は 158deg で真下から22度しか
+     右になく、右手の人差し指を時計回りに引く運びが成立しなかった。
+     穴の環と合わせて約33度戻す。 */
+  transform: rotate(125deg) translateY(calc(var(--sw-dial-d) * -0.435));
 }
 
 /* 番号札に載せる電話番号 */
@@ -390,14 +415,14 @@
 }
 
 /* 1が指止めの手前。そこから反時計回りに0まで */
-.sw-dial > .ana:nth-child(1)  { --a: 120deg; }
-.sw-dial > .ana:nth-child(2)  { --a: 90deg; }
-.sw-dial > .ana:nth-child(3)  { --a: 60deg; }
-.sw-dial > .ana:nth-child(4)  { --a: 30deg; }
-.sw-dial > .ana:nth-child(5)  { --a: 0deg; }
-.sw-dial > .ana:nth-child(6)  { --a: -30deg; }
-.sw-dial > .ana:nth-child(7)  { --a: -60deg; }
-.sw-dial > .ana:nth-child(8)  { --a: -90deg; }
-.sw-dial > .ana:nth-child(9)  { --a: -120deg; }
-.sw-dial > .ana:nth-child(10) { --a: -150deg; }
+.sw-dial > .ana:nth-child(1)  { --a: 87deg; }
+.sw-dial > .ana:nth-child(2)  { --a: 57deg; }
+.sw-dial > .ana:nth-child(3)  { --a: 27deg; }
+.sw-dial > .ana:nth-child(4)  { --a: -3deg; }
+.sw-dial > .ana:nth-child(5)  { --a: -33deg; }
+.sw-dial > .ana:nth-child(6)  { --a: -63deg; }
+.sw-dial > .ana:nth-child(7)  { --a: -93deg; }
+.sw-dial > .ana:nth-child(8)  { --a: -123deg; }
+.sw-dial > .ana:nth-child(9)  { --a: -153deg; }
+.sw-dial > .ana:nth-child(10) { --a: -183deg; }
 
