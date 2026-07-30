@@ -78,6 +78,21 @@ git switch main && git merge fix/ishou
 - **意味のない飾り。** 部品を意味なく置いていないか。判子は承認の印で、
   自分の店先に押すものではない。
 
+## Claude Code の設定
+
+このリポジトリには次が入っています。会話をまたいでも同じ手順で動くようにする
+ためのものです。
+
+| ファイル | 役割 |
+| --- | --- |
+| `CLAUDE.md` | 毎回読まれる。考証の方針・書体・色・失敗の型 |
+| `.claude/skills/design-review/` | `/design-review` で意匠を一括検分する手順 |
+| `.claude/agents/ishou-reviewer.md` | 一節ぶんを検分する専用の担当。並列に走る |
+| `.claude/settings.json` | `src/` などを触ったら `npm run build && npm run check` を自動で回す |
+
+**新しい考証（実物の要件）が分かったら `SKILL.md` の表に追記してください。**
+そこに書いていないことは、次の会話では失われます。
+
 ## バージョンの付け方
 
 [セマンティック バージョニング](https://semver.org/lang/ja/)に従います。

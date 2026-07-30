@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if git -C \"$CLAUDE_PROJECT_DIR\" diff --name-only HEAD 2>/dev/null | grep -qE '^(src/|index\\.html|package\\.json|README\\.md)'; then cd \"$CLAUDE_PROJECT_DIR\" && npm run --silent build >/dev/null 2>&1 && npm run --silent check 2>&1 | grep '✗' && echo '↑ npm run check が落ちています。直してから次へ進んでください。' || true; fi",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
+  }
+}
