@@ -11,7 +11,7 @@
  *   node tools/check-glyphs.mjs         残っている収録外の字を出す
  *   node tools/check-glyphs.mjs --text "調べたい文字列"
  */
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
@@ -101,8 +101,17 @@ const text = html.replace(/<[^>]+>/g, " ") + attrs;
 // 「駄菓子」「既定」は用語ではなく単なる文言なので、ここには入れない。
 const KEEP = new Set([..."墨橙朱枠袖傍蛍紋稿欄升縁袋掲"]);
 
+// CSS の content: に入れた文字も画面に出る。HTML だけ見ていたので
+// 飾り区切りの ❖ が収録外のまま素通りしていた
+let cssText = "";
+for (const f of readdirSync(p("src")).filter((x) => /^\d\d-.+\.css$/.test(x))) {
+  for (const m of readFileSync(p("src", f), "utf8").matchAll(/content:\s*"([^"]*)"/g)) {
+    cssText += m[1];
+  }
+}
+
 const counts = new Map();
-for (const ch of text) {
+for (const ch of text + cssText) {
   if (!ch.trim() || covered.has(ch.codePointAt(0))) continue;
   if (KEEP.has(ch)) continue;
   counts.set(ch, (counts.get(ch) ?? 0) + 1);

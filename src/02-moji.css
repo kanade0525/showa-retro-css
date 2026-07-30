@@ -47,24 +47,32 @@
 
 /* 影文字。版を少しずらして重ねる */
 .sw-midashi.is-kage {
-  text-shadow: 3px 3px 0 var(--sw-karashi), 6px 6px 0 var(--sw-kei-usu);
+  text-shadow: 3px 3px 0 var(--sw-o-karashi), 6px 6px 0 var(--sw-o-kogecha);
 }
 
 /* 袋文字。縁を取って中を紙色で抜く */
 .sw-midashi.is-fukuro {
+  /* 縁は中心振り分けなので、指定の半分しか外に出ません。
+     px 固定だと小さい見出しで字が埋まるため em で持たせます。 */
   color: var(--sw-o-kinari);
-  -webkit-text-stroke: 2px var(--sw-o-sumi);
+  -webkit-text-stroke: 0.12em var(--sw-o-sumi);
   paint-order: stroke fill;
   text-shadow: 4px 4px 0 var(--sw-o-enji);
 }
 
 /* 二重の縁取り。歌謡番組のテロップ。
    縁は字面の一割ほどに留めます。太くすると字の内側が埋まります。 */
+/* 二重の縁取り。内が臙脂、外が墨。旧版は外側が右下の影だったので
+   上辺と左辺に黒が回らず、二重の縁になっていませんでした。 */
 .sw-midashi.is-fuchi {
   color: var(--sw-o-usuki);
   -webkit-text-stroke: 0.1em var(--sw-o-enji);
   paint-order: stroke fill;
-  text-shadow: 3px 4px 0 var(--sw-o-sumi);
+  text-shadow:
+    0.06em 0 0 var(--sw-o-sumi), -0.06em 0 0 var(--sw-o-sumi),
+    0 0.06em 0 var(--sw-o-sumi), 0 -0.06em 0 var(--sw-o-sumi),
+    0.045em 0.045em 0 var(--sw-o-sumi), -0.045em 0.045em 0 var(--sw-o-sumi),
+    0.045em -0.045em 0 var(--sw-o-sumi), -0.045em -0.045em 0 var(--sw-o-sumi);
 }
 
 /* 立体。奥へ伸びる押し出し文字 */
@@ -95,7 +103,14 @@
 .sw-tcy { text-combine-upright: all; -webkit-text-combine: horizontal; }
 
 /* 長体・平体。写植の変形指定にあたるもの */
-.sw-choutai { display: inline-block; transform: scaleX(0.82); transform-origin: left center; }
+/* 長体。transform は描画だけを縮めて箱は元の幅のままなので、
+   後ろに空きが残っていました。負の margin で箱も詰めます。 */
+.sw-choutai {
+  display: inline-block;
+  transform: scaleX(0.82);
+  transform-origin: left center;
+  margin-right: -0.18em;
+}
 .sw-heitai  { display: inline-block; transform: scaleY(0.82); transform-origin: center bottom; }
 
 .sw-eyebrow {
@@ -149,9 +164,16 @@
   -webkit-text-emphasis: filled sesame currentColor;
 }
 
+/* 訂正線。text-decoration に任せると、晩秋レトロミンの
+   yStrikeoutPosition が 0.26em（字の下1/3）なので線が字を跨がず、
+   ただの下線に見えていました。字面の中央に帯を二本敷きます。 */
 .sw-teisei {
-  text-decoration: line-through double var(--sw-enji);
-  text-decoration-thickness: 2px;
+  background-image:
+    linear-gradient(var(--sw-enji), var(--sw-enji)),
+    linear-gradient(var(--sw-enji), var(--sw-enji));
+  background-repeat: no-repeat;
+  background-size: 100% 2px, 100% 2px;
+  background-position: 0 calc(50% - 2px), 0 calc(50% + 2px);
   color: var(--sw-sumi-usu);
 }
 
@@ -192,7 +214,7 @@
   color: var(--sw-sumi-usu);
 }
 .sw-shikiri.is-kazari::before {
-  content: "❖　❖　❖";
+  content: "※　※　※";
   letter-spacing: 0.4em;
   font-size: var(--sw-t-sm);
 }

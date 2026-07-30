@@ -52,7 +52,6 @@
           mask-image: none;
 }
 
-/* 角印。縁を太く、字を大きく */
 /* 角印。実物は縁が太く、字が枠を埋める */
 .sw-inkan.is-kaku {
   border-radius: 0;
@@ -251,11 +250,19 @@
   display: grid;
   place-content: center;
   text-align: center;
+  /* 星形の実効領域は外接長方形より狭いので、中身を中央の6割に収める。
+     旧版は padding: 21% で余白を取っていたが、パーセントの padding は
+     自分ではなく「親の幅」に対して解決される。親が広いと padding が
+     指定した width/height を上回り、寸法指定が丸ごと無効になっていた
+     （9rem 指定が親幅896pxで 414px になっていた）。自分基準の em にする。 */
   width: 11rem;
   height: 11rem;
   min-width: 8rem;
   min-height: 8rem;
-  padding: 21%;
+  padding: 0;
+  grid-template-columns: 60%;
+  justify-content: center;
+  align-content: center;
   background: var(--sw-o-shu);
   color: var(--sw-o-usuki);
   font-family: var(--sw-tegaki);
@@ -311,7 +318,9 @@
   font-size: var(--sw-t-base);
   line-height: var(--sw-masu);
   letter-spacing: calc(var(--sw-masu) - 1em);
-  text-indent: calc((var(--sw-masu) - 1em) / 2);
+  /* 字をマスの中央に置くための半コマ。text-indent は一行目にしか効かず、
+     二行目からマスと字が半コマずれていた。マス目の側をずらす。 */
+  background-position: calc((1em - var(--sw-masu)) / 2) 0;
   color: var(--sw-sumi);
 }
 
@@ -322,7 +331,7 @@
   text-orientation: upright;
   line-height: var(--sw-masu);
   letter-spacing: calc(var(--sw-masu) - 1em);
-  text-indent: calc((var(--sw-masu) - 1em) / 2);
+  background-position: 0 calc((1em - var(--sw-masu)) / 2);
   /* 天に魚尾ぶんの余白を取る。ここが無いと本文に重なる */
   padding-top: 1.5em;
   padding-bottom: 0;
@@ -340,16 +349,27 @@
 }
 
 /* スタンプカード */
+/* スタンプカード。
+   枡は一辺 --sw-masu の正方形。桁数は --sw-masu-keta。
+   旧版は枡に aspect-ratio: 1 を置いて桁を 1fr で伸ばしていましたが、
+   auto の行トラックが中身の高さで決まってから枡だけが伸びるため、
+   二段目が枠の外へ出ていました（カード高86pxに枡63px×2段）。
+   容器側の aspect-ratio でも、親が縦並びの flex だと高さの解決順序で
+   効きません。実物の枡は寸法が決まっているので、固定寸法にします。 */
 .sw-stampcard {
+  --sw-masu: 3.4rem;
+  --sw-masu-keta: 5;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(var(--sw-masu-keta), var(--sw-masu));
+  grid-auto-rows: var(--sw-masu);
+  justify-content: start;
+  width: max-content;
   background: var(--sw-paper-3);
   border: 2px solid var(--sw-sumi);
 }
 
 .sw-stampcard > .masu {
   position: relative;
-  aspect-ratio: 1;
   display: grid;
   place-content: center;
   border: 1px dashed var(--sw-kei);
@@ -357,6 +377,8 @@
   font-size: var(--sw-t-sm);
   color: var(--sw-kei);
 }
+
+
 
 .sw-stampcard > .masu.is-oshita {
   color: var(--sw-o-enji);
@@ -384,9 +406,12 @@
   position: relative;
 }
 
-.sw-shashin > .ban {
+/* 写真の面。地紋クラス（.sw-ji-*）を併せられるように、
+   一括指定ではなく background-color だけにして詳細度も落とす。
+   旧版は background の一括指定が地紋の background-image ごと消していた。 */
+.sw-shashin > :where(.ban) {
   display: block;
-  background: #7a5a42;
+  background-color: #7a5a42;
   filter: sepia(0.45) contrast(1.05);
   min-height: 8rem;
   min-width: 11rem;
@@ -416,9 +441,12 @@
 
 /* 青焼き。版下を確認するために焼いた青写しの紙 */
 .sw-aozake {
-  background-color: #dde6ec;
-  color: #0f3d6b;
-  border: 1px solid #93aabd;
+  /* ジアゾ複写の青焼きは、白〜クリームの紙に青紫の線が乗るもの。
+     青地は青写真（サイアノタイプ）側の特徴なので、昼はクリーム地にして
+     夜の青写真への反転と対比させる。 */
+  background-color: #f2ecdc;
+  color: #2c3f8c;
+  border: 1px solid #b8ac90;
   /* 青焼きに載るのは品名と単価のような表組みで、和文が桁の途中に入ります。
      --sw-mono の先頭は Monaco ですが、Monaco の空白は 0.6em、和文は
      M PLUS 1 Code の 1.0em なので 2:1 にならず、桁が行ごとにずれます。

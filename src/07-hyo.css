@@ -118,7 +118,10 @@
   background: var(--sw-paper-2);
   border: 1px solid var(--sw-kei);
   padding: var(--sw-ma);
-  font-family: var(--sw-mono);
+  /* 品名と数量が桁で揃う表組みなので、和文と欧文が 2:1 になる
+     M PLUS 1 Code を先に置く。--sw-mono の先頭は Monaco で、
+     全角空白が 1em にならず桁がずれる（.sw-aozake と同じ理由） */
+  font-family: "M PLUS 1 Code", var(--sw-mono);
   font-size: var(--sw-t-sm);
   line-height: 2.2;
   background-image: repeating-linear-gradient(

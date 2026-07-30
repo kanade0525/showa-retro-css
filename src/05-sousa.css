@@ -28,7 +28,6 @@
   box-shadow: 0 0 0 var(--sw-sumi);
 }
 
-/* 色付きは地と字を対で持たせます */
 /* 色付きのボタン。地色と文字色を対で持たせ、触れたときも物体色の中で動きます。
    ホバーで文字色を切り替えないのは、地色と文字色の関係を一定に保つためです。 */
 .sw-btn.is-enji    { background: var(--sw-o-enji);    color: var(--sw-o-kinari); }
@@ -56,16 +55,18 @@
 .sw-btn.is-disabled,
 .sw-btn:disabled {
   background: var(--sw-paper-2);
-  color: var(--sw-kei);
+  /* 無効の表示は枠と影で足りる。字まで薄くすると「品切」のような
+     情報そのものが読めなくなる（旧版は 1.65:1）。薄墨に留める。 */
+  color: var(--sw-sumi-usu);
   border-color: var(--sw-kei);
   box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-kei-usu);
   cursor: not-allowed;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: reduce) { .sw-btn { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .sw-btn, .sw-kenbai { transition: none; } }
 
-/* 券売機のボタン。押し込む丸い樹脂 */
+/* 券売機のボタン。角の丸い樹脂の押しボタン */
 .sw-kenbai {
   display: inline-grid;
   place-content: center;
@@ -103,12 +104,16 @@
 }
 
 .sw-kenbai.is-urikire {
-  color: #9c927e;
+  color: #5f584a;
   background: #ddd6c6;
   cursor: not-allowed;
-  pointer-events: none;
 }
-.sw-kenbai.is-urikire .nedan { color: #9c927e; }
+.sw-kenbai.is-urikire .nedan {
+  color: #5f584a;
+  /* 売切は値段ではないので等幅にしない。旧版は一つのボタンの中で
+     角ゴと等幅が縦に並んでいた */
+  font-family: var(--sw-gothic);
+}
 
 /* ラジオのつまみ */
 .sw-tsumami {

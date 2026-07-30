@@ -7,7 +7,7 @@
    外した — 網点
      網点は濃度に応じて点の径が変わることで階調を作る仕組みです。
      等間隔・同一寸法の点は網点ではありません。点の地紋が要るなら
-     .sw-ji-amiten を使ってください。あれは網点と称していません。
+     .sw-ji-ten を使ってください。あれは網点と称していません。
 
    作り直した — 版ズレ
      旧版はシアンとマゼンタを左右に振っていました。あれはRGBの色収差で、
@@ -39,7 +39,7 @@
 .sw-taishoku {
   position: relative;
   isolation: isolate;
-  filter: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f' color-interpolation-filters='sRGB'%3E%3CfeColorMatrix type='matrix' values='0.62 0.24 0.10 0 0.06  0.03 0.90 0.05 0 0.02  0.02 0.14 0.80 0 0.01  0 0 0 1 0'/%3E%3C/filter%3E%3C/svg%3E#f");
+  filter: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f' color-interpolation-filters='sRGB'%3E%3CfeColorMatrix type='matrix' values='0.52 0.20 0.08 0 0.22  0.03 0.74 0.04 0 0.20  0.02 0.12 0.66 0 0.17  0 0 0 1 0'/%3E%3C/filter%3E%3C/svg%3E#f");
 }
 
 /* 日焼けは縁から進む。中央は残る */
@@ -54,7 +54,7 @@
 }
 
 .sw-taishoku.is-tsuyoi {
-  filter: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f' color-interpolation-filters='sRGB'%3E%3CfeColorMatrix type='matrix' values='0.40 0.34 0.16 0 0.11  0.04 0.82 0.08 0 0.05  0.03 0.20 0.70 0 0.03  0 0 0 1 0'/%3E%3C/filter%3E%3C/svg%3E#f");
+  filter: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f' color-interpolation-filters='sRGB'%3E%3CfeColorMatrix type='matrix' values='0.30 0.26 0.12 0 0.38  0.03 0.60 0.06 0 0.34  0.02 0.15 0.52 0 0.30  0 0 0 1 0'/%3E%3C/filter%3E%3C/svg%3E#f");
 }
 .sw-taishoku.is-tsuyoi::after {
   background: radial-gradient(110% 120% at 50% 42%,

@@ -3,14 +3,18 @@
    ========================================================================== */
 
 .sw-waku {
+  --sw-waku-kei: var(--sw-sumi);
   position: relative;
   background: var(--sw-paper-3);
   border: var(--sw-kei-futo) solid var(--sw-sumi);
   padding: calc(var(--sw-ma) * 1.5);
 }
 
+/* 二重罫。内罫の色を外罫と揃える。旧版は内罫が --sw-sumi 固定で、
+   is-enji などを併せると外は臙脂・内は墨という一枚の版ではありえない
+   刷り上がりになっていた */
 .sw-waku.is-nijuu {
-  box-shadow: inset 0 0 0 3px var(--sw-paper-3), inset 0 0 0 5px var(--sw-sumi);
+  box-shadow: inset 0 0 0 3px var(--sw-paper-3), inset 0 0 0 5px var(--sw-waku-kei);
   padding: calc(var(--sw-ma) * 1.75);
 }
 
@@ -44,9 +48,9 @@
 .sw-waku.is-nijuu.with-title { padding-top: calc(var(--sw-ma) * 1.75); }
 .sw-waku.is-nijuu > .title { margin-top: calc(var(--sw-ma) * -1.75 - 0.72em); }
 
-.sw-waku.is-enji   { border-color: var(--sw-enji); }
-.sw-waku.is-tokiwa { border-color: var(--sw-tokiwa); }
-.sw-waku.is-kon    { border-color: var(--sw-kon); }
+.sw-waku.is-enji   { border-color: var(--sw-enji);   --sw-waku-kei: var(--sw-enji); }
+.sw-waku.is-tokiwa { border-color: var(--sw-tokiwa); --sw-waku-kei: var(--sw-tokiwa); }
+.sw-waku.is-kon    { border-color: var(--sw-kon);    --sw-waku-kei: var(--sw-kon); }
 
 .sw-waku.is-enji.is-kage   { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-enji); }
 .sw-waku.is-tokiwa.is-kage { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-tokiwa); }
@@ -69,6 +73,9 @@
     8px 8px 0 var(--sw-shade);
   padding: calc(var(--sw-ma) * 2);
   font-family: var(--sw-retromin);
+  /* 実物は文言を中央に据えるか、文言に合わせて板の寸法を決める。
+     左端に寄って右が空いた看板は割付の事故に見える */
+  text-align: center;
   overflow: hidden;
 }
 
@@ -185,7 +192,7 @@
     /* 座金。壁に当たる縦板 */
     linear-gradient(#6d6555, #423d32),
     /* 筋交い。座金の下から腕の先へ斜めに */
-    linear-gradient(to top right, transparent calc(50% - 0.09em),
+    linear-gradient(to bottom right, transparent calc(50% - 0.09em),
       #55503f calc(50% - 0.09em), #55503f calc(50% + 0.09em),
       transparent calc(50% + 0.09em));
   background-size: 0.42em 2.2em, 1.75em 1.6em;
@@ -222,7 +229,11 @@
    昭和の広告で最も目につく装置。中心から放射する線で紙を埋めます。
    Canvaに並ぶ実物のテンプレートでも最頻出でした。
    色は --sw-shusen-c、本数は --sw-shusen-n で変えます。 */
+/* 集中線。地を物体色で置くので、文字色も物体色で固定する。
+   旧版は color を書いておらず、夜に --sw-sumi（明色）を継承して
+   明色の地に明色の字が乗り、題字が消えていた（コントラスト 1.09:1） */
 .sw-shusen {
+  color: var(--sw-o-sumi);
   --sw-shusen-c: var(--sw-o-daidai);
   --sw-shusen-n: 5deg;
   position: relative;
@@ -265,7 +276,7 @@
   width: 3rem;
   height: 3rem;
   background-color: currentColor;
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='%23000'%3E%3Ccircle cx='50' cy='24' r='19'/%3E%3Ccircle cx='68.4' cy='31.6' r='19'/%3E%3Ccircle cx='76' cy='50' r='19'/%3E%3Ccircle cx='68.4' cy='68.4' r='19'/%3E%3Ccircle cx='50' cy='76' r='19'/%3E%3Ccircle cx='31.6' cy='68.4' r='19'/%3E%3Ccircle cx='24' cy='50' r='19'/%3E%3Ccircle cx='31.6' cy='31.6' r='19'/%3E%3C/g%3E%3C/svg%3E");
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='%23000'%3E%3Ccircle cx='50' cy='50' r='26'/%3E%3Ccircle cx='50' cy='24' r='19'/%3E%3Ccircle cx='68.4' cy='31.6' r='19'/%3E%3Ccircle cx='76' cy='50' r='19'/%3E%3Ccircle cx='68.4' cy='68.4' r='19'/%3E%3Ccircle cx='50' cy='76' r='19'/%3E%3Ccircle cx='31.6' cy='68.4' r='19'/%3E%3Ccircle cx='24' cy='50' r='19'/%3E%3Ccircle cx='31.6' cy='31.6' r='19'/%3E%3C/g%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='%23000'%3E%3Ccircle cx='50' cy='24' r='19'/%3E%3Ccircle cx='68.4' cy='31.6' r='19'/%3E%3Ccircle cx='76' cy='50' r='19'/%3E%3Ccircle cx='68.4' cy='68.4' r='19'/%3E%3Ccircle cx='50' cy='76' r='19'/%3E%3Ccircle cx='31.6' cy='68.4' r='19'/%3E%3Ccircle cx='24' cy='50' r='19'/%3E%3Ccircle cx='31.6' cy='31.6' r='19'/%3E%3C/g%3E%3C/svg%3E");
   -webkit-mask-size: contain;
   mask-size: contain;
