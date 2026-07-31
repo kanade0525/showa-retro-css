@@ -1,3 +1,7 @@
+/* 地紋は地色を直値で持つので、文字色も物体色で対にしないと夜に消えます。
+   旧版は color を一つも書いておらず、12種中9通りで明色の地に明色の字が
+   乗っていました（最悪 1.04:1）。集中線と同じ型です。 */
+
 /* ==========================================================================
    14. 地紋
    ========================================================================== */
@@ -88,6 +92,7 @@
     #28405c 26px 33px, transparent 33px 39px
   );
   background-size: 78px 78px;
+  color: var(--sw-o-sumi);
 }
 
 .sw-ji-dosen.is-momo {
@@ -98,6 +103,7 @@
     #6cb8cf 13px 20px, transparent 20px 26px,
     #d3a333 26px 33px, transparent 33px 39px
   );
+  color: var(--sw-o-sumi);
 }
 
 /* モザイクタイル。銭湯と喫茶店の腰壁 */
@@ -108,10 +114,11 @@
     linear-gradient(#e5d9bf 2px, transparent 2px),
     linear-gradient(90deg, #e5d9bf 2px, transparent 2px);
   background-size: 20px 20px;
+  color: var(--sw-o-sumi);
 }
 
-.sw-ji-tile.is-momo  { background-color: #cf8e8e; }
-.sw-ji-tile.is-usuki { background-color: #f7db76; }
+.sw-ji-tile.is-momo  { background-color: #cf8e8e; color: var(--sw-o-sumi); }
+.sw-ji-tile.is-usuki { background-color: #f7db76; color: var(--sw-o-sumi); }
 
 /* 型板ガラス。モール */
 .sw-ji-garasu {
@@ -128,6 +135,7 @@
     rgba(36, 31, 26, 0.05) 14px,
     rgba(255, 255, 255, 0.72) 18px
   );
+  color: var(--sw-o-sumi);
 }
 
 /* 花柄。昭和の花柄ポットと布団の柄。
@@ -136,16 +144,19 @@
   background-color: #f7db76;
   background-size: 120px 120px;
   background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27120%27%20height%3D%27120%27%20viewBox%3D%270%200%20120%20120%27%3E%3Cg%20fill%3D%27%23a8332f%27%3E%3Ccircle%20cx%3D%2730.0%27%20cy%3D%2718.0%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2741.4%27%20cy%3D%2726.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2737.1%27%20cy%3D%2739.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2722.9%27%20cy%3D%2739.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2718.6%27%20cy%3D%2726.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2790.0%27%20cy%3D%2778.0%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%27101.4%27%20cy%3D%2786.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2797.1%27%20cy%3D%2799.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2782.9%27%20cy%3D%2799.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2778.6%27%20cy%3D%2786.3%27%20r%3D%2710.4%27%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2730%27%20r%3D%277.5%27%20fill%3D%27%23d6a83c%27%2F%3E%3Ccircle%20cx%3D%2790%27%20cy%3D%2790%27%20r%3D%277.5%27%20fill%3D%27%23d6a83c%27%2F%3E%3Cg%20fill%3D%27%23d6a83c%27%20opacity%3D%27.55%27%3E%3Ccircle%20cx%3D%2790.0%27%20cy%3D%2723.4%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2796.3%27%20cy%3D%2728.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2793.9%27%20cy%3D%2735.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2786.1%27%20cy%3D%2735.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2783.7%27%20cy%3D%2728.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2730.0%27%20cy%3D%2783.4%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2736.3%27%20cy%3D%2788.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2733.9%27%20cy%3D%2795.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2726.1%27%20cy%3D%2795.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2723.7%27%20cy%3D%2788.0%27%20r%3D%275.7%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  color: var(--sw-o-sumi);
 }
 
 .sw-ji-hanagara.is-tokiwa {
   background-color: #f0ead2;
   background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27120%27%20height%3D%27120%27%20viewBox%3D%270%200%20120%20120%27%3E%3Cg%20fill%3D%27%233c6b52%27%3E%3Ccircle%20cx%3D%2730.0%27%20cy%3D%2718.0%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2741.4%27%20cy%3D%2726.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2737.1%27%20cy%3D%2739.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2722.9%27%20cy%3D%2739.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2718.6%27%20cy%3D%2726.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2790.0%27%20cy%3D%2778.0%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%27101.4%27%20cy%3D%2786.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2797.1%27%20cy%3D%2799.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2782.9%27%20cy%3D%2799.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2778.6%27%20cy%3D%2786.3%27%20r%3D%2710.4%27%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2730%27%20r%3D%277.5%27%20fill%3D%27%23e8a30c%27%2F%3E%3Ccircle%20cx%3D%2790%27%20cy%3D%2790%27%20r%3D%277.5%27%20fill%3D%27%23e8a30c%27%2F%3E%3Cg%20fill%3D%27%23e8a30c%27%20opacity%3D%27.55%27%3E%3Ccircle%20cx%3D%2790.0%27%20cy%3D%2723.4%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2796.3%27%20cy%3D%2728.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2793.9%27%20cy%3D%2735.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2786.1%27%20cy%3D%2735.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2783.7%27%20cy%3D%2728.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2730.0%27%20cy%3D%2783.4%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2736.3%27%20cy%3D%2788.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2733.9%27%20cy%3D%2795.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2726.1%27%20cy%3D%2795.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2723.7%27%20cy%3D%2788.0%27%20r%3D%275.7%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  color: var(--sw-o-sumi);
 }
 
 .sw-ji-hanagara.is-momo {
   background-color: #f6efe4;
   background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27120%27%20height%3D%27120%27%20viewBox%3D%270%200%20120%20120%27%3E%3Cg%20fill%3D%27%23cf8e8e%27%3E%3Ccircle%20cx%3D%2730.0%27%20cy%3D%2718.0%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2741.4%27%20cy%3D%2726.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2737.1%27%20cy%3D%2739.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2722.9%27%20cy%3D%2739.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2718.6%27%20cy%3D%2726.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2790.0%27%20cy%3D%2778.0%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%27101.4%27%20cy%3D%2786.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2797.1%27%20cy%3D%2799.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2782.9%27%20cy%3D%2799.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2778.6%27%20cy%3D%2786.3%27%20r%3D%2710.4%27%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2730%27%20r%3D%277.5%27%20fill%3D%27%2379b0a5%27%2F%3E%3Ccircle%20cx%3D%2790%27%20cy%3D%2790%27%20r%3D%277.5%27%20fill%3D%27%2379b0a5%27%2F%3E%3Cg%20fill%3D%27%2379b0a5%27%20opacity%3D%27.55%27%3E%3Ccircle%20cx%3D%2790.0%27%20cy%3D%2723.4%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2796.3%27%20cy%3D%2728.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2793.9%27%20cy%3D%2735.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2786.1%27%20cy%3D%2735.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2783.7%27%20cy%3D%2728.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2730.0%27%20cy%3D%2783.4%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2736.3%27%20cy%3D%2788.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2733.9%27%20cy%3D%2795.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2726.1%27%20cy%3D%2795.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2723.7%27%20cy%3D%2788.0%27%20r%3D%275.7%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  color: var(--sw-o-sumi);
 }
 
 /* 喫茶店のソファ。ビニールレザー。
@@ -168,5 +179,6 @@
      ボタン2層が同じ格子で、ボタンの真上が最も明るくなっていた（明暗が逆）。
      膨らみを半升ずらす。 */
   background-position: 31px 0, 0 31px, 0 0, 31px 31px, 0 0, 0 0;
+  color: var(--sw-o-kinari);
 }
 

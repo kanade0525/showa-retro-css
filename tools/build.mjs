@@ -14,6 +14,7 @@
  *   node tools/build.mjs --check  書き出さず、現物と一致するかだけ見る（CI用）
  */
 import { readFileSync, writeFileSync, readdirSync, mkdirSync } from "node:fs";
+import { gzipSync } from "node:zlib";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { build } from "esbuild";
@@ -80,6 +81,67 @@ if (!min.startsWith(head)) {
   process.exit(1);
 }
 min = head + "\n" + shortBanner + min.slice(head.length);
+
+/* ---- 公開しているサイズ表記の照合 ---------------------------------------- */
+
+// サイズを手で書いていたせいで、CSS を触るたびに doc の数字が腐りました。
+// 3.0.0 で直したのに 3.1.0 でまた古くなったので、ビルドで照合します。
+// バージョン表記と同じ扱いです。
+const KB = (buf) => (buf.length / 1024).toFixed(1);
+const gz = (t) => gzipSync(Buffer.from(t, "utf8"), { level: 9 });
+
+const minify = async (text) =>
+  (await build({
+    stdin: { contents: text, loader: "css", resolveDir: root },
+    minify: true, charset: "utf8", write: false,
+  })).outputFiles[0].text;
+
+const readSrc = (f) => readFileSync(p("src", f), "utf8");
+const SETS = {
+  full: min,
+  // README の「よく使う一式」
+  typical: await minify(
+    ["01-base.css", "02-moji.css", "04-kanban.css", "05-sousa.css",
+     "07-hyo.css", "13-warituke.css", "14-forced-colors.css"].map(readSrc).join("")
+  ),
+  // README の「base と文字組だけ」
+  minimal: await minify(["01-base.css", "02-moji.css"].map(readSrc).join("")),
+};
+
+const size = {};
+for (const [k, text] of Object.entries(SETS)) {
+  const buf = Buffer.from(text, "utf8");
+  size[k] = { min: KB(buf), gz: KB(gz(text)) };
+}
+
+// doc に出ている数字。ここに無い書き方をしたら、この表に足してください
+const EXPECT = [
+  ["index.html", `${size.full.min}KB / gzip ${size.full.gz}KB`],
+  ["index.html", `gzip ${size.full.gz}KB`],
+  ["index.html", `${size.typical.min}KB（gzip ${size.typical.gz}KB）`],
+  ["index.html", `${size.minimal.min}KB（gzip ${size.minimal.gz}KB）`],
+  ["README.md", `${size.full.min}KB（**gzip 後 ${size.full.gz}KB**）`],
+  ["README.md", `圧縮版 ${size.full.min}KB / gzip ${size.full.gz}KB`],
+  ["README.md", `| 全部入り | ${size.full.min}KB | ${size.full.gz}KB |`],
+  ["README.md", `| base と文字組だけ | ${size.minimal.min}KB | ${size.minimal.gz}KB |`],
+];
+
+const sizeMiss = [];
+const cache = new Map();
+for (const [file, want] of EXPECT) {
+  if (!cache.has(file)) cache.set(file, readFileSync(p(file), "utf8"));
+  if (!cache.get(file).includes(want)) sizeMiss.push(`${file} に「${want}」がありません`);
+}
+if (sizeMiss.length) {
+  console.error("✗ 公開しているサイズ表記が実測と食い違っています");
+  for (const m of sizeMiss) console.error("  " + m);
+  console.error(
+    `  実測: 全部入り ${size.full.min}KB/${size.full.gz}KB` +
+    ` / よく使う一式 ${size.typical.min}KB/${size.typical.gz}KB` +
+    ` / base+文字組 ${size.minimal.min}KB/${size.minimal.gz}KB`
+  );
+  process.exit(1);
+}
 
 /* ---- 書き出し、または照合 ------------------------------------------------ */
 

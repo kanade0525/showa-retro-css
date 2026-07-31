@@ -18,7 +18,10 @@
   padding: calc(var(--sw-ma) * 1.75);
 }
 
-.sw-waku.is-kage { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-sumi); }
+/* ベタ影。影は落ちる面より暗いものなので、テーマ変数を使ってはいけない。
+   旧版は --sw-sumi で、夜に生成り（#ece2cc）へ反転して本体より明るい板が
+   張り出していた（比 11.78:1 で影の方が明るい）。物体色で固定する。 */
+.sw-waku.is-kage { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-o-sumi); }
 .sw-waku.with-title { padding-top: calc(var(--sw-ma) * 1.5); }
 
 /* 枠の上辺に載る題。
@@ -52,9 +55,9 @@
 .sw-waku.is-tokiwa { border-color: var(--sw-tokiwa); --sw-waku-kei: var(--sw-tokiwa); }
 .sw-waku.is-kon    { border-color: var(--sw-kon);    --sw-waku-kei: var(--sw-kon); }
 
-.sw-waku.is-enji.is-kage   { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-enji); }
-.sw-waku.is-tokiwa.is-kage { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-tokiwa); }
-.sw-waku.is-kon.is-kage    { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-kon); }
+.sw-waku.is-enji.is-kage   { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-o-enji); }
+.sw-waku.is-tokiwa.is-kage { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-o-tokiwa); }
+.sw-waku.is-kon.is-kage    { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-o-kon); }
 
 /* --- ホーロー看板 ---------------------------------------------------------
    実物なので物体色で塗ります。夜間モードでも色は変わりません。
@@ -212,10 +215,13 @@
 
 /* --- 帯 --- */
 
+/* 帯。刷った実物なので物体色で固定する。旧版は素の帯だけテーマ変数で、
+   夜に地と字が入れ替わり「もとの色（墨）」の見本が生成りの帯になっていた
+   （色違いは全部 --sw-o-* で固定されているので、先頭だけ動いていた）。 */
 .sw-obi {
   display: block;
-  background: var(--sw-sumi);
-  color: var(--sw-paper);
+  background: var(--sw-o-sumi);
+  color: var(--sw-o-kinari);
   font-family: var(--sw-mincho);
   /* レトロミンは weight 400 しか持たないので、700 を要求すると合成ボールドになる。
      落ちた字は次の書体の本物の700で出るため、太さがばらつく。合成を止める。 */
@@ -317,9 +323,10 @@
 /* ── アーチ枠 ───────────────────────────────────────────────────
    かまぼこ型の枠。喫茶店の案内や看板に使われる形 */
 .sw-arch {
+  color: var(--sw-o-sumi);
   display: block;
-  background: var(--sw-paper-3);
-  border: var(--sw-kei-futo) solid var(--sw-sumi);
+  background: var(--sw-o-kinari);
+  border: var(--sw-kei-futo) solid var(--sw-o-sumi);
   border-radius: 50% 50% 0.4rem 0.4rem / 40% 40% 0.4rem 0.4rem;
   padding: calc(var(--sw-ma) * 2.6) calc(var(--sw-ma) * 1.4) calc(var(--sw-ma) * 1.4);
   text-align: center;
@@ -346,8 +353,8 @@
 
 .sw-panel.is-nijuu {
   box-shadow:
-    inset 0 0 0 3px var(--sw-paper-3),
-    inset 0 0 0 5px var(--sw-sumi),
+    inset 0 0 0 3px var(--sw-o-kinari),
+    inset 0 0 0 5px var(--sw-o-sumi),
     0 3px 0 rgba(36, 31, 26, 0.18);
   padding: calc(var(--sw-ma) * 1.7);
 }

@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*!
- * 昭和レトロ.css v3.1.0 — 昭和レトロ CSS フレームワーク
+ * 昭和レトロ.css v3.2.0 — 昭和レトロ CSS フレームワーク
  * MIT License
  *
  * ── 色の三層 ────────────────────────────────────────────────────────
@@ -174,6 +174,13 @@
   --sw-o-mizu-oshi:    #89c6d9;
 
   /* --- 地紋と刷りの表情 --- */
+  --sw-kubomi: rgba(42, 38, 34, 0.12);  /* 記入欄の凹み。夜は明るい側へ反転 */
+  --sw-genkou-kei: #79b0a5;             /* 原稿用紙の罫。紙と一緒に沈む */
+  --sw-aozake-tsuya: rgba(255, 255, 255, 0.5); /* 青焼きの艶。夜は弱める */
+
+  /* ずらし影の色。影は落ちる面より暗いものなので昼夜で変えません。
+     テーマ変数を使うと、夜に影が本体より明るい板になります。 */
+  --sw-o-kage: #241f1a;
   --sw-pattern: rgba(42, 38, 34, 0.10);
   --sw-glow: transparent;          /* ネオンの発光。昼は消灯 */
   --sw-shade: rgba(36, 31, 26, 0.34);
@@ -230,6 +237,11 @@
     --sw-daidai-fuka:  #c26b3c;
     --sw-mizu-fuka:    #5c99ac;
 
+    --sw-kubomi: rgba(0, 0, 0, 0.45);
+  --sw-genkou-kei: #3d5f58;
+  --sw-aozake-tsuya: rgba(255, 255, 255, 0.08);
+    --sw-genkou-kei: #3d5f58;
+    --sw-aozake-tsuya: rgba(255, 255, 255, 0.08);
     --sw-pattern: rgba(236, 226, 204, 0.10);
     --sw-glow: currentColor;
     --sw-shade: rgba(0, 0, 0, 0.55);
@@ -265,6 +277,7 @@
   --sw-daidai-fuka:  #c26b3c;
   --sw-mizu-fuka:    #5c99ac;
 
+  --sw-kubomi: rgba(0, 0, 0, 0.45);
   --sw-pattern: rgba(236, 226, 204, 0.10);
   --sw-glow: currentColor;
   --sw-shade: rgba(0, 0, 0, 0.55);
@@ -370,10 +383,20 @@
 
 /* --- 見出しの加工 -----------------------------------------------------
    加工文字は物体色で組みます。刷り色を使うと夜間モードで
-   縁と抜きの明暗が入れ替わり、字が地に溶けます。 */
+   縁と抜きの明暗が入れ替わり、字が地に溶けます。
+
+   これらは看板の文字なので、**物体色の面の上に置いてください。**
+   素の紙（テーマ変数）の上に直に置くと、昼夜どちらかで縁が地に溶けます。
+   袋文字の墨の縁は、夜の紙に対して 1.03:1 しかありません。
+   見本帳では .sw-bg-kinari の面に載せています。 */
 
 /* 影文字。版を少しずらして重ねる */
+/* 影文字。版を少しずらして重ねる。
+   字の色もここで固定する。旧版は字だけテーマ変数を継承していたので、
+   夜に字が生成りへ裏返り、一段目の影との比が 6.47→1.80 に落ちて
+   版の重なりが見えなくなっていた。 */
 .sw-midashi.is-kage {
+  color: var(--sw-o-sumi);
   text-shadow: 3px 3px 0 var(--sw-o-karashi), 6px 6px 0 var(--sw-o-kogecha);
 }
 
@@ -643,7 +666,10 @@
   padding: calc(var(--sw-ma) * 1.75);
 }
 
-.sw-waku.is-kage { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-sumi); }
+/* ベタ影。影は落ちる面より暗いものなので、テーマ変数を使ってはいけない。
+   旧版は --sw-sumi で、夜に生成り（#ece2cc）へ反転して本体より明るい板が
+   張り出していた（比 11.78:1 で影の方が明るい）。物体色で固定する。 */
+.sw-waku.is-kage { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-o-sumi); }
 .sw-waku.with-title { padding-top: calc(var(--sw-ma) * 1.5); }
 
 /* 枠の上辺に載る題。
@@ -677,9 +703,9 @@
 .sw-waku.is-tokiwa { border-color: var(--sw-tokiwa); --sw-waku-kei: var(--sw-tokiwa); }
 .sw-waku.is-kon    { border-color: var(--sw-kon);    --sw-waku-kei: var(--sw-kon); }
 
-.sw-waku.is-enji.is-kage   { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-enji); }
-.sw-waku.is-tokiwa.is-kage { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-tokiwa); }
-.sw-waku.is-kon.is-kage    { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-kon); }
+.sw-waku.is-enji.is-kage   { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-o-enji); }
+.sw-waku.is-tokiwa.is-kage { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-o-tokiwa); }
+.sw-waku.is-kon.is-kage    { box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-o-kon); }
 
 /* --- ホーロー看板 ---------------------------------------------------------
    実物なので物体色で塗ります。夜間モードでも色は変わりません。
@@ -837,10 +863,13 @@
 
 /* --- 帯 --- */
 
+/* 帯。刷った実物なので物体色で固定する。旧版は素の帯だけテーマ変数で、
+   夜に地と字が入れ替わり「もとの色（墨）」の見本が生成りの帯になっていた
+   （色違いは全部 --sw-o-* で固定されているので、先頭だけ動いていた）。 */
 .sw-obi {
   display: block;
-  background: var(--sw-sumi);
-  color: var(--sw-paper);
+  background: var(--sw-o-sumi);
+  color: var(--sw-o-kinari);
   font-family: var(--sw-mincho);
   /* レトロミンは weight 400 しか持たないので、700 を要求すると合成ボールドになる。
      落ちた字は次の書体の本物の700で出るため、太さがばらつく。合成を止める。 */
@@ -942,9 +971,10 @@
 /* ── アーチ枠 ───────────────────────────────────────────────────
    かまぼこ型の枠。喫茶店の案内や看板に使われる形 */
 .sw-arch {
+  color: var(--sw-o-sumi);
   display: block;
-  background: var(--sw-paper-3);
-  border: var(--sw-kei-futo) solid var(--sw-sumi);
+  background: var(--sw-o-kinari);
+  border: var(--sw-kei-futo) solid var(--sw-o-sumi);
   border-radius: 50% 50% 0.4rem 0.4rem / 40% 40% 0.4rem 0.4rem;
   padding: calc(var(--sw-ma) * 2.6) calc(var(--sw-ma) * 1.4) calc(var(--sw-ma) * 1.4);
   text-align: center;
@@ -971,8 +1001,8 @@
 
 .sw-panel.is-nijuu {
   box-shadow:
-    inset 0 0 0 3px var(--sw-paper-3),
-    inset 0 0 0 5px var(--sw-sumi),
+    inset 0 0 0 3px var(--sw-o-kinari),
+    inset 0 0 0 5px var(--sw-o-sumi),
     0 3px 0 rgba(36, 31, 26, 0.18);
   padding: calc(var(--sw-ma) * 1.7);
 }
@@ -1020,10 +1050,13 @@
   text-decoration: none;
   color: var(--sw-sumi);
   background: var(--sw-paper-3);
-  border: var(--sw-kei-futo) solid var(--sw-sumi);
+  border: var(--sw-kei-futo) solid var(--sw-o-kage);
   padding: 0.6em 1.5em;
   cursor: pointer;
-  box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-sumi);
+  /* 影は物体色で固定する。テーマ変数だと夜に生成りへ反転して、
+     ボタン本体より明るい板が右下に張り出す（比 13.11:1）。
+     枠も同じ理由で物体色に揃える（八色の枠の見え方が昼夜で逆転していた）。 */
+  box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-o-kage);
   transition: transform 0.06s steps(2), box-shadow 0.06s steps(2);
 }
 
@@ -1031,7 +1064,7 @@
 
 .sw-btn:active {
   transform: translate(var(--sw-kage), var(--sw-kage));
-  box-shadow: 0 0 0 var(--sw-sumi);
+  box-shadow: 0 0 0 var(--sw-o-kage);
 }
 
 /* 色付きのボタン。地色と文字色を対で持たせ、触れたときも物体色の中で動きます。
@@ -1132,7 +1165,11 @@
     conic-gradient(from 210deg, rgba(255,255,255,.32), rgba(0,0,0,.3) 55%, rgba(255,255,255,.22)),
     radial-gradient(circle at 38% 32%, var(--sw-o-kanamono), #35302a 72%);
   border: 3px solid var(--sw-o-sumi);
-  box-shadow: 0 4px 0 var(--sw-shade), inset 0 0 12px rgba(0,0,0,.6);
+  /* 暗い金物なので夜の地に溶ける。外側に明るいリングを一枚足して輪郭を保つ */
+  box-shadow:
+    0 0 0 1px var(--sw-o-jushi-kage),
+    0 4px 0 var(--sw-shade),
+    inset 0 0 12px rgba(0,0,0,.6);
   position: relative;
 }
 
@@ -1164,10 +1201,11 @@
 
 .sw-progress::-webkit-progress-bar { background: var(--sw-paper-2); }
 .sw-progress::-webkit-progress-value {
-  background: repeating-linear-gradient(90deg, var(--sw-o-enji) 0 8px, var(--sw-enji-fuka) 8px 10px);
+  /* 縞は片方だけテーマ変数だと夜に溝が明るく反転する。両方とも物体色に揃える */
+  background: repeating-linear-gradient(90deg, var(--sw-o-enji) 0 8px, var(--sw-o-enji-oshi) 8px 10px);
 }
 .sw-progress::-moz-progress-bar {
-  background: repeating-linear-gradient(90deg, var(--sw-o-enji) 0 8px, var(--sw-enji-fuka) 8px 10px);
+  background: repeating-linear-gradient(90deg, var(--sw-o-enji) 0 8px, var(--sw-o-enji-oshi) 8px 10px);
 }
 
 /* ==========================================================================
@@ -1193,7 +1231,7 @@
   border: var(--sw-kei-futo) solid var(--sw-sumi);
   padding: 0.55em 0.75em;
   width: 100%;
-  box-shadow: inset 2px 2px 0 rgba(42, 38, 34, 0.12);
+  box-shadow: inset 2px 2px 0 var(--sw-kubomi);
 }
 
 .sw-textarea { resize: vertical; min-height: 6em; line-height: 1.8; }
@@ -1339,7 +1377,11 @@
   font-size: var(--sw-t-md);
 }
 
-.sw-shinagaki .na { white-space: nowrap; }
+.sw-shinagaki .na {
+  /* 長い品名で値段が枠の外へ出ていた（最大 38px）。品名側を縮める */
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; }
 
 /* 伸縮する擬似要素が値段を右端まで押しやります */
 .sw-shinagaki > li::after {
@@ -1459,7 +1501,12 @@
    ください。レトロミンは1732字しか収録がないので、地の文だと
    収録外の字が次の書体に落ちて混植になります。 */
 
-/* 判子。字が枠を埋めるのが実物です。
+/* 判子。**紙に押す物なので、物体色の紙の上に置いてください。**
+   素の地（テーマ変数）に直に置くと、夜に地が暗くなって朱が沈みます
+   （輪郭だけの判子が 2.29:1 まで落ちます）。見本帳では .sw-bg-kinari の
+   紙に押しています。
+
+   字が枠を埋めるのが実物です。
    書体は二種類だけ。既定は古印体ふう（線がかすれて角が丸い実印の書体）、
    is-mincho で明朝。古印体そのものは再配布できるフリーフォントが無いので、
    書体を差し替えるのではなく、輪郭のゆらぎと線のかすれで寄せています。 */
@@ -1788,11 +1835,13 @@
 .sw-genkou {
   --sw-masu: 2.2em;
   background-color: var(--sw-paper-3);
+  /* 罫は刷り色なので紙と一緒に沈む。物体色で固定すると夜に罫が強くなり、
+     字との強弱が逆に近づく（罫÷字が 0.16 → 0.53 になっていた）。 */
   background-image:
-    linear-gradient(var(--sw-o-asagi) 1px, transparent 1px),
-    linear-gradient(90deg, var(--sw-o-asagi) 1px, transparent 1px);
+    linear-gradient(var(--sw-genkou-kei) 1px, transparent 1px),
+    linear-gradient(90deg, var(--sw-genkou-kei) 1px, transparent 1px);
   background-size: var(--sw-masu) var(--sw-masu);
-  border: 2px solid var(--sw-o-asagi);
+  border: 2px solid var(--sw-genkou-kei);
   padding: 0;
   font-family: var(--sw-mincho);
   font-size: var(--sw-t-base);
@@ -1824,7 +1873,7 @@
   left: 50%; top: 0.18em;
   width: 0.85em; height: 1.05em;
   transform: translateX(-50%);
-  background: var(--sw-o-asagi);
+  background: var(--sw-genkou-kei);
   clip-path: polygon(0 0, 100% 0, 100% 55%, 50% 100%, 0 55%);
 }
 
@@ -1839,13 +1888,16 @@
 .sw-stampcard {
   --sw-masu: 3.4rem;
   --sw-masu-keta: 5;
+  /* 実物は紙。地をテーマ変数にすると夜に暗くなり、物体色の朱印が沈む
+     （「済」が 2.30:1 まで落ちていた）。紙も物体色で固定する。 */
   display: grid;
   grid-template-columns: repeat(var(--sw-masu-keta), var(--sw-masu));
   grid-auto-rows: var(--sw-masu);
   justify-content: start;
   width: max-content;
-  background: var(--sw-paper-3);
-  border: 2px solid var(--sw-sumi);
+  background: var(--sw-o-kinari);
+  color: var(--sw-o-sumi);
+  border: 2px solid var(--sw-o-sumi);
 }
 
 .sw-stampcard > .masu {
@@ -1880,6 +1932,7 @@
 
 /* 写真。白フチのプリントに日付が焼き込まれている */
 .sw-shashin {
+  color: var(--sw-o-sumi);
   display: inline-block;
   /* L判のフチあり。四辺をほぼ均等にする。
      下だけ広いポラロイド型の台紙に、35mmのデートバック特有の日付を
@@ -1895,6 +1948,7 @@
    一括指定ではなく background-color だけにして詳細度も落とす。
    旧版は background の一括指定が地紋の background-image ごと消していた。 */
 .sw-shashin > :where(.ban) {
+  color: var(--sw-o-kinari);
   display: block;
   background-color: #7a5a42;
   filter: sepia(0.45) contrast(1.05);
@@ -1943,7 +1997,7 @@
   overflow-x: auto;
   tab-size: 2;
   background-image:
-    linear-gradient(103deg, rgba(255,255,255,.5) 0%, rgba(255,255,255,0) 42%, rgba(15,61,107,.06) 100%),
+    linear-gradient(103deg, var(--sw-aozake-tsuya) 0%, rgba(255,255,255,0) 42%, rgba(15,61,107,.06) 100%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2'/%3E%3C/filter%3E%3Crect width='150' height='150' filter='url(%23a)' opacity='0.05'/%3E%3C/svg%3E");
   box-shadow: 2px 2px 0 rgba(15, 61, 107, 0.18);
 }
@@ -1989,7 +2043,9 @@
   gap: 4px;
   /* 上端の縫い代だけを容器側で塗る。background-color を置くと全面が
      埋まって切れ目が出ないので、地色はグラデーションだけで持たせる。 */
-  background-image: linear-gradient(var(--sw-noren-ji) 0 calc(100% - var(--sw-noren-kire)), transparent 0);
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.22) 0 6px, transparent 6px),
+    linear-gradient(var(--sw-noren-ji) 0 calc(100% - var(--sw-noren-kire)), transparent 0);
   background-repeat: no-repeat;
 }
 
@@ -2009,7 +2065,7 @@
   padding: 1.6rem 0.4rem 2.4rem;
   display: grid;
   place-content: center start;
-  box-shadow: inset 0 6px 0 rgba(0, 0, 0, 0.22);
+  /* 上端の縫い代の陰は容器側に一本通す（布ごとだと隙間で途切れる） */
 }
 
 .sw-noren.is-enji > .nuno   { background: var(--sw-o-enji); color: var(--sw-o-kinari); }
@@ -2026,7 +2082,12 @@
   background: var(--sw-o-kon);
   color: var(--sw-o-usuki);
   border: 2px solid var(--sw-o-sumi);
-  box-shadow: inset 0 0 0 3px var(--sw-o-usuki), inset 0 0 0 5px var(--sw-o-kon);
+  /* 暗い地色のラベルは夜のページ地に溶けるので、外形を立てる落ち影を持たせる
+     （is-sumi は夜の紙に対して 1.03:1 だった）。看板と同じ向きに揃える。 */
+  box-shadow:
+    inset 0 0 0 3px var(--sw-o-usuki),
+    inset 0 0 0 5px var(--sw-o-kon),
+    4px 4px 0 var(--sw-shade);
   font-family: var(--sw-mincho);
   line-height: 1.6;
 }
@@ -2066,6 +2127,9 @@
   position: relative;
   backdrop-filter: blur(5px) saturate(0.85);
   -webkit-backdrop-filter: blur(5px) saturate(0.85);
+  /* 型板ガラスは光を散らす板で、透明な穴ではない。淡い面を持たせないと、
+     後ろが暗いときに暗い字が暗い地に乗る（夜に 1.28:1 で消えていた）。 */
+  background-color: rgba(244, 236, 216, 0.62);
   color: var(--sw-o-sumi);
   background-image: repeating-linear-gradient(
     90deg,
@@ -2191,6 +2255,7 @@
 /* 電光掲示板。素子の格子が見えるのが実物。
    旧版は暗い面にドット書体を置いただけだった。 */
 .sw-denkou {
+  color: var(--sw-o-usuki);
   position: relative;
   overflow: hidden;
   /* 中の流れる文字は nowrap なので、flex や grid の中に置くと
@@ -2555,6 +2620,10 @@
 .sw-dial > .ana:nth-child(9)  { --a: -153deg; }
 .sw-dial > .ana:nth-child(10) { --a: -183deg; }
 
+/* 地紋は地色を直値で持つので、文字色も物体色で対にしないと夜に消えます。
+   旧版は color を一つも書いておらず、12種中9通りで明色の地に明色の字が
+   乗っていました（最悪 1.04:1）。集中線と同じ型です。 */
+
 /* ==========================================================================
    14. 地紋
    ========================================================================== */
@@ -2645,6 +2714,7 @@
     #28405c 26px 33px, transparent 33px 39px
   );
   background-size: 78px 78px;
+  color: var(--sw-o-sumi);
 }
 
 .sw-ji-dosen.is-momo {
@@ -2655,6 +2725,7 @@
     #6cb8cf 13px 20px, transparent 20px 26px,
     #d3a333 26px 33px, transparent 33px 39px
   );
+  color: var(--sw-o-sumi);
 }
 
 /* モザイクタイル。銭湯と喫茶店の腰壁 */
@@ -2665,10 +2736,11 @@
     linear-gradient(#e5d9bf 2px, transparent 2px),
     linear-gradient(90deg, #e5d9bf 2px, transparent 2px);
   background-size: 20px 20px;
+  color: var(--sw-o-sumi);
 }
 
-.sw-ji-tile.is-momo  { background-color: #cf8e8e; }
-.sw-ji-tile.is-usuki { background-color: #f7db76; }
+.sw-ji-tile.is-momo  { background-color: #cf8e8e; color: var(--sw-o-sumi); }
+.sw-ji-tile.is-usuki { background-color: #f7db76; color: var(--sw-o-sumi); }
 
 /* 型板ガラス。モール */
 .sw-ji-garasu {
@@ -2685,6 +2757,7 @@
     rgba(36, 31, 26, 0.05) 14px,
     rgba(255, 255, 255, 0.72) 18px
   );
+  color: var(--sw-o-sumi);
 }
 
 /* 花柄。昭和の花柄ポットと布団の柄。
@@ -2693,16 +2766,19 @@
   background-color: #f7db76;
   background-size: 120px 120px;
   background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27120%27%20height%3D%27120%27%20viewBox%3D%270%200%20120%20120%27%3E%3Cg%20fill%3D%27%23a8332f%27%3E%3Ccircle%20cx%3D%2730.0%27%20cy%3D%2718.0%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2741.4%27%20cy%3D%2726.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2737.1%27%20cy%3D%2739.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2722.9%27%20cy%3D%2739.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2718.6%27%20cy%3D%2726.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2790.0%27%20cy%3D%2778.0%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%27101.4%27%20cy%3D%2786.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2797.1%27%20cy%3D%2799.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2782.9%27%20cy%3D%2799.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2778.6%27%20cy%3D%2786.3%27%20r%3D%2710.4%27%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2730%27%20r%3D%277.5%27%20fill%3D%27%23d6a83c%27%2F%3E%3Ccircle%20cx%3D%2790%27%20cy%3D%2790%27%20r%3D%277.5%27%20fill%3D%27%23d6a83c%27%2F%3E%3Cg%20fill%3D%27%23d6a83c%27%20opacity%3D%27.55%27%3E%3Ccircle%20cx%3D%2790.0%27%20cy%3D%2723.4%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2796.3%27%20cy%3D%2728.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2793.9%27%20cy%3D%2735.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2786.1%27%20cy%3D%2735.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2783.7%27%20cy%3D%2728.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2730.0%27%20cy%3D%2783.4%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2736.3%27%20cy%3D%2788.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2733.9%27%20cy%3D%2795.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2726.1%27%20cy%3D%2795.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2723.7%27%20cy%3D%2788.0%27%20r%3D%275.7%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  color: var(--sw-o-sumi);
 }
 
 .sw-ji-hanagara.is-tokiwa {
   background-color: #f0ead2;
   background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27120%27%20height%3D%27120%27%20viewBox%3D%270%200%20120%20120%27%3E%3Cg%20fill%3D%27%233c6b52%27%3E%3Ccircle%20cx%3D%2730.0%27%20cy%3D%2718.0%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2741.4%27%20cy%3D%2726.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2737.1%27%20cy%3D%2739.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2722.9%27%20cy%3D%2739.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2718.6%27%20cy%3D%2726.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2790.0%27%20cy%3D%2778.0%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%27101.4%27%20cy%3D%2786.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2797.1%27%20cy%3D%2799.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2782.9%27%20cy%3D%2799.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2778.6%27%20cy%3D%2786.3%27%20r%3D%2710.4%27%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2730%27%20r%3D%277.5%27%20fill%3D%27%23e8a30c%27%2F%3E%3Ccircle%20cx%3D%2790%27%20cy%3D%2790%27%20r%3D%277.5%27%20fill%3D%27%23e8a30c%27%2F%3E%3Cg%20fill%3D%27%23e8a30c%27%20opacity%3D%27.55%27%3E%3Ccircle%20cx%3D%2790.0%27%20cy%3D%2723.4%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2796.3%27%20cy%3D%2728.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2793.9%27%20cy%3D%2735.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2786.1%27%20cy%3D%2735.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2783.7%27%20cy%3D%2728.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2730.0%27%20cy%3D%2783.4%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2736.3%27%20cy%3D%2788.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2733.9%27%20cy%3D%2795.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2726.1%27%20cy%3D%2795.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2723.7%27%20cy%3D%2788.0%27%20r%3D%275.7%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  color: var(--sw-o-sumi);
 }
 
 .sw-ji-hanagara.is-momo {
   background-color: #f6efe4;
   background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27120%27%20height%3D%27120%27%20viewBox%3D%270%200%20120%20120%27%3E%3Cg%20fill%3D%27%23cf8e8e%27%3E%3Ccircle%20cx%3D%2730.0%27%20cy%3D%2718.0%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2741.4%27%20cy%3D%2726.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2737.1%27%20cy%3D%2739.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2722.9%27%20cy%3D%2739.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2718.6%27%20cy%3D%2726.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2790.0%27%20cy%3D%2778.0%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%27101.4%27%20cy%3D%2786.3%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2797.1%27%20cy%3D%2799.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2782.9%27%20cy%3D%2799.7%27%20r%3D%2710.4%27%2F%3E%3Ccircle%20cx%3D%2778.6%27%20cy%3D%2786.3%27%20r%3D%2710.4%27%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2730%27%20r%3D%277.5%27%20fill%3D%27%2379b0a5%27%2F%3E%3Ccircle%20cx%3D%2790%27%20cy%3D%2790%27%20r%3D%277.5%27%20fill%3D%27%2379b0a5%27%2F%3E%3Cg%20fill%3D%27%2379b0a5%27%20opacity%3D%27.55%27%3E%3Ccircle%20cx%3D%2790.0%27%20cy%3D%2723.4%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2796.3%27%20cy%3D%2728.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2793.9%27%20cy%3D%2735.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2786.1%27%20cy%3D%2735.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2783.7%27%20cy%3D%2728.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2730.0%27%20cy%3D%2783.4%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2736.3%27%20cy%3D%2788.0%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2733.9%27%20cy%3D%2795.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2726.1%27%20cy%3D%2795.3%27%20r%3D%275.7%27%2F%3E%3Ccircle%20cx%3D%2723.7%27%20cy%3D%2788.0%27%20r%3D%275.7%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  color: var(--sw-o-sumi);
 }
 
 /* 喫茶店のソファ。ビニールレザー。
@@ -2725,6 +2801,7 @@
      ボタン2層が同じ格子で、ボタンの真上が最も明るくなっていた（明暗が逆）。
      膨らみを半升ずらす。 */
   background-position: 31px 0, 0 31px, 0 0, 31px 31px, 0 0, 0 0;
+  color: var(--sw-o-kinari);
 }
 
 /* ==========================================================================
@@ -2814,6 +2891,8 @@
 .sw-c-usu     { color: var(--sw-sumi-usu); }
 
 /* 地色。地と字を対で当てます */
+.sw-bg-kinari  { background-color: var(--sw-o-kinari);  color: var(--sw-o-sumi); }
+.sw-bg-sumi    { background-color: var(--sw-o-sumi);    color: var(--sw-o-kinari); }
 .sw-bg-enji    { background-color: var(--sw-o-enji);    color: var(--sw-o-kinari); }
 .sw-bg-karashi { background-color: var(--sw-o-karashi); color: var(--sw-o-sumi); }
 .sw-bg-tokiwa  { background-color: var(--sw-o-tokiwa);  color: var(--sw-o-kinari); }

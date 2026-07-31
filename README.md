@@ -8,7 +8,7 @@
 
 昭和レトロ CSS フレームワーク。ホーロー看板・純喫茶のお品書き・回数券・ブラウン管・刷りのかすれを、クラス一つで再現します。
 
-**JavaScript も画像も使いません。** 読みに行くのは CSS だけです。全部入りで 62.4KB（**gzip 後 13.1KB**）。必要なところだけ読めば 8KB まで落ちます。
+**JavaScript も画像も使いません。** 読みに行くのは CSS だけです。全部入りで 65.6KB（**gzip 後 13.6KB**）。必要なところだけ読めば 8KB まで落ちます。
 
 ## 導入
 
@@ -28,7 +28,7 @@ npm i showa-retro.css
 
 ```js
 import 'showa-retro.css';        // 全部入り
-import 'showa-retro.css/min';    // 圧縮版 62.4KB / gzip 13.1KB
+import 'showa-retro.css/min';    // 圧縮版 65.6KB / gzip 13.6KB
 ```
 
 ### 必要なところだけ読む
@@ -37,11 +37,11 @@ import 'showa-retro.css/min';    // 圧縮版 62.4KB / gzip 13.1KB
 
 | 読むもの | 最小化後 | gzip後 |
 | --- | --- | --- |
-| 全部入り | 62.4KB | 13.1KB |
-| よく使う一式（base・文字組・看板・ボタン・表・割付・強制配色） | 25.4KB | 6.3KB |
-| base と文字組だけ | 8.7KB | 2.8KB |
+| 全部入り | 65.6KB | 13.6KB |
+| よく使う一式（base・文字組・看板・ボタン・表・割付・強制配色） | 27.2KB | 6.6KB |
+| base と文字組だけ | 9.1KB | 3.0KB |
 
-大きいのは紙もの（13.8KB）・家電（12.6KB）・地紋（11.7KB）・看板（11.7KB）です。
+大きいのは紙もの・看板・地紋・家電です（最小化後でそれぞれ 10KB 前後）。
 
 ```css
 @import "showa-retro.css/src/01-base.css";      /* 必須。色・書体・夜間モード */
@@ -144,27 +144,45 @@ Google Fonts への直参照では、閲覧者のIPアドレスが Google に渡
 | `--sw-o-tokiwa` | `--sw-o-usuki` | 4.49 | AA大のみ | `.sw-pop.is-tokiwa` |
 | `--sw-o-daidai` | `--sw-o-sumi` | 4.80 | AA | `.sw-obi.is-daidai` |
 | `--sw-o-enji` | `--sw-o-usuki` | 4.83 | AA | `.sw-sodekanban.is-enji` |
+| `--sw-o-jushi-iri` | `#5f584a` | 4.87 | AA | `.sw-kenbai.is-urikire` |
 | `--sw-o-aka` | `--sw-o-kinari` | 4.88 | AA | `.sw-kanban.is-aka` |
+| `#f7f2e0` | `--sw-o-aka` | 5.12 | AA | `.sw-denshou` |
 | `--sw-o-tokiwa` | `--sw-o-kinari` | 5.22 | AA | `.sw-kanban.is-tokiwa` |
+| `#7a5a42` | `--sw-o-kinari` | 5.29 | AA | `.sw-shashin > :where(.ban)` |
 | `--sw-o-enji` | `--sw-o-kinari` | 5.61 | AA | `.sw-kanban` |
 | `--sw-o-momo` | `--sw-o-sumi` | 6.15 | AA | `.sw-obi.is-momo` |
+| `#cf8e8e` | `--sw-o-sumi` | 6.15 | AA | `.sw-ji-tile.is-momo` |
 | `--sw-o-daidai-oshi` | `--sw-o-sumi` | 6.16 | AA | `.sw-btn.is-daidai:hover` |
 | `--sw-o-asagi` | `--sw-o-sumi` | 6.66 | AA | `.sw-obi.is-asagi` |
+| `#79b0a5` | `--sw-o-sumi` | 6.66 | AA | `.sw-ji-tile` |
 | `--sw-o-tokiwa-oshi` | `--sw-o-kinari` | 7.03 | AAA | `.sw-btn.is-tokiwa:hover` |
 | `--sw-o-karashi` | `--sw-o-sumi` | 7.04 | AAA | `.sw ::selection` |
 | `--sw-o-sumi` | `--sw-o-karashi` | 7.04 | AAA | `.sw-match.is-sumi` |
 | `--sw-o-mizu` | `--sw-o-sumi` | 7.31 | AAA | `.sw-obi.is-mizu` |
 | `--sw-o-enji-oshi` | `--sw-o-kinari` | 7.56 | AAA | `.sw-btn.is-enji:hover` |
+| `#14110e` | `--sw-o-asagi` | 7.67 | AAA | `.sw-tv` |
 | `--sw-o-momo-oshi` | `--sw-o-sumi` | 7.68 | AAA | `.sw-btn.is-momo:hover` |
 | `--sw-o-kon` | `--sw-o-usuki` | 7.76 | AAA | `.sw-sodekanban` |
+| `#f2ecdc` | `#2c3f8c` | 8.11 | AAA | `.sw-aozake` |
 | `--sw-o-asagi-oshi` | `--sw-o-sumi` | 8.15 | AAA | `.sw-btn.is-asagi:hover` |
 | `--sw-o-karashi-oshi` | `--sw-o-sumi` | 8.40 | AAA | `.sw-btn.is-karashi:hover` |
+| `#7d211e` | `--sw-o-kinari` | 8.46 | AAA | `.sw-ji-sofa` |
 | `--sw-o-mizu-oshi` | `--sw-o-sumi` | 8.67 | AAA | `.sw-btn.is-mizu:hover` |
+| `#2b2b2b` | `#cfcac0` | 8.67 | AAA | `.sw-tv.is-sunaarashi` |
 | `--sw-o-kon` | `--sw-o-kinari` | 9.02 | AAA | `.sw-kanban.is-kon` |
 | `--sw-o-kon-oshi` | `--sw-o-kinari` | 10.92 | AAA | `.sw-btn.is-kon:hover` |
-| `--sw-o-jushi-iri` | `--sw-o-sumi` | 11.28 | AAA | `.sw-kenbai.is-urikire` |
+| `#0d2b4d` | `#d5e6f5` | 11.20 | AAA | `.sw-aozake.is-shashin` |
+| `#e5d9bf` | `--sw-o-sumi` | 11.67 | AAA | `.sw-ji-garasu` |
+| `#f7db76` | `--sw-o-sumi` | 11.94 | AAA | `.sw-ji-tile.is-usuki` |
+| `#f0e6cd` | `--sw-o-sumi` | 13.15 | AAA | `.sw-ji-dosen` |
 | `--sw-o-jushi` | `--sw-o-sumi` | 13.50 | AAA | `.sw-kenbai` |
+| `#f0ead2` | `--sw-o-sumi` | 13.53 | AAA | `.sw-ji-hanagara.is-tokiwa` |
+| `--sw-o-sumi` | `--sw-o-kinari` | 13.87 | AAA | `.sw-obi` |
 | `--sw-o-kinari` | `--sw-o-sumi` | 13.87 | AAA | `.sw-shusen` |
+| `#120f0c` | `--sw-o-usuki` | 13.96 | AAA | `.sw-denkou` |
+| `#f6efe4` | `--sw-o-sumi` | 14.30 | AAA | `.sw-ji-dosen.is-momo` |
+| `#f7f1e1` | `--sw-o-sumi` | 14.48 | AAA | `.sw-cassette > .label` |
+| `#fbf8f0` | `--sw-o-sumi` | 15.39 | AAA | `.sw-shashin` |
 <!-- contrast:end -->
 
 測って分かったことを、そのまま書きます。

@@ -24,6 +24,8 @@ npm run check     # 下の4検査。CI でも走る
 npm run audit     # 描画して実測。合成ボールドと端末依存フォントを見る
 npm run shots     # 全18節を撮って docs/review/index.html に一覧化
 npm run dev       # http://localhost:8765/ 手元で見る
+npm run visual    # 承認済みの描画と食い違う節を挙げる
+npm run baseline  # 意図した変更なら基準を取り直す
 ```
 
 **直す前に必ず `npm run shots` を回して自分で全部見る。** 利用者に不具合を
@@ -47,6 +49,13 @@ npm run dev       # http://localhost:8765/ 手元で見る
 
 **新しい種類の不具合を見つけたら、直すだけでなく検査を足す。**
 同じものを二度探さないため。
+
+## 考証台帳
+
+**実物の要件は `.claude/skills/design-review/SKILL.md` の表にある。**
+看板・紙もの・家電・刷り・文字組・作例の組み方まで、これまでに判明した
+45項目が入っている。意匠に触る前に読むこと。**そこに無いことは失われた
+知識なので、新しく分かったら必ず追記する。**
 
 ## 書体
 

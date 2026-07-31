@@ -15,7 +15,9 @@
   gap: 4px;
   /* 上端の縫い代だけを容器側で塗る。background-color を置くと全面が
      埋まって切れ目が出ないので、地色はグラデーションだけで持たせる。 */
-  background-image: linear-gradient(var(--sw-noren-ji) 0 calc(100% - var(--sw-noren-kire)), transparent 0);
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.22) 0 6px, transparent 6px),
+    linear-gradient(var(--sw-noren-ji) 0 calc(100% - var(--sw-noren-kire)), transparent 0);
   background-repeat: no-repeat;
 }
 
@@ -35,7 +37,7 @@
   padding: 1.6rem 0.4rem 2.4rem;
   display: grid;
   place-content: center start;
-  box-shadow: inset 0 6px 0 rgba(0, 0, 0, 0.22);
+  /* 上端の縫い代の陰は容器側に一本通す（布ごとだと隙間で途切れる） */
 }
 
 .sw-noren.is-enji > .nuno   { background: var(--sw-o-enji); color: var(--sw-o-kinari); }
@@ -52,7 +54,12 @@
   background: var(--sw-o-kon);
   color: var(--sw-o-usuki);
   border: 2px solid var(--sw-o-sumi);
-  box-shadow: inset 0 0 0 3px var(--sw-o-usuki), inset 0 0 0 5px var(--sw-o-kon);
+  /* 暗い地色のラベルは夜のページ地に溶けるので、外形を立てる落ち影を持たせる
+     （is-sumi は夜の紙に対して 1.03:1 だった）。看板と同じ向きに揃える。 */
+  box-shadow:
+    inset 0 0 0 3px var(--sw-o-usuki),
+    inset 0 0 0 5px var(--sw-o-kon),
+    4px 4px 0 var(--sw-shade);
   font-family: var(--sw-mincho);
   line-height: 1.6;
 }
@@ -92,6 +99,9 @@
   position: relative;
   backdrop-filter: blur(5px) saturate(0.85);
   -webkit-backdrop-filter: blur(5px) saturate(0.85);
+  /* 型板ガラスは光を散らす板で、透明な穴ではない。淡い面を持たせないと、
+     後ろが暗いときに暗い字が暗い地に乗る（夜に 1.28:1 で消えていた）。 */
+  background-color: rgba(244, 236, 216, 0.62);
   color: var(--sw-o-sumi);
   background-image: repeating-linear-gradient(
     90deg,

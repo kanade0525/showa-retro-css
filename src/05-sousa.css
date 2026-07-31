@@ -14,10 +14,13 @@
   text-decoration: none;
   color: var(--sw-sumi);
   background: var(--sw-paper-3);
-  border: var(--sw-kei-futo) solid var(--sw-sumi);
+  border: var(--sw-kei-futo) solid var(--sw-o-kage);
   padding: 0.6em 1.5em;
   cursor: pointer;
-  box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-sumi);
+  /* 影は物体色で固定する。テーマ変数だと夜に生成りへ反転して、
+     ボタン本体より明るい板が右下に張り出す（比 13.11:1）。
+     枠も同じ理由で物体色に揃える（八色の枠の見え方が昼夜で逆転していた）。 */
+  box-shadow: var(--sw-kage) var(--sw-kage) 0 var(--sw-o-kage);
   transition: transform 0.06s steps(2), box-shadow 0.06s steps(2);
 }
 
@@ -25,7 +28,7 @@
 
 .sw-btn:active {
   transform: translate(var(--sw-kage), var(--sw-kage));
-  box-shadow: 0 0 0 var(--sw-sumi);
+  box-shadow: 0 0 0 var(--sw-o-kage);
 }
 
 /* 色付きのボタン。地色と文字色を対で持たせ、触れたときも物体色の中で動きます。
@@ -126,7 +129,11 @@
     conic-gradient(from 210deg, rgba(255,255,255,.32), rgba(0,0,0,.3) 55%, rgba(255,255,255,.22)),
     radial-gradient(circle at 38% 32%, var(--sw-o-kanamono), #35302a 72%);
   border: 3px solid var(--sw-o-sumi);
-  box-shadow: 0 4px 0 var(--sw-shade), inset 0 0 12px rgba(0,0,0,.6);
+  /* 暗い金物なので夜の地に溶ける。外側に明るいリングを一枚足して輪郭を保つ */
+  box-shadow:
+    0 0 0 1px var(--sw-o-jushi-kage),
+    0 4px 0 var(--sw-shade),
+    inset 0 0 12px rgba(0,0,0,.6);
   position: relative;
 }
 
@@ -158,9 +165,10 @@
 
 .sw-progress::-webkit-progress-bar { background: var(--sw-paper-2); }
 .sw-progress::-webkit-progress-value {
-  background: repeating-linear-gradient(90deg, var(--sw-o-enji) 0 8px, var(--sw-enji-fuka) 8px 10px);
+  /* 縞は片方だけテーマ変数だと夜に溝が明るく反転する。両方とも物体色に揃える */
+  background: repeating-linear-gradient(90deg, var(--sw-o-enji) 0 8px, var(--sw-o-enji-oshi) 8px 10px);
 }
 .sw-progress::-moz-progress-bar {
-  background: repeating-linear-gradient(90deg, var(--sw-o-enji) 0 8px, var(--sw-enji-fuka) 8px 10px);
+  background: repeating-linear-gradient(90deg, var(--sw-o-enji) 0 8px, var(--sw-o-enji-oshi) 8px 10px);
 }
 

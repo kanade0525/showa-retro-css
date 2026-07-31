@@ -59,7 +59,11 @@
   font-size: var(--sw-t-md);
 }
 
-.sw-shinagaki .na { white-space: nowrap; }
+.sw-shinagaki .na {
+  /* 長い品名で値段が枠の外へ出ていた（最大 38px）。品名側を縮める */
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; }
 
 /* 伸縮する擬似要素が値段を右端まで押しやります */
 .sw-shinagaki > li::after {

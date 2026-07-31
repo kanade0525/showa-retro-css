@@ -32,6 +32,8 @@
 .sw-c-usu     { color: var(--sw-sumi-usu); }
 
 /* 地色。地と字を対で当てます */
+.sw-bg-kinari  { background-color: var(--sw-o-kinari);  color: var(--sw-o-sumi); }
+.sw-bg-sumi    { background-color: var(--sw-o-sumi);    color: var(--sw-o-kinari); }
 .sw-bg-enji    { background-color: var(--sw-o-enji);    color: var(--sw-o-kinari); }
 .sw-bg-karashi { background-color: var(--sw-o-karashi); color: var(--sw-o-sumi); }
 .sw-bg-tokiwa  { background-color: var(--sw-o-tokiwa);  color: var(--sw-o-kinari); }

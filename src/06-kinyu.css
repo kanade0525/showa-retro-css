@@ -21,7 +21,7 @@
   border: var(--sw-kei-futo) solid var(--sw-sumi);
   padding: 0.55em 0.75em;
   width: 100%;
-  box-shadow: inset 2px 2px 0 rgba(42, 38, 34, 0.12);
+  box-shadow: inset 2px 2px 0 var(--sw-kubomi);
 }
 
 .sw-textarea { resize: vertical; min-height: 6em; line-height: 1.8; }

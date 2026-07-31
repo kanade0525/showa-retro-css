@@ -151,6 +151,13 @@
   --sw-o-mizu-oshi:    #89c6d9;
 
   /* --- 地紋と刷りの表情 --- */
+  --sw-kubomi: rgba(42, 38, 34, 0.12);  /* 記入欄の凹み。夜は明るい側へ反転 */
+  --sw-genkou-kei: #79b0a5;             /* 原稿用紙の罫。紙と一緒に沈む */
+  --sw-aozake-tsuya: rgba(255, 255, 255, 0.5); /* 青焼きの艶。夜は弱める */
+
+  /* ずらし影の色。影は落ちる面より暗いものなので昼夜で変えません。
+     テーマ変数を使うと、夜に影が本体より明るい板になります。 */
+  --sw-o-kage: #241f1a;
   --sw-pattern: rgba(42, 38, 34, 0.10);
   --sw-glow: transparent;          /* ネオンの発光。昼は消灯 */
   --sw-shade: rgba(36, 31, 26, 0.34);
@@ -207,6 +214,11 @@
     --sw-daidai-fuka:  #c26b3c;
     --sw-mizu-fuka:    #5c99ac;
 
+    --sw-kubomi: rgba(0, 0, 0, 0.45);
+  --sw-genkou-kei: #3d5f58;
+  --sw-aozake-tsuya: rgba(255, 255, 255, 0.08);
+    --sw-genkou-kei: #3d5f58;
+    --sw-aozake-tsuya: rgba(255, 255, 255, 0.08);
     --sw-pattern: rgba(236, 226, 204, 0.10);
     --sw-glow: currentColor;
     --sw-shade: rgba(0, 0, 0, 0.55);
@@ -242,6 +254,7 @@
   --sw-daidai-fuka:  #c26b3c;
   --sw-mizu-fuka:    #5c99ac;
 
+  --sw-kubomi: rgba(0, 0, 0, 0.45);
   --sw-pattern: rgba(236, 226, 204, 0.10);
   --sw-glow: currentColor;
   --sw-shade: rgba(0, 0, 0, 0.55);

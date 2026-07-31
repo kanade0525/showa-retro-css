@@ -14,7 +14,7 @@
  *
  * Chrome の場所は CHROME 環境変数で変えられます。
  */
-import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, readdirSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -30,14 +30,17 @@ if (!existsSync(CHROME)) {
   process.exit(1);
 }
 
-const ALL = process.argv.includes("--all");
-const LIGHT_ONLY = process.argv.includes("--light") && !ALL;
-const NARROW = ALL || process.argv.includes("--narrow");
-const FORCED = ALL || process.argv.includes("--forced");
+// 90枚を一度に撮ると時間がかかりすぎるので、分けて撮れるようにする。
+//   --light / --dark / --narrow / --forced  … その組み合わせだけ
+//   --keep                                  … docs/review を消さずに足す
+const ARGS = process.argv.slice(2);
+const has = (f) => ARGS.includes(f);
+const PICK = ["--light", "--dark", "--narrow", "--forced"].filter(has);
+const KEEP = has("--keep");
 
 const OUT = p("docs/review");
 const TMP = p(".shots-tmp");
-rmSync(OUT, { recursive: true, force: true });
+if (!KEEP) rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 mkdirSync(TMP, { recursive: true });
 
@@ -65,15 +68,15 @@ console.log(`${targets.length} 節を撮ります`);
 
 /* ---- 撮る ---------------------------------------------------------------- */
 
-const themes = LIGHT_ONLY ? ["light"] : ["light", "dark"];
-const widths = NARROW ? [1280, 560] : [1280];
-
 // 撮る組み合わせ。強制配色は Chrome の --force-high-contrast で有効になる。
 // ルールを書いただけで一度も描画確認していなかったので、ここに入れる。
 const variants = [];
-for (const theme of themes) for (const w of widths) variants.push({ theme, w, forced: false });
-if (FORCED) variants.push({ theme: "light", w: 1280, forced: true });
+if (!PICK.length || has("--light")) variants.push({ theme: "light", w: 1280, forced: false });
+if (!PICK.length || has("--dark")) variants.push({ theme: "dark", w: 1280, forced: false });
+if (has("--narrow")) variants.push({ theme: "light", w: 560, forced: false });
+if (has("--forced")) variants.push({ theme: "light", w: 1280, forced: true });
 
+console.log(`一節あたり ${variants.length}通り`);
 const shots = [];
 
 for (const t of targets) {
@@ -128,6 +131,16 @@ process.stdout.write("\n");
 rmSync(TMP, { recursive: true, force: true });
 
 /* ---- 一覧ページを書く ---------------------------------------------------- */
+
+// 分けて撮った分も一覧に載せる
+for (const f of readdirSync(OUT).filter((x) => x.endsWith(".png"))) {
+  if (shots.some((s) => s.file === f)) continue;
+  const m = /^(.+)-(light|dark|forced)-(\d+)\.png$/.exec(f);
+  if (!m) continue;
+  const t = targets.find((x) => x.id === m[1]);
+  shots.push({ id: m[1], title: t ? t.title : m[1], theme: m[2], w: Number(m[3]), file: f });
+}
+shots.sort((a, b) => targets.findIndex((t) => t.id === a.id) - targets.findIndex((t) => t.id === b.id));
 
 const byTarget = new Map();
 for (const s of shots) {

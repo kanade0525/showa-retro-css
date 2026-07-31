@@ -12,7 +12,12 @@
    ください。レトロミンは1732字しか収録がないので、地の文だと
    収録外の字が次の書体に落ちて混植になります。 */
 
-/* 判子。字が枠を埋めるのが実物です。
+/* 判子。**紙に押す物なので、物体色の紙の上に置いてください。**
+   素の地（テーマ変数）に直に置くと、夜に地が暗くなって朱が沈みます
+   （輪郭だけの判子が 2.29:1 まで落ちます）。見本帳では .sw-bg-kinari の
+   紙に押しています。
+
+   字が枠を埋めるのが実物です。
    書体は二種類だけ。既定は古印体ふう（線がかすれて角が丸い実印の書体）、
    is-mincho で明朝。古印体そのものは再配布できるフリーフォントが無いので、
    書体を差し替えるのではなく、輪郭のゆらぎと線のかすれで寄せています。 */
@@ -341,11 +346,13 @@
 .sw-genkou {
   --sw-masu: 2.2em;
   background-color: var(--sw-paper-3);
+  /* 罫は刷り色なので紙と一緒に沈む。物体色で固定すると夜に罫が強くなり、
+     字との強弱が逆に近づく（罫÷字が 0.16 → 0.53 になっていた）。 */
   background-image:
-    linear-gradient(var(--sw-o-asagi) 1px, transparent 1px),
-    linear-gradient(90deg, var(--sw-o-asagi) 1px, transparent 1px);
+    linear-gradient(var(--sw-genkou-kei) 1px, transparent 1px),
+    linear-gradient(90deg, var(--sw-genkou-kei) 1px, transparent 1px);
   background-size: var(--sw-masu) var(--sw-masu);
-  border: 2px solid var(--sw-o-asagi);
+  border: 2px solid var(--sw-genkou-kei);
   padding: 0;
   font-family: var(--sw-mincho);
   font-size: var(--sw-t-base);
@@ -377,7 +384,7 @@
   left: 50%; top: 0.18em;
   width: 0.85em; height: 1.05em;
   transform: translateX(-50%);
-  background: var(--sw-o-asagi);
+  background: var(--sw-genkou-kei);
   clip-path: polygon(0 0, 100% 0, 100% 55%, 50% 100%, 0 55%);
 }
 
@@ -392,13 +399,16 @@
 .sw-stampcard {
   --sw-masu: 3.4rem;
   --sw-masu-keta: 5;
+  /* 実物は紙。地をテーマ変数にすると夜に暗くなり、物体色の朱印が沈む
+     （「済」が 2.30:1 まで落ちていた）。紙も物体色で固定する。 */
   display: grid;
   grid-template-columns: repeat(var(--sw-masu-keta), var(--sw-masu));
   grid-auto-rows: var(--sw-masu);
   justify-content: start;
   width: max-content;
-  background: var(--sw-paper-3);
-  border: 2px solid var(--sw-sumi);
+  background: var(--sw-o-kinari);
+  color: var(--sw-o-sumi);
+  border: 2px solid var(--sw-o-sumi);
 }
 
 .sw-stampcard > .masu {
@@ -433,6 +443,7 @@
 
 /* 写真。白フチのプリントに日付が焼き込まれている */
 .sw-shashin {
+  color: var(--sw-o-sumi);
   display: inline-block;
   /* L判のフチあり。四辺をほぼ均等にする。
      下だけ広いポラロイド型の台紙に、35mmのデートバック特有の日付を
@@ -448,6 +459,7 @@
    一括指定ではなく background-color だけにして詳細度も落とす。
    旧版は background の一括指定が地紋の background-image ごと消していた。 */
 .sw-shashin > :where(.ban) {
+  color: var(--sw-o-kinari);
   display: block;
   background-color: #7a5a42;
   filter: sepia(0.45) contrast(1.05);
@@ -496,7 +508,7 @@
   overflow-x: auto;
   tab-size: 2;
   background-image:
-    linear-gradient(103deg, rgba(255,255,255,.5) 0%, rgba(255,255,255,0) 42%, rgba(15,61,107,.06) 100%),
+    linear-gradient(103deg, var(--sw-aozake-tsuya) 0%, rgba(255,255,255,0) 42%, rgba(15,61,107,.06) 100%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2'/%3E%3C/filter%3E%3Crect width='150' height='150' filter='url(%23a)' opacity='0.05'/%3E%3C/svg%3E");
   box-shadow: 2px 2px 0 rgba(15, 61, 107, 0.18);
 }

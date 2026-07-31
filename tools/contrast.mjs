@@ -127,14 +127,30 @@ for (const [v, name] of SURI) {
 // 取りこぼして「測ってある」つもりで穴が空く。基底の色を覚えて補う。
 const baseColor = new Map(); // セレクタ → 文字色の変数名
 const danger = []; // 物体色の地に文字色を書いていない箇所
+const reverse = []; // 物体色の字をテーマ変数の地に置いている箇所
 const pairs = new Map();
 
 for (const f of readdirSync(p("src")).filter((x) => /^\d\d-.+\.css$/.test(x))) {
   const css = readFileSync(p("src", f), "utf8");
   for (const m of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
     const sel = m[1].trim().split("\n").pop().trim();
-    const bg = /background(?:-color)?:\s*var\((--sw-o-[\w-]+)\)/.exec(m[2]);
-    const fg = /(?:^|[;\s])color:\s*var\((--sw-o-[\w-]+)\)/.exec(m[2]);
+    // 地色は変数でも直値でも拾う。地紋は直値で書いてあるので、
+    // var(--sw-o-*) だけ見ていた旧版は12種すべてを取りこぼしていた
+    const bg = /background(?:-color)?:\s*(?:var\((--sw-o-[\w-]+)\)|(#[0-9a-fA-F]{6}))/.exec(m[2]);
+    const fg = /(?:^|[;\s])color:\s*(?:var\((--sw-o-[\w-]+)\)|(#[0-9a-fA-F]{6}))/.exec(m[2]);
+    if (fg && fg[2]) { fg[1] = fg[2]; light[fg[1]] = hex(fg[2]); }
+    if (bg && bg[2]) { bg[1] = bg[2]; light[bg[1]] = hex(bg[2]); }
+
+    // 逆向き。物体色の字をテーマ変数の地に置くと、夜に地だけ動いて潰れる
+    // （判子 2.29 / スタンプの朱印 2.30 / 伝票の上の検印 2.79）
+    const bgTheme = /background(?:-color)?:\s*var\((--sw-(?!o-)[\w-]+)\)/.exec(m[2]);
+    if (bgTheme && fg && light[bgTheme[1]] && dark[bgTheme[1]] && light[fg[1]]) {
+      const rl = ratio(light[bgTheme[1]], light[fg[1]]);
+      const rd = ratio(dark[bgTheme[1]], light[fg[1]]);
+      if (Math.min(rl, rd) < 3) {
+        reverse.push({ sel, bg: bgTheme[1], fg: fg[1], l: rl, d: rd });
+      }
+    }
 
     if (fg && light[fg[1]]) baseColor.set(sel, fg[1]);
     if (!bg || !light[bg[1]]) continue;
@@ -191,6 +207,15 @@ if (!re.test(readme)) {
   process.exit(1);
 }
 const next = readme.replace(re, section);
+
+if (reverse.length) {
+  console.error("✗ 物体色の字を、昼夜で動く地の上に置いている箇所があります。");
+  console.error("  地だけが反転するので、どちらかのモードで潰れます。");
+  for (const r of reverse) {
+    console.error(`  ${r.sel}  地 ${r.bg} / 字 ${r.fg}  昼 ${r.l.toFixed(2)} 夜 ${r.d.toFixed(2)}`);
+  }
+  process.exit(1);
+}
 
 if (danger.length) {
   console.error("✗ 地を物体色で置きながら文字色を書いていない箇所があります。");

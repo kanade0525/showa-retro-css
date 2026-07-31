@@ -80,6 +80,7 @@
 /* 電光掲示板。素子の格子が見えるのが実物。
    旧版は暗い面にドット書体を置いただけだった。 */
 .sw-denkou {
+  color: var(--sw-o-usuki);
   position: relative;
   overflow: hidden;
   /* 中の流れる文字は nowrap なので、flex や grid の中に置くと
