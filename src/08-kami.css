@@ -222,10 +222,19 @@
   text-align: center;
   font-family: var(--sw-mincho);
   overflow: hidden;
-  /* 中央の結び目。二本の水引がここで結ばれる */
+  /* 中央の結び目と、右肩の熨斗。
+     熨斗が無い掛け紙は弔事・仏事用で、慶事の「のし紙」ではありません。
+     折った紙に鮑を挟んだ形を、細い台形と中の朱で表します。 */
   background-image:
+    /* 結び目 */
     radial-gradient(ellipse 0.62em 0.46em at 50% 1.15em,
-      #c0302b 0 66%, #8e1f1c 68% 78%, transparent 80%);
+      #c0302b 0 66%, #8e1f1c 68% 78%, transparent 80%),
+    /* 熨斗の中身（黄色い鮑） */
+    linear-gradient(160deg, transparent 46%, #d9a441 46% 54%, transparent 54%),
+    /* 熨斗の紙 */
+    linear-gradient(160deg, transparent 34%, var(--sw-o-kinari) 34% 66%, transparent 66%);
+  background-size: auto, 1.5em 2.6em, 1.9em 3em;
+  background-position: 0 0, calc(100% - 1.1em) 0.5em, calc(100% - 1em) 0.35em;
   background-repeat: no-repeat;
 }
 
@@ -237,12 +246,15 @@
   top: 0.9em;
   width: 47%;
   height: 0.5em;
-  background: linear-gradient(var(--sw-o-aka) 0 50%, var(--sw-paper-3) 50% 100%);
+  /* 紅白。白は地と同じ値だと消えるので物体色の生成りで置く */
+  background: linear-gradient(var(--sw-o-aka) 0 50%, var(--sw-o-kinari) 50% 100%);
   box-shadow: 0 1px 0 rgba(36, 31, 26, 0.18);
 }
 
-.sw-noshi::before { left: 1%; transform: rotate(3.2deg); transform-origin: left center; }
-.sw-noshi::after  { right: 1%; transform: rotate(-3.2deg); transform-origin: right center; }
+/* 結び目を頂点に中央がわずかに上がる。旧版は両方とも中央側を下げていて
+   たるんだ紐に見えた */
+.sw-noshi::before { left: 1%; transform: rotate(-2.4deg); transform-origin: left center; }
+.sw-noshi::after  { right: 1%; transform: rotate(2.4deg); transform-origin: right center; }
 
 /* 特売POP。爆発
    星形の実効領域は外接矩形より狭いので、余白を割合で持たせます。
@@ -422,8 +434,11 @@
 /* 写真。白フチのプリントに日付が焼き込まれている */
 .sw-shashin {
   display: inline-block;
+  /* L判のフチあり。四辺をほぼ均等にする。
+     下だけ広いポラロイド型の台紙に、35mmのデートバック特有の日付を
+     焼き込むのは実機として同居しない。 */
   background: #fbf8f0;
-  padding: 0.7rem 0.7rem 2.6rem;
+  padding: 0.7rem 0.7rem 1.1rem;
   box-shadow: 2px 3px 8px rgba(36, 31, 26, 0.3);
   transform: rotate(-1.5deg);
   position: relative;

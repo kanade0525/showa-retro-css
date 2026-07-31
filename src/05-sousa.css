@@ -80,20 +80,20 @@
   font-weight: 700;
   line-height: 1.35;
   color: var(--sw-o-sumi);
-  background: #efe9dc;
-  border: 2px solid #b8ae99;
+  background: var(--sw-o-jushi);
+  border: 2px solid var(--sw-o-jushi-kage);
   border-radius: 5px;
   cursor: pointer;
   box-shadow:
     inset 0 -4px 0 rgba(36, 31, 26, 0.2),
     inset 0 2px 0 rgba(255, 255, 255, 0.8),
-    0 4px 0 #b8ae99;
+    0 4px 0 var(--sw-o-jushi-kage);
   transition: transform 0.06s, box-shadow 0.06s;
 }
 
 .sw-kenbai:active {
   transform: translateY(4px);
-  box-shadow: inset 0 -2px 0 rgba(36, 31, 26, 0.2), 0 0 0 #b8ae99;
+  box-shadow: inset 0 -2px 0 rgba(36, 31, 26, 0.2), 0 0 0 var(--sw-o-jushi-kage);
 }
 
 .sw-kenbai .nedan {
@@ -106,7 +106,7 @@
 
 .sw-kenbai.is-urikire {
   color: #5f584a;
-  background: #ddd6c6;
+  background: var(--sw-o-jushi-iri);
   cursor: not-allowed;
 }
 .sw-kenbai.is-urikire .nedan {
@@ -124,7 +124,7 @@
   border-radius: 50%;
   background:
     conic-gradient(from 210deg, rgba(255,255,255,.32), rgba(0,0,0,.3) 55%, rgba(255,255,255,.22)),
-    radial-gradient(circle at 38% 32%, #6d6055, #35302a 72%);
+    radial-gradient(circle at 38% 32%, var(--sw-o-kanamono), #35302a 72%);
   border: 3px solid var(--sw-o-sumi);
   box-shadow: 0 4px 0 var(--sw-shade), inset 0 0 12px rgba(0,0,0,.6);
   position: relative;

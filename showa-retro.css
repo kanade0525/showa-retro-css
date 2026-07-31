@@ -80,7 +80,10 @@
                "Yusei Magic", "Zen Kaku Gothic New", sans-serif;
 
   /* アンチック体。漫画のセリフに使われてきた様式 */
-  --sw-anchikku: "新コミック体", "Shippori Antique", "Zen Old Mincho", serif;
+  /* アンチック体。落ちた先が明朝だと方向が逆になる（アンチゴチは
+     仮名アンチック＋漢字ゴシックの組み方）。角ゴに落とす */
+  --sw-anchikku: "新コミック体", "Shippori Antique",
+                 "Zen Kaku Gothic New", sans-serif;
 
   /* 丸ゴシック。ナール（1973・写研）の代用 */
   --sw-maru: "いろはマル", "いろはマルみかみ", "Zen Maru Gothic",
@@ -148,6 +151,12 @@
   --sw-o-shu:     #d4491a;  /* 特売の朱 */
   --sw-o-daidai:  #e2662a;  /* 橙 */
   --sw-o-mizu:    #6cb8cf;  /* 水色 */
+
+  /* 樹脂と金物。券売機のボタンやつまみに使う実物の色 */
+  --sw-o-jushi:      #efe9dc;  /* 押しボタンの樹脂 */
+  --sw-o-jushi-kage: #b8ae99;  /* その影とふち */
+  --sw-o-jushi-iri:  #ddd6c6;  /* 押せない状態 */
+  --sw-o-kanamono:   #6d6055;  /* つまみの金物 */
 
   /* 押したとき・触れたときの塗り。これも物体色なので昼夜で変えません。
      以前はここにテーマ変数の --sw-*-fuka を当てていました。夜は地色が
@@ -680,7 +689,17 @@
 .sw-kanban {
   position: relative;
   display: block;
-  background: var(--sw-o-enji);
+  background-color: var(--sw-o-enji);
+  background-image:
+    /* 四隅の鋲。ホーロー看板は壁に打ち付ける物で、穴と鋲が必ず出る */
+    radial-gradient(circle at 1.1em 1.1em, rgba(0,0,0,.55) 0 .16em, transparent .19em),
+    radial-gradient(circle at 1.1em 1.1em, #cfc6b2 0 .11em, transparent .13em),
+    radial-gradient(circle at calc(100% - 1.1em) 1.1em, rgba(0,0,0,.55) 0 .16em, transparent .19em),
+    radial-gradient(circle at calc(100% - 1.1em) 1.1em, #cfc6b2 0 .11em, transparent .13em),
+    radial-gradient(circle at 1.1em calc(100% - 1.1em), rgba(0,0,0,.55) 0 .16em, transparent .19em),
+    radial-gradient(circle at 1.1em calc(100% - 1.1em), #cfc6b2 0 .11em, transparent .13em),
+    radial-gradient(circle at calc(100% - 1.1em) calc(100% - 1.1em), rgba(0,0,0,.55) 0 .16em, transparent .19em),
+    radial-gradient(circle at calc(100% - 1.1em) calc(100% - 1.1em), #cfc6b2 0 .11em, transparent .13em);
   color: var(--sw-o-kinari);
   border: 5px solid var(--sw-o-sumi);
   box-shadow:
@@ -707,7 +726,7 @@
 }
 
 .sw-kanban.is-karashi {
-  background: var(--sw-o-karashi);
+  background-color: var(--sw-o-karashi);
   color: var(--sw-o-sumi);
   box-shadow:
     inset 0 0 0 4px var(--sw-o-sumi),
@@ -716,7 +735,7 @@
 }
 
 .sw-kanban.is-tokiwa {
-  background: var(--sw-o-tokiwa);
+  background-color: var(--sw-o-tokiwa);
   box-shadow:
     inset 0 0 0 4px var(--sw-o-kinari),
     inset 0 0 0 7px var(--sw-o-tokiwa),
@@ -724,7 +743,7 @@
 }
 
 .sw-kanban.is-kon {
-  background: var(--sw-o-kon);
+  background-color: var(--sw-o-kon);
   box-shadow:
     inset 0 0 0 4px var(--sw-o-kinari),
     inset 0 0 0 7px var(--sw-o-kon),
@@ -732,7 +751,7 @@
 }
 
 .sw-kanban.is-aka {
-  background: var(--sw-o-aka);
+  background-color: var(--sw-o-aka);
   box-shadow:
     inset 0 0 0 4px var(--sw-o-kinari),
     inset 0 0 0 7px var(--sw-o-aka),
@@ -749,11 +768,11 @@
   inset: 0;
   pointer-events: none;
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.22' numOctaves='5' seed='7'/%3E%3CfeColorMatrix values='0.42 0 0 0 0.34 0.16 0 0 0 0.13 0.06 0 0 0 0.04 11 0 0 0 -7.2'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23s)'/%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.22' numOctaves='5' seed='7'/%3E%3CfeColorMatrix values='0.42 0 0 0 0.34 0.16 0 0 0 0.13 0.06 0 0 0 0.04 7 0 0 0 -3.4'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23s)'/%3E%3C/svg%3E");
   /* 錆は縁と角から出ます。中央は薄く抜きます */
-  -webkit-mask-image: radial-gradient(115% 125% at 50% 45%, rgba(0,0,0,.1) 38%, #000 100%);
-  mask-image: radial-gradient(115% 125% at 50% 45%, rgba(0,0,0,.1) 38%, #000 100%);
-  opacity: 0.9;
+  -webkit-mask-image: radial-gradient(108% 118% at 50% 45%, rgba(0,0,0,.06) 22%, #000 92%);
+  mask-image: radial-gradient(108% 118% at 50% 45%, rgba(0,0,0,.06) 22%, #000 92%);
+  opacity: 0.85;
 }
 
 /* --- 突き出し看板。袖看板 --- */
@@ -939,10 +958,12 @@
 /* ── 角丸パネル ─────────────────────────────────────────────────
    色地の上に置く角丸の白パネル。実物のテンプレートで非常に多い型です。
    角丸は昭和に無いと思い込んでいましたが、実物は多用しています。 */
+/* 角丸パネル。色地（物体色）の上に置く白なので、地と字も物体色で固定する。
+   テーマ変数だと夜に紺のパネルになり、「色地の上の白」が成立しない。 */
 .sw-panel {
   display: block;
-  background: var(--sw-paper-3);
-  color: var(--sw-sumi);
+  background: var(--sw-o-kinari);
+  color: var(--sw-o-sumi);
   border-radius: 1.1rem;
   padding: calc(var(--sw-ma) * 1.4);
   box-shadow: 0 3px 0 rgba(36, 31, 26, 0.18);
@@ -960,12 +981,13 @@
 
 /* ── 短冊 ───────────────────────────────────────────────────────
    細長い縦枠に縦組みの題字。駄菓子屋や喫茶の掲示に多い形 */
+/* 短冊。掲示する実物の紙なので物体色で固定する（パネルと揃える） */
 .sw-tanzaku {
   display: inline-block;
-  background: var(--sw-paper-3);
-  color: var(--sw-sumi);
-  border: 4px solid var(--sw-sumi);
-  box-shadow: inset 0 0 0 2px var(--sw-paper-3), inset 0 0 0 5px var(--sw-sumi);
+  background: var(--sw-o-kinari);
+  color: var(--sw-o-sumi);
+  border: 4px solid var(--sw-o-sumi);
+  box-shadow: inset 0 0 0 2px var(--sw-o-kinari), inset 0 0 0 5px var(--sw-o-sumi);
   padding: 1.5em 0.75em;
   font-family: var(--sw-mincho);
   /* レトロミンは weight 400 しか持たないので、700 を要求すると合成ボールドになる。
@@ -1064,20 +1086,20 @@
   font-weight: 700;
   line-height: 1.35;
   color: var(--sw-o-sumi);
-  background: #efe9dc;
-  border: 2px solid #b8ae99;
+  background: var(--sw-o-jushi);
+  border: 2px solid var(--sw-o-jushi-kage);
   border-radius: 5px;
   cursor: pointer;
   box-shadow:
     inset 0 -4px 0 rgba(36, 31, 26, 0.2),
     inset 0 2px 0 rgba(255, 255, 255, 0.8),
-    0 4px 0 #b8ae99;
+    0 4px 0 var(--sw-o-jushi-kage);
   transition: transform 0.06s, box-shadow 0.06s;
 }
 
 .sw-kenbai:active {
   transform: translateY(4px);
-  box-shadow: inset 0 -2px 0 rgba(36, 31, 26, 0.2), 0 0 0 #b8ae99;
+  box-shadow: inset 0 -2px 0 rgba(36, 31, 26, 0.2), 0 0 0 var(--sw-o-jushi-kage);
 }
 
 .sw-kenbai .nedan {
@@ -1090,7 +1112,7 @@
 
 .sw-kenbai.is-urikire {
   color: #5f584a;
-  background: #ddd6c6;
+  background: var(--sw-o-jushi-iri);
   cursor: not-allowed;
 }
 .sw-kenbai.is-urikire .nedan {
@@ -1108,7 +1130,7 @@
   border-radius: 50%;
   background:
     conic-gradient(from 210deg, rgba(255,255,255,.32), rgba(0,0,0,.3) 55%, rgba(255,255,255,.22)),
-    radial-gradient(circle at 38% 32%, #6d6055, #35302a 72%);
+    radial-gradient(circle at 38% 32%, var(--sw-o-kanamono), #35302a 72%);
   border: 3px solid var(--sw-o-sumi);
   box-shadow: 0 4px 0 var(--sw-shade), inset 0 0 12px rgba(0,0,0,.6);
   position: relative;
@@ -1647,10 +1669,19 @@
   text-align: center;
   font-family: var(--sw-mincho);
   overflow: hidden;
-  /* 中央の結び目。二本の水引がここで結ばれる */
+  /* 中央の結び目と、右肩の熨斗。
+     熨斗が無い掛け紙は弔事・仏事用で、慶事の「のし紙」ではありません。
+     折った紙に鮑を挟んだ形を、細い台形と中の朱で表します。 */
   background-image:
+    /* 結び目 */
     radial-gradient(ellipse 0.62em 0.46em at 50% 1.15em,
-      #c0302b 0 66%, #8e1f1c 68% 78%, transparent 80%);
+      #c0302b 0 66%, #8e1f1c 68% 78%, transparent 80%),
+    /* 熨斗の中身（黄色い鮑） */
+    linear-gradient(160deg, transparent 46%, #d9a441 46% 54%, transparent 54%),
+    /* 熨斗の紙 */
+    linear-gradient(160deg, transparent 34%, var(--sw-o-kinari) 34% 66%, transparent 66%);
+  background-size: auto, 1.5em 2.6em, 1.9em 3em;
+  background-position: 0 0, calc(100% - 1.1em) 0.5em, calc(100% - 1em) 0.35em;
   background-repeat: no-repeat;
 }
 
@@ -1662,12 +1693,15 @@
   top: 0.9em;
   width: 47%;
   height: 0.5em;
-  background: linear-gradient(var(--sw-o-aka) 0 50%, var(--sw-paper-3) 50% 100%);
+  /* 紅白。白は地と同じ値だと消えるので物体色の生成りで置く */
+  background: linear-gradient(var(--sw-o-aka) 0 50%, var(--sw-o-kinari) 50% 100%);
   box-shadow: 0 1px 0 rgba(36, 31, 26, 0.18);
 }
 
-.sw-noshi::before { left: 1%; transform: rotate(3.2deg); transform-origin: left center; }
-.sw-noshi::after  { right: 1%; transform: rotate(-3.2deg); transform-origin: right center; }
+/* 結び目を頂点に中央がわずかに上がる。旧版は両方とも中央側を下げていて
+   たるんだ紐に見えた */
+.sw-noshi::before { left: 1%; transform: rotate(-2.4deg); transform-origin: left center; }
+.sw-noshi::after  { right: 1%; transform: rotate(2.4deg); transform-origin: right center; }
 
 /* 特売POP。爆発
    星形の実効領域は外接矩形より狭いので、余白を割合で持たせます。
@@ -1847,8 +1881,11 @@
 /* 写真。白フチのプリントに日付が焼き込まれている */
 .sw-shashin {
   display: inline-block;
+  /* L判のフチあり。四辺をほぼ均等にする。
+     下だけ広いポラロイド型の台紙に、35mmのデートバック特有の日付を
+     焼き込むのは実機として同居しない。 */
   background: #fbf8f0;
-  padding: 0.7rem 0.7rem 2.6rem;
+  padding: 0.7rem 0.7rem 1.1rem;
   box-shadow: 2px 3px 8px rgba(36, 31, 26, 0.3);
   transform: rotate(-1.5deg);
   position: relative;
@@ -2067,7 +2104,9 @@
   box-shadow:
     inset 0 0 40px rgba(255, 240, 190, 0.9),
     0 0 0 2px var(--sw-o-sumi),
-    0 0 34px rgba(255, 236, 170, 0.55);
+    0 0 34px rgba(255, 236, 170, 0.55),
+    /* 壁に取り付く物なので落ち影を持つ。同じ壁のホーロー看板と向きを揃える */
+    8px 8px 0 var(--sw-shade);
 }
 
 /* ==========================================================================
@@ -2132,6 +2171,8 @@
    物理的に出ない。明朝ではなく線幅の一定な丸ゴで組む。 */
 .sw-neon {
   font-family: var(--sw-maru);
+  /* 管は太い方がネオンに見える。丸ゴは本物の700を持つので合成にならない */
+  font-weight: 700;
   font-synthesis: none;
   color: var(--sw-o-aka);
   letter-spacing: 0.1em;
@@ -2166,8 +2207,10 @@
   content: "";
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(255,122,26,.10) 0 1.2px, transparent 1.5px);
-  background-size: 5px 5px;
+  /* 消灯している素子。格子は字の大きさに連動させる。旧版は 5px 固定で
+     字形と無関係に文字を切っていた */
+  background-image: radial-gradient(circle, rgba(255,122,26,.10) 0 8%, transparent 11%);
+  background-size: calc(var(--sw-t-md) / 4) calc(var(--sw-t-md) / 4);
 }
 
 /* 素子の隙間。文字がLEDの粒に見える */
@@ -2178,8 +2221,8 @@
   pointer-events: none;
   z-index: 2;
   background-image:
-    repeating-linear-gradient(90deg, rgba(0,0,0,.5) 0 1.7px, transparent 1.7px 5px),
-    repeating-linear-gradient(0deg,  rgba(0,0,0,.5) 0 1.7px, transparent 1.7px 5px);
+    repeating-linear-gradient(90deg, rgba(0,0,0,.42) 0 1px, transparent 1px calc(var(--sw-t-md) / 4)),
+    repeating-linear-gradient(0deg,  rgba(0,0,0,.42) 0 1px, transparent 1px calc(var(--sw-t-md) / 4));
 }
 
 .sw-denkou > .nagare { position: relative; z-index: 1; }
@@ -2215,6 +2258,15 @@
   border: 1px solid #4b443a;
   border-radius: 2px;
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.8);
+}
+
+/* 区切りのコロン。実物は時と分でコマ群が分かれ、コロンは筐体側の固定表示。
+   回るコマにコロンだけを刷ることは考えにくい */
+.sw-patapata > .kugiri {
+  display: grid;
+  place-content: center;
+  padding-inline: 0.15em;
+  color: #8d8578;
 }
 
 .sw-patapata > .koma::after {

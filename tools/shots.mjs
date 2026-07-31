@@ -9,6 +9,8 @@
  *   npm run shots              昼夜ぶん撮って docs/review/index.html を作る
  *   npm run shots -- --light   昼だけ（速い）
  *   npm run shots -- --narrow  狭い画面も撮る
+ *   npm run shots -- --forced  強制配色（Windows ハイコントラスト）も撮る
+ *   npm run shots -- --all     昼夜・狭い画面・強制配色を全部
  *
  * Chrome の場所は CHROME 環境変数で変えられます。
  */
@@ -28,8 +30,10 @@ if (!existsSync(CHROME)) {
   process.exit(1);
 }
 
-const LIGHT_ONLY = process.argv.includes("--light");
-const NARROW = process.argv.includes("--narrow");
+const ALL = process.argv.includes("--all");
+const LIGHT_ONLY = process.argv.includes("--light") && !ALL;
+const NARROW = ALL || process.argv.includes("--narrow");
+const FORCED = ALL || process.argv.includes("--forced");
 
 const OUT = p("docs/review");
 const TMP = p(".shots-tmp");
@@ -63,12 +67,19 @@ console.log(`${targets.length} 節を撮ります`);
 
 const themes = LIGHT_ONLY ? ["light"] : ["light", "dark"];
 const widths = NARROW ? [1280, 560] : [1280];
+
+// 撮る組み合わせ。強制配色は Chrome の --force-high-contrast で有効になる。
+// ルールを書いただけで一度も描画確認していなかったので、ここに入れる。
+const variants = [];
+for (const theme of themes) for (const w of widths) variants.push({ theme, w, forced: false });
+if (FORCED) variants.push({ theme: "light", w: 1280, forced: true });
+
 const shots = [];
 
 for (const t of targets) {
-  for (const theme of themes) {
-    for (const w of widths) {
-      const file = `${t.id}-${theme}-${w}.png`;
+  {
+    for (const { theme, w, forced } of variants) {
+      const file = `${t.id}-${forced ? "forced" : theme}-${w}.png`;
       const page = join(TMP, `${t.id}-${theme}.html`);
       // 一時ページは .shots-tmp/ に置くので、CSS の相対パスが解けなくなる。
       // <base> で見本帳と同じ基準にそろえる。
@@ -102,11 +113,12 @@ for (const t of targets) {
       execFileSync(
         CHROME,
         ["--headless", "--disable-gpu", "--hide-scrollbars",
+         ...(forced ? ["--force-high-contrast"] : []),
          `--window-size=${w},${h}`, `--screenshot=${join(OUT, file)}`,
          "--virtual-time-budget=9000", `file://${page}`],
         { stdio: "ignore" }
       );
-      shots.push({ ...t, theme, w, file });
+      shots.push({ ...t, theme: forced ? "forced" : theme, w, file });
       process.stdout.write(".");
     }
   }
@@ -127,7 +139,7 @@ let n = 0;
 const blocks = [...byTarget.entries()].map(([id, g]) => {
   const imgs = g.items
     .map((s) => `      <figure><img src="./${s.file}" alt="${g.title} ${s.theme} ${s.w}px" loading="lazy">
-        <figcaption>${s.theme === "light" ? "昼" : "夜"} / ${s.w}px</figcaption></figure>`)
+        <figcaption>${s.theme === "light" ? "昼" : s.theme === "dark" ? "夜" : "強制配色"} / ${s.w}px</figcaption></figure>`)
     .join("\n");
   return `  <section id="r-${id}">
     <h2><span class="no">${String(++n).padStart(2, "0")}</span> ${g.title} <code>#${id}</code></h2>

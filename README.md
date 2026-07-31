@@ -77,7 +77,7 @@ PostCSS や PurgeCSS を通すなら、全部入りを食わせて未使用ク�
 <!-- ① 速い。代用書体を Google Fonts から並列に取る -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code&family=DotGothic16&family=Shippori+Antique&family=Yusei+Magic&family=Zen+Kaku+Gothic+New:wght@400;700&family=Zen+Maru+Gothic:wght@700&family=Zen+Old+Mincho:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code&family=DotGothic16&family=Shippori+Antique&family=Yusei+Magic&family=Zen+Kaku+Gothic+New:wght@400;700&family=Zen+Maru+Gothic:wght@400;700&family=Zen+Old+Mincho:wght@400;700&display=swap">
 
 <!-- ② 付属の晩秋レトロミン（見出し用）。外部に通信しない -->
 <link rel="stylesheet" href="showa-retro-fonts.css">
@@ -162,6 +162,8 @@ Google Fonts への直参照では、閲覧者のIPアドレスが Google に渡
 | `--sw-o-mizu-oshi` | `--sw-o-sumi` | 8.67 | AAA | `.sw-btn.is-mizu:hover` |
 | `--sw-o-kon` | `--sw-o-kinari` | 9.02 | AAA | `.sw-kanban.is-kon` |
 | `--sw-o-kon-oshi` | `--sw-o-kinari` | 10.92 | AAA | `.sw-btn.is-kon:hover` |
+| `--sw-o-jushi-iri` | `--sw-o-sumi` | 11.28 | AAA | `.sw-kenbai.is-urikire` |
+| `--sw-o-jushi` | `--sw-o-sumi` | 13.50 | AAA | `.sw-kenbai` |
 | `--sw-o-kinari` | `--sw-o-sumi` | 13.87 | AAA | `.sw-shusen` |
 <!-- contrast:end -->
 
@@ -211,7 +213,7 @@ Google Fonts への直参照では、閲覧者のIPアドレスが Google に渡
 | 店先 | `sw-noren` `sw-match` マッチラベル　`sw-garasu` 型板ガラス　`sw-denshou` 電照看板 |
 | 家電 | `sw-tv`（`is-sunaarashi` 砂嵐／`is-nagare` 走査線）`sw-jimaku` `sw-neon` `sw-denkou` 電光掲示板　`sw-patapata` `sw-keikoutou` `sw-record` `sw-cassette` `sw-dial` 黒電話 |
 | 地紋 | `sw-ji-hanagara` 花柄　`sw-ji-dosen` 同心円　`sw-ji-tile` `sw-ji-garasu` `sw-ji-sofa` `sw-ji-ichimatsu` `sw-ji-yagasuri` `sw-ji-koushi` `sw-ji-mizutama` `sw-ji-shima` `sw-ji-ten` `sw-ji-hougan` |
-| 飾り | `sw-shusen` 集中線　`sw-hana` 花　`sw-kirakira` キラキラ　`sw-arch` アーチ枠　`sw-panel` 角丸パネル　`sw-tanzaku` 短冊 |
+| 飾り | `sw-shusen` 集中線　`sw-hana` 花　`sw-kirakira` キラキラ　`sw-arch` アーチ枠　`sw-panel` 角丸パネル（`is-maru` 丸型）（ 丸型）　`sw-tanzaku` 短冊 |
 | 割付 | `sw-wrap` 中央寄せ　`sw-stack` 縦並び　`sw-row` 横並び　`sw-cols` 段組　`sw-c-*` 文字色　`sw-bg-*` 地色　`sw-katamuki-l` `sw-katamuki-r` 傾き |
 | 動き | `sw-anim-chirachira` ネオン　`sw-anim-tenmetsu` 蛍光灯　`sw-anim-kaiten` レコード |
 

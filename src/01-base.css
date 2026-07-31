@@ -57,7 +57,10 @@
                "Yusei Magic", "Zen Kaku Gothic New", sans-serif;
 
   /* アンチック体。漫画のセリフに使われてきた様式 */
-  --sw-anchikku: "新コミック体", "Shippori Antique", "Zen Old Mincho", serif;
+  /* アンチック体。落ちた先が明朝だと方向が逆になる（アンチゴチは
+     仮名アンチック＋漢字ゴシックの組み方）。角ゴに落とす */
+  --sw-anchikku: "新コミック体", "Shippori Antique",
+                 "Zen Kaku Gothic New", sans-serif;
 
   /* 丸ゴシック。ナール（1973・写研）の代用 */
   --sw-maru: "いろはマル", "いろはマルみかみ", "Zen Maru Gothic",
@@ -125,6 +128,12 @@
   --sw-o-shu:     #d4491a;  /* 特売の朱 */
   --sw-o-daidai:  #e2662a;  /* 橙 */
   --sw-o-mizu:    #6cb8cf;  /* 水色 */
+
+  /* 樹脂と金物。券売機のボタンやつまみに使う実物の色 */
+  --sw-o-jushi:      #efe9dc;  /* 押しボタンの樹脂 */
+  --sw-o-jushi-kage: #b8ae99;  /* その影とふち */
+  --sw-o-jushi-iri:  #ddd6c6;  /* 押せない状態 */
+  --sw-o-kanamono:   #6d6055;  /* つまみの金物 */
 
   /* 押したとき・触れたときの塗り。これも物体色なので昼夜で変えません。
      以前はここにテーマ変数の --sw-*-fuka を当てていました。夜は地色が
