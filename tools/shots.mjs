@@ -37,6 +37,8 @@ const ARGS = process.argv.slice(2);
 const has = (f) => ARGS.includes(f);
 const PICK = ["--light", "--dark", "--narrow", "--forced"].filter(has);
 const KEEP = has("--keep");
+// 節を絞って撮る。--all を一度に回すと時間切れになるので分割用
+const ONLY = (ARGS.find((a) => a.startsWith("--only=")) ?? "").slice(7).split(",").filter(Boolean);
 
 const OUT = p("docs/review");
 const TMP = p(".shots-tmp");
@@ -64,6 +66,9 @@ for (const m of html.matchAll(/<section[^>]*id="([\w-]+)"[^>]*>[\s\S]*?<\/sectio
   targets.push({ id, title, body: m[0] });
 }
 
+if (ONLY.length) {
+  for (let i = targets.length - 1; i >= 0; i--) if (!ONLY.includes(targets[i].id)) targets.splice(i, 1);
+}
 console.log(`${targets.length} 節を撮ります`);
 
 /* ---- 撮る ---------------------------------------------------------------- */

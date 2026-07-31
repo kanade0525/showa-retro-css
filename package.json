@@ -1,6 +1,6 @@
 {
   "name": "showa-retro.css",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "昭和レトロなUIを組むためのCSSフレームワーク。ホーロー看板・純喫茶のお品書き・回数券・ブラウン管。JavaScript も画像も使いません。",
   "keywords": [
     "css",

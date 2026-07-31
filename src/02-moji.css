@@ -198,6 +198,8 @@
 /* 自前の地色を持つ部品は文字色も自分で決めます。
    継承に任せると、地色の違う面に置いた途端に潰れます。 */
 .sw-code {
+  /* 行末で割れると別のチップに見えるので折り返さない */
+  white-space: nowrap;
   font-family: var(--sw-mono);
   font-size: 0.9em;
   color: var(--sw-sumi);

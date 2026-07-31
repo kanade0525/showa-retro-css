@@ -23,6 +23,8 @@
 
 .sw-noren > .nuno {
   flex: 1 1 0;
+  /* min-width:auto だと min-content で縮まず、容器から左右にはみ出す */
+  min-width: 0;
   background: var(--sw-o-kon);
   color: var(--sw-o-kinari);
   font-family: var(--sw-retromin);

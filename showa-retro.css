@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*!
- * 昭和レトロ.css v3.2.0 — 昭和レトロ CSS フレームワーク
+ * 昭和レトロ.css v3.2.1 — 昭和レトロ CSS フレームワーク
  * MIT License
  *
  * ── 色の三層 ────────────────────────────────────────────────────────
@@ -538,6 +538,8 @@
 /* 自前の地色を持つ部品は文字色も自分で決めます。
    継承に任せると、地色の違う面に置いた途端に潰れます。 */
 .sw-code {
+  /* 行末で割れると別のチップに見えるので折り返さない */
+  white-space: nowrap;
   font-family: var(--sw-mono);
   font-size: 0.9em;
   color: var(--sw-sumi);
@@ -1378,10 +1380,12 @@
 }
 
 .sw-shinagaki .na {
-  /* 長い品名で値段が枠の外へ出ていた（最大 38px）。品名側を縮める */
+  /* 品名は折り返す。旧版は白 nowrap で値段が枠の外へ最大38px出ていたが、
+     切り詰め（ellipsis）で直すと狭い画面で品名が1文字まで潰れた。
+     折り返して、値段側を縮まないようにするのが正しい。 */
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis; white-space: nowrap; }
+  overflow-wrap: anywhere;
+}
 
 /* 伸縮する擬似要素が値段を右端まで押しやります */
 .sw-shinagaki > li::after {
@@ -1394,6 +1398,7 @@
 }
 
 .sw-shinagaki .nedan {
+  flex-shrink: 0;
   order: 2;
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
@@ -1938,7 +1943,7 @@
      下だけ広いポラロイド型の台紙に、35mmのデートバック特有の日付を
      焼き込むのは実機として同居しない。 */
   background: #fbf8f0;
-  padding: 0.7rem 0.7rem 1.1rem;
+  padding: 0.7rem 0.7rem 1.9rem;
   box-shadow: 2px 3px 8px rgba(36, 31, 26, 0.3);
   transform: rotate(-1.5deg);
   position: relative;
@@ -2051,6 +2056,8 @@
 
 .sw-noren > .nuno {
   flex: 1 1 0;
+  /* min-width:auto だと min-content で縮まず、容器から左右にはみ出す */
+  min-width: 0;
   background: var(--sw-o-kon);
   color: var(--sw-o-kinari);
   font-family: var(--sw-retromin);

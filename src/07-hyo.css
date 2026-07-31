@@ -60,10 +60,12 @@
 }
 
 .sw-shinagaki .na {
-  /* 長い品名で値段が枠の外へ出ていた（最大 38px）。品名側を縮める */
+  /* 品名は折り返す。旧版は白 nowrap で値段が枠の外へ最大38px出ていたが、
+     切り詰め（ellipsis）で直すと狭い画面で品名が1文字まで潰れた。
+     折り返して、値段側を縮まないようにするのが正しい。 */
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis; white-space: nowrap; }
+  overflow-wrap: anywhere;
+}
 
 /* 伸縮する擬似要素が値段を右端まで押しやります */
 .sw-shinagaki > li::after {
@@ -76,6 +78,7 @@
 }
 
 .sw-shinagaki .nedan {
+  flex-shrink: 0;
   order: 2;
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
