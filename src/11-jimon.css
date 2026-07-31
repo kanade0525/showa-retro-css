@@ -16,16 +16,16 @@
    中央に軸ぶんの空きを作らないと、ただのジグザグに見える */
 .sw-ji-yagasuri {
   background-color: var(--sw-paper);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='52' viewBox='0 0 36 52'%3E%3Cg fill='%232a2622' fill-opacity='.14'%3E%3Cpath d='M15.4 3 L2 17 L2 27 L15.4 13 Z'/%3E%3Cpath d='M20.6 3 L34 17 L34 27 L20.6 13 Z'/%3E%3Cpath d='M15.4 29 L2 43 L2 53 L15.4 39 Z'/%3E%3Cpath d='M20.6 29 L34 43 L34 53 L20.6 39 Z'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 36px 52px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='48' viewBox='0 0 36 48'%3E%3Cg fill='%232a2622' fill-opacity='.16'%3E%3Crect x='16.6' y='0' width='2.8' height='48'/%3E%3Cpath d='M16.6 2 L3 16 L3 24 L16.6 12 Z'/%3E%3Cpath d='M19.4 2 L33 16 L33 24 L19.4 12 Z'/%3E%3Cpath d='M16.6 26 L3 40 L3 48 L16.6 36 Z'/%3E%3Cpath d='M19.4 26 L33 40 L33 48 L19.4 36 Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 36px 48px;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .sw-ji-yagasuri {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='52' viewBox='0 0 36 52'%3E%3Cg fill='%23ece2cc' fill-opacity='.14'%3E%3Cpath d='M15.4 3 L2 17 L2 27 L15.4 13 Z'/%3E%3Cpath d='M20.6 3 L34 17 L34 27 L20.6 13 Z'/%3E%3Cpath d='M15.4 29 L2 43 L2 53 L15.4 39 Z'/%3E%3Cpath d='M20.6 29 L34 43 L34 53 L20.6 39 Z'/%3E%3C/g%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='48' viewBox='0 0 36 48'%3E%3Cg fill='%23ece2cc' fill-opacity='.16'%3E%3Crect x='16.6' y='0' width='2.8' height='48'/%3E%3Cpath d='M16.6 2 L3 16 L3 24 L16.6 12 Z'/%3E%3Cpath d='M19.4 2 L33 16 L33 24 L19.4 12 Z'/%3E%3Cpath d='M16.6 26 L3 40 L3 48 L16.6 36 Z'/%3E%3Cpath d='M19.4 26 L33 40 L33 48 L19.4 36 Z'/%3E%3C/g%3E%3C/svg%3E");
   }
 }
 :root[data-theme="dark"] .sw-ji-yagasuri {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='52' viewBox='0 0 36 52'%3E%3Cg fill='%23ece2cc' fill-opacity='.14'%3E%3Cpath d='M15.4 3 L2 17 L2 27 L15.4 13 Z'/%3E%3Cpath d='M20.6 3 L34 17 L34 27 L20.6 13 Z'/%3E%3Cpath d='M15.4 29 L2 43 L2 53 L15.4 39 Z'/%3E%3Cpath d='M20.6 29 L34 43 L34 53 L20.6 39 Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='48' viewBox='0 0 36 48'%3E%3Cg fill='%23ece2cc' fill-opacity='.16'%3E%3Crect x='16.6' y='0' width='2.8' height='48'/%3E%3Cpath d='M16.6 2 L3 16 L3 24 L16.6 12 Z'/%3E%3Cpath d='M19.4 2 L33 16 L33 24 L19.4 12 Z'/%3E%3Cpath d='M16.6 26 L3 40 L3 48 L16.6 36 Z'/%3E%3Cpath d='M19.4 26 L33 40 L33 48 L19.4 36 Z'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 /* 水玉 */
@@ -115,13 +115,18 @@
 
 /* 型板ガラス。モール */
 .sw-ji-garasu {
+  /* モールガラスの縦筋は半円柱のレンズ。稜に細いハイライトが立ち、
+     そこから谷へ階調が落ちる。旧版は全ストップがハードで階調がゼロだったので
+     ただの縞に見えていた。 */
   background-color: #e5d9bf;
   background-image: repeating-linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.55) 0 2px,
-    rgba(255, 255, 255, 0.12) 2px 7px,
-    rgba(36, 31, 26, 0.10) 7px 13px,
-    rgba(255, 255, 255, 0.12) 13px 18px
+    rgba(255, 255, 255, 0.72) 0px,
+    rgba(255, 255, 255, 0.30) 2px,
+    rgba(255, 255, 255, 0.02) 6px,
+    rgba(36, 31, 26, 0.13) 10px,
+    rgba(36, 31, 26, 0.05) 14px,
+    rgba(255, 255, 255, 0.72) 18px
   );
 }
 

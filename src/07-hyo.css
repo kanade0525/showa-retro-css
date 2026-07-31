@@ -17,10 +17,20 @@
   text-align: left;
 }
 
+/* 見出しセル。UA の bold と明朝が重なると合成ボールドになるので角ゴにする */
+.sw-table th,
+.sw-denpyo th {
+  font-family: var(--sw-gothic);
+}
+
+/* 見出しの帯。地が墨なので太らせる必要は無い。明朝のまま 400 にして
+   合成ボールドを避ける（UA の th は bold） */
 .sw-table thead th {
   background: var(--sw-sumi);
   color: var(--sw-paper);
   font-family: var(--sw-mincho);
+  font-weight: 400;
+  font-synthesis: none;
   letter-spacing: 0.16em;
   border-color: var(--sw-sumi);
 }
@@ -65,7 +75,9 @@
   order: 2;
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
-  font-weight: 700;
+  font-weight: 400;
+  /* レトロミンに太字が無いので合成ボールドを止める */
+  font-synthesis: none;
 }
 
 .sw-shinagaki .nedan::after {
@@ -89,7 +101,9 @@
 .sw-list.is-nakaguro > li::before {
   content: "・";
   color: var(--sw-enji);
-  font-weight: 700;
+  font-weight: 400;
+  /* レトロミンに太字が無いので合成ボールドを止める */
+  font-synthesis: none;
 }
 
 .sw-list.is-maru { counter-reset: sw-maru; }
@@ -106,7 +120,9 @@
   border-radius: 50%;
   color: var(--sw-enji);
   font-size: 0.78em;
-  font-weight: 700;
+  font-weight: 400;
+  /* レトロミンに太字が無いので合成ボールドを止める */
+  font-synthesis: none;
   display: grid;
   place-content: center;
   transform: translateY(0.15em);
@@ -139,10 +155,13 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* 締め線。border + margin + padding で描くと約10px ぶん行が下がり、
+   以降が背景の 2.2em の罫グリッドから外れて、罫が合計の字を横切る。
+   高さを食わない inset の影で引く。 */
 .sw-denpyo .gokei {
-  border-top: 2px solid var(--sw-sumi);
-  margin-top: 0.4em;
-  padding-top: 0.2em;
-  font-weight: 700;
+  box-shadow: inset 0 2px 0 var(--sw-sumi);
+  font-weight: 400;
+  /* レトロミンに太字が無いので合成ボールドを止める */
+  font-synthesis: none;
 }
 

@@ -13,8 +13,10 @@
   display: flex;
   justify-content: center;
   gap: 4px;
-  background-color: var(--sw-noren-ji);
+  /* 上端の縫い代だけを容器側で塗る。background-color を置くと全面が
+     埋まって切れ目が出ないので、地色はグラデーションだけで持たせる。 */
   background-image: linear-gradient(var(--sw-noren-ji) 0 calc(100% - var(--sw-noren-kire)), transparent 0);
+  background-repeat: no-repeat;
 }
 
 .sw-noren > .nuno {

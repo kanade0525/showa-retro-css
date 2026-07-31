@@ -1,6 +1,6 @@
 {
   "name": "showa-retro.css",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "昭和レトロなUIを組むためのCSSフレームワーク。ホーロー看板・純喫茶のお品書き・回数券・ブラウン管。JavaScript も画像も使いません。",
   "keywords": [
     "css",
@@ -42,7 +42,8 @@
     "contrast": "node tools/contrast.mjs",
     "prepublishOnly": "npm run build && npm run check",
     "shots": "node tools/shots.mjs",
-    "dev": "python3 -m http.server 8765"
+    "dev": "python3 -m http.server 8765",
+    "audit": "node tools/audit.mjs"
   },
   "devDependencies": {
     "esbuild": "^0.28.1"

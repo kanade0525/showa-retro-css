@@ -21,7 +21,8 @@ npm run shots -- --light # 急ぐとき
 ## 2. 機械で分かるものを先に落とす
 
 ```sh
-npm run check
+npm run check   # 静的。CI でも回る
+npm run audit   # 描画して実測。合成ボールドと端末依存フォント
 ```
 
 生成物の陳腐化・コントラスト表・存在しないクラス・混植は、ここで出ます。

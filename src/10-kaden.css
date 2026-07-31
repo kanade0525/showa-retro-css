@@ -290,30 +290,35 @@
   box-shadow: inset 0 2px 5px rgba(0,0,0,.7);
 }
 
-/* ①② 褐色のテープが巻かれた歯付きハブ */
+/* ①② テープパックと歯付きハブ。
+   実物のハブは固定径のプラスチックで、巻き量で変わるのはテープの外径。
+   旧版は外径を固定してハブの径を変えていたので、ハブが伸び縮みしていた。
+   .reel をテープパック（外径が変わる）、::before をハブ（固定径）にする。 */
 .sw-cassette > .mado > .reel {
-  width: calc(var(--sw-cas-w) * 0.165);
+  --sw-cas-maki: 0.135;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: calc(var(--sw-cas-w) * var(--sw-cas-maki));
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, #52341c 0 62%, #6b4526 62%, #3f2913 100%);
+  box-shadow: inset 0 0 6px rgba(0,0,0,.6);
+}
+
+/* ハブ。歯の付いた白いプラスチック。径は巻き量によらず一定 */
+.sw-cassette > .mado > .reel::before {
+  content: "";
+  width: calc(var(--sw-cas-w) * 0.062);
   aspect-ratio: 1;
   border-radius: 50%;
   background:
-    /* 歯 */
-    repeating-conic-gradient(from 0deg, #e6e0d2 0 9deg, #b3ab9a 9deg 18deg) ,
-    #6b4526;
-  /* ハブの外側に褐色のテープが厚く巻かれている */
-  -webkit-mask-image: radial-gradient(circle, #000 0 100%);
-  box-shadow:
-    inset 0 0 0 calc(var(--sw-cas-w) * 0.028) #6b4526,
-    inset 0 0 0 calc(var(--sw-cas-w) * 0.031) #3f2913,
-    inset 0 0 6px rgba(0,0,0,.6);
+    repeating-conic-gradient(from 0deg, #e6e0d2 0 9deg, #b3ab9a 9deg 18deg);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.45);
 }
 
-.sw-cassette > .mado > .reel:first-child {
-  /* 巻き取り側はテープが厚い */
-  box-shadow:
-    inset 0 0 0 calc(var(--sw-cas-w) * 0.042) #6b4526,
-    inset 0 0 0 calc(var(--sw-cas-w) * 0.045) #3f2913,
-    inset 0 0 6px rgba(0,0,0,.6);
-}
+/* 巻き取り側はテープが厚い＝外径が大きい */
+.sw-cassette > .mado > .reel:first-child { --sw-cas-maki: 0.185; }
 
 /* 黒電話のダイヤル（600型）
    実物の要点は四つ。

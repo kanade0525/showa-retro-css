@@ -21,6 +21,7 @@ JavaScript も画像も使わない。意匠はすべてグラデーションと
 ```sh
 npm run build     # src/ 14ファイル → showa-retro.css + dist/
 npm run check     # 下の4検査。CI でも走る
+npm run audit     # 描画して実測。合成ボールドと端末依存フォントを見る
 npm run shots     # 全18節を撮って docs/review/index.html に一覧化
 npm run dev       # http://localhost:8765/ 手元で見る
 ```

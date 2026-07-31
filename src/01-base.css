@@ -265,6 +265,15 @@
   font-family: var(--sw-mono);
 }
 
+/* 強調と見出しセル。晩秋レトロミンは weight 400 しか持たないので、
+   太字を要求するとブラウザが太らせた偽の太字が出ます。しかも収録外で
+   次の書体に落ちた字は本物の太字で出るため、一つの語の中で太さが
+   ばらつきます。和文の強調は太らせるより書体を替えるのが本来なので、
+   太字を持つ角ゴに替えます。 */
+.sw :where(b, strong, th) {
+  font-family: var(--sw-gothic);
+}
+
 .sw {
   min-height: 100vh;
   background-color: var(--sw-paper);

@@ -50,7 +50,8 @@
 .sw-btn.is-sm { font-size: var(--sw-t-sm); padding: 0.4em 1em; }
 .sw-btn.is-lg { font-size: var(--sw-t-md); padding: 0.7em 2em; }
 .sw-btn.is-block { display: block; width: 100%; }
-.sw-btn.is-mincho { font-family: var(--sw-mincho); }
+/* 明朝のボタン。.sw-btn の 700 を継承すると合成ボールドになる */
+.sw-btn.is-mincho { font-family: var(--sw-mincho); font-weight: 400; font-synthesis: none; }
 
 .sw-btn.is-disabled,
 .sw-btn:disabled {
@@ -129,6 +130,9 @@
   position: relative;
 }
 
+/* 指針。--sw-tsumami-kaku で角度を与える（0deg が真上） */
+.sw-tsumami { --sw-tsumami-kaku: 0deg; }
+
 .sw-tsumami::after {
   content: "";
   position: absolute;
@@ -139,6 +143,8 @@
   margin-left: -2px;
   background: var(--sw-o-usuki);
   border-radius: 2px;
+  transform: rotate(var(--sw-tsumami-kaku));
+  transform-origin: 50% 119%;
 }
 
 /* 目盛り */

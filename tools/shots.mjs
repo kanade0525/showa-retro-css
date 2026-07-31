@@ -169,6 +169,7 @@ writeFileSync(
 <header>
   <h1>意匠の見直し用 一覧 — ${shots.length}枚 / ${byTarget.size}節</h1>
   <p class="how">気になった所は「節番号 + 何が変か」だけ書いてもらえれば直します。まとめて渡してもらう方が速いです。</p>
+  <p class="how" style="color:#e0b653">⚠ この絵は撮影した端末での見え方です。手元にだけ入っている書体があると、公開時と違う字で写ります。<code>npm run audit</code> で確かめてください。</p>
   <nav>${nav}</nav>
 </header>
 ${blocks}
