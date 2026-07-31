@@ -105,7 +105,7 @@ Referencing Google Fonts directly sends your visitors' IP addresses to Google, w
 | --- | --- | --- |
 | Everything | 67.0KB | 13.9KB |
 | Common set (base, type, signs, buttons, tables, layout, forced colours) | 28.6KB | 6.9KB |
-| Base and typesetting only | 9.1KB | 3.0KB |
+| Base and typesetting only | 9.2KB | 3.0KB |
 
 ## Accessibility
 

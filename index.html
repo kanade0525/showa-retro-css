@@ -125,10 +125,18 @@ body { margin: 0; }
 }
 .d-code .c { color: var(--sw-sumi-usu); }
 .d-copy {
-  position: absolute; top: 0.3rem; right: 0.3rem;
-  font-family: var(--sw-gothic); font-weight: 700; font-size: 0.68rem; letter-spacing: .06em;
-  color: var(--sw-sumi); background: var(--sw-paper-3);
-  border: 1px solid var(--sw-kei); padding: 0.15em 0.6em; cursor: pointer;
+  /* コード欄の外に出す。重ねると横スクロールする長い行がボタンの下を通り、
+     560px では 5/34 ブロックで1行目が隠れていた */
+  display: block;
+  margin: 0 0 .25rem auto;
+  border: 1px solid var(--sw-kei);
+  background: var(--sw-paper-3);
+  color: var(--sw-sumi-usu);
+  font-family: var(--sw-gothic);
+  font-size: .66rem;
+  letter-spacing: .08em;
+  padding: .2em .7em;
+  cursor: pointer;
 }
 .d-copy:hover { background: var(--sw-o-karashi); color: var(--sw-o-sumi); }
 
@@ -254,7 +262,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 67.0KB / gzip 13.
 
   <div class="d-item">
     <h3>必要なところだけ読む</h3>
-    <p><code class="sw-code">src/</code> に14ファイルへ分けてあります。<code class="sw-code">01-base.css</code> だけ必須で、あとは使うものを足してください。よく使う一式だけなら 28.6KB（gzip 6.9KB）、baseと文字組だけなら 9.1KB（gzip 3.0KB）です。</p>
+    <p><code class="sw-code">src/</code> に14ファイルへ分けてあります。<code class="sw-code">01-base.css</code> だけ必須で、あとは使うものを足してください。よく使う一式だけなら 28.6KB（gzip 6.9KB）、baseと文字組だけなら 9.2KB（gzip 3.0KB）です。</p>
     <div class="d-src"><button type="button" class="d-copy">コピー</button><pre class="d-code"><code>@import "showa-retro.css/src/01-base.css";   <span class="c">/* 必須 */</span>
 @import "showa-retro.css/src/02-moji.css";
 @import "showa-retro.css/src/04-kanban.css";</code></pre></div>
@@ -760,6 +768,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 67.0KB / gzip 13.
 <!-- ══════ 表・お品書き・伝票 ══════ -->
 <section class="d-sec d-wrap" id="hyou">
   <h2>表・お品書き・伝票</h2>
+  <p class="d-about">列が多い表は細い画面で字が詰まります。<code class="sw-code">.sw-scroll-x</code> で囲むと横スクロールになります。</p>
 
   <div class="d-item">
     <h3>線表 <code>.sw-table</code></h3>
@@ -1462,7 +1471,7 @@ import 'showa-retro.css/min';     <span class="c">// 圧縮版 67.0KB / gzip 13.
 </section>
 
 <footer class="d-foot d-wrap">
-  <p style="margin:0">昭和レトロ.css v3.3.0・CSS は MIT License。書体は各ライセンスに従います（付属の晩秋レトロミンは OFL ではありません）。<a href="https://github.com/kanade0525/showa-retro-css/blob/main/LICENSE">詳細</a></p>
+  <p style="margin:0">昭和レトロ.css v3.3.1・CSS は MIT License。書体は各ライセンスに従います（付属の晩秋レトロミンは OFL ではありません）。<a href="https://github.com/kanade0525/showa-retro-css/blob/main/LICENSE">詳細</a></p>
   <p style="margin:.3rem 0 0">画像もJavaScriptも使いません。このページのJSはコピーボタンとより分けのためだけに使っています。</p>
   <p style="margin:.3rem 0 0">見本の電話番号・日付・文言はすべて実在しないものです。</p>
 </footer>
