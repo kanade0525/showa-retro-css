@@ -38,7 +38,7 @@
   ],
   "scripts": {
     "build": "node tools/build.mjs",
-    "check": "node tools/build.mjs --check && node tools/contrast.mjs --check && node tools/check-docs.mjs && node tools/check-glyphs.mjs",
+    "check": "node tools/build.mjs --check && node tools/contrast.mjs --check && node tools/check-docs.mjs && node tools/check-glyphs.mjs && node tools/check-images.mjs",
     "contrast": "node tools/contrast.mjs",
     "prepublishOnly": "npm run build && npm run check",
     "shots": "node tools/shots.mjs",

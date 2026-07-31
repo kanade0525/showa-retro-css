@@ -24,9 +24,9 @@
   .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.4rem 1.6rem;
+    gap: 1.1rem 1.4rem;
     align-items: start;
-    max-width: 66rem;
+    max-width: 62rem;
     margin-inline: auto;
   }
   .cell { min-width: 0; display: flex; flex-direction: column; gap: .9rem; align-items: flex-start; }
@@ -41,7 +41,7 @@
       <p style="margin:.35rem 0 0; font-size:.9rem">呉服・洋装・寝具</p>
     </div>
     <div class="sw-row">
-      <span class="sw-sodekanban" style="font-size:1.1rem">喫茶</span>
+      <span class="sw-sodekanban is-udegane" style="font-size:1.1rem">喫茶</span>
       <span class="sw-inkan">検<br>印</span>
       <span class="sw-inkan is-mincho is-beta">済</span>
     </div>
@@ -52,6 +52,7 @@
       <tr><td>珈琲</td><td>三五〇円</td></tr>
       <tr><td>クリームソーダ</td><td>五〇〇円</td></tr>
       <tr><td>ナポリタン</td><td>七〇〇円</td></tr>
+      <tr><td>あんみつ</td><td>四〇〇円</td></tr>
     </table>
     <div class="sw-row">
       <button class="sw-btn is-enji">注文</button>
@@ -61,10 +62,10 @@
   </div>
 
   <div class="cell">
-    <div class="sw-tv is-nagare" style="width:100%">
+    <div class="sw-tv is-nagare" style="width:100%; max-width:15rem; font-size:.9rem">
       <p class="sw-jimaku" style="margin:0">こんばんは</p>
     </div>
-    <span class="sw-record sw-anim-kaiten" style="width:4.5rem"></span>
+    <span class="sw-record sw-anim-kaiten" style="width:6rem"></span>
   </div>
 
   <div class="cell">
@@ -87,7 +88,7 @@
     <div class="sw-bg-mizu" style="padding:1.1rem; width:100%">
       <div class="sw-panel"><p style="margin:0; font-size:.9rem">色地に置く角丸パネル</p></div>
     </div>
-    <div class="sw-stampcard" style="width:100%">
+    <div class="sw-stampcard" style="--sw-masu:2.4rem">
       <span class="masu is-oshita">済</span><span class="masu is-oshita">済</span>
       <span class="masu is-oshita">済</span><span class="masu">4</span><span class="masu">5</span>
       <span class="masu">6</span><span class="masu">7</span><span class="masu">8</span>
