@@ -79,7 +79,11 @@ const variants = [];
 if (!PICK.length || has("--light")) variants.push({ theme: "light", w: 1280, forced: false });
 if (!PICK.length || has("--dark")) variants.push({ theme: "dark", w: 1280, forced: false });
 if (has("--narrow")) variants.push({ theme: "light", w: 560, forced: false });
-if (has("--forced")) variants.push({ theme: "light", w: 1280, forced: true });
+if (has("--forced")) {
+  variants.push({ theme: "light", w: 1280, forced: true });
+  // 強制配色 × 夜。旧版は light 固定で、夜の地紋の残存を撮れていなかった
+  variants.push({ theme: "dark", w: 1280, forced: true });
+}
 
 console.log(`一節あたり ${variants.length}通り`);
 const shots = [];
@@ -87,7 +91,7 @@ const shots = [];
 for (const t of targets) {
   {
     for (const { theme, w, forced } of variants) {
-      const file = `${t.id}-${forced ? "forced" : theme}-${w}.png`;
+      const file = `${t.id}-${forced ? (theme === "dark" ? "forced-dark" : "forced") : theme}-${w}.png`;
       const page = join(TMP, `${t.id}-${theme}.html`);
       // 一時ページは .shots-tmp/ に置くので、CSS の相対パスが解けなくなる。
       // <base> で見本帳と同じ基準にそろえる。
@@ -126,7 +130,7 @@ for (const t of targets) {
          "--virtual-time-budget=9000", `file://${page}`],
         { stdio: "ignore" }
       );
-      shots.push({ ...t, theme: forced ? "forced" : theme, w, file });
+      shots.push({ ...t, theme: forced ? (theme === "dark" ? "forced-dark" : "forced") : theme, w, file });
       process.stdout.write(".");
     }
   }
@@ -140,7 +144,7 @@ rmSync(TMP, { recursive: true, force: true });
 // 分けて撮った分も一覧に載せる
 for (const f of readdirSync(OUT).filter((x) => x.endsWith(".png"))) {
   if (shots.some((s) => s.file === f)) continue;
-  const m = /^(.+)-(light|dark|forced)-(\d+)\.png$/.exec(f);
+  const m = /^(.+)-(light|dark|forced|forced-dark)-(\d+)\.png$/.exec(f);
   if (!m) continue;
   const t = targets.find((x) => x.id === m[1]);
   shots.push({ id: m[1], title: t ? t.title : m[1], theme: m[2], w: Number(m[3]), file: f });
@@ -157,7 +161,7 @@ let n = 0;
 const blocks = [...byTarget.entries()].map(([id, g]) => {
   const imgs = g.items
     .map((s) => `      <figure><img src="./${s.file}" alt="${g.title} ${s.theme} ${s.w}px" loading="lazy">
-        <figcaption>${s.theme === "light" ? "昼" : s.theme === "dark" ? "夜" : "強制配色"} / ${s.w}px</figcaption></figure>`)
+        <figcaption>${s.theme === "light" ? "昼" : s.theme === "dark" ? "夜" : s.theme === "forced-dark" ? "強制配色（夜）" : "強制配色"} / ${s.w}px</figcaption></figure>`)
     .join("\n");
   return `  <section id="r-${id}">
     <h2><span class="no">${String(++n).padStart(2, "0")}</span> ${g.title} <code>#${id}</code></h2>

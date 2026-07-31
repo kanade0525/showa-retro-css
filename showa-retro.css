@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*!
- * 昭和レトロ.css v3.2.1 — 昭和レトロ CSS フレームワーク
+ * 昭和レトロ.css v3.3.0 — 昭和レトロ CSS フレームワーク
  * MIT License
  *
  * ── 色の三層 ────────────────────────────────────────────────────────
@@ -2915,19 +2915,30 @@
 /* ==========================================================================
    17. 強制配色（Windows ハイコントラスト）
 
-   forced-colors: active では、作者の指定した色・背景画像・box-shadow が
-   利用者の選んだ配色に置き換えられます。このフレームワークは意匠の大半を
-   グラデーションと埋め込みSVGと box-shadow で描いているので、
-   何もしないとホーロー看板がただの白い箱になります。
+   前提を取り違えていたので書き直しました。実測（Chrome の
+   --force-high-contrast）で確かめた挙動は次のとおりです。
+
+     linear / radial / repeating / conic-gradient  … 描かれない（勝手に落ちる）
+     url("data:image/svg+xml,…")                   … 作者の色でそのまま残る
+     background-color                              … Canvas に置換される
+     box-shadow / text-shadow                      … none に強制される
+     CSS三角（border-color: X transparent …）      … 4辺とも CanvasText になり
+                                                     塗り潰しの四角になる
+
+   旧版は「グラデーションと埋め込みSVGと box-shadow で描いているから
+   何もしないと看板が白い箱になる」と書いていましたが、**逆**です。
+   グラデーションと box-shadow は勝手に落ち、埋め込みSVGだけが残ります。
 
    方針は二つに分けています。
 
      ① 実物の意匠   色そのものが中身。写真や図版と同じ扱いで、
                     forced-color-adjust: none にして作者の色を残します。
-                    看板の赤や袖看板の紺は「装飾」ではなく「その物の色」です。
 
-     ② UI部品       システム配色に委ねます。ただし境界を box-shadow だけで
-                    描いている所は線が消えて輪郭を失うので、border を補います。
+     ② UI部品       システム配色に委ねます。**forced-color-adjust は継承する**
+                    ので、①の中に入る部品には auto で戻します。
+
+   ③ として、グラデーションで描いていた「意味を持つ線」（目盛りの値・
+   選択の矢印・訂正線・升目・罫）は、落ちると情報が消えるので描き直します。
 
    ①に不服がある場合（利用者の配色で塗り潰してほしい場合）は、
    .sw に forced-color-adjust: auto を上書きしてください。
@@ -2935,11 +2946,22 @@
 
 @media (forced-colors: active) {
 
-  /* --- 紙の質感と地紋。情報を持たないので落とす --- */
+  /* --- 埋め込みSVGの地紋を落とす。gradient のものは勝手に落ちる --------
+     詳細度で負けると残ってしまうので、修飾子と夜用の規則も個別に挙げる。
+     旧版は .sw-ji-* だけ（0,1,0）で、is-tokiwa / is-momo（0,2,0）と
+     矢絣の夜用（0,3,0）に負けて、汚れのように残っていた。 */
   .sw,
   .sw-ji-hanagara, .sw-ji-tile, .sw-ji-garasu, .sw-ji-sofa,
   .sw-ji-ichimatsu, .sw-ji-yagasuri, .sw-ji-koushi, .sw-ji-mizutama,
-  .sw-ji-shima, .sw-ji-ten, .sw-ji-hougan, .sw-ji-dosen {
+  .sw-ji-shima, .sw-ji-ten, .sw-ji-hougan, .sw-ji-dosen,
+  .sw-ji-hanagara.is-tokiwa, .sw-ji-hanagara.is-momo,
+  .sw-ji-tile.is-momo, .sw-ji-tile.is-usuki,
+  .sw-ji-dosen.is-momo,
+  :root .sw-ji-yagasuri,
+  :root:not([data-theme="light"]) .sw-ji-yagasuri,
+  :root[data-theme="dark"] .sw-ji-yagasuri,
+  :root:not([data-theme="light"]) .sw-ji-hanagara,
+  :root[data-theme="dark"] .sw-ji-hanagara {
     background-image: none;
   }
 
@@ -2963,17 +2985,35 @@
   /* --- ① 実物の意匠。色が中身なので作者の指定を残す --- */
   .sw-kanban, .sw-sodekanban, .sw-denshou, .sw-match, .sw-noren, .sw-garasu,
   .sw-record, .sw-cassette, .sw-dial, .sw-tv, .sw-neon, .sw-keikoutou,
-  .sw-denkou, .sw-patapata, .sw-obi, .sw-pop, .sw-inkan, .sw-senjafuda,
-  .sw-noshi, .sw-kippu, .sw-shashin, .sw-tanzaku, .sw-arch {
+  .sw-denkou, .sw-patapata, .sw-pop, .sw-senjafuda,
+  .sw-noshi, .sw-kippu, .sw-shashin, .sw-tanzaku, .sw-arch, .sw-aozake {
     forced-color-adjust: none;
   }
 
-  /* --- ② UI部品。境界を box-shadow で描いている所に線を補う --- */
+  /* 帯は既定（墨）だと Canvas との比が 1.14 で形が消えるので、
+     色付きだけ作者の色を残し、既定はシステム配色に委ねる */
+  .sw-obi.is-enji, .sw-obi.is-tokiwa, .sw-obi.is-karashi, .sw-obi.is-kon,
+  .sw-obi.is-asagi, .sw-obi.is-momo, .sw-obi.is-daidai, .sw-obi.is-mizu {
+    forced-color-adjust: none;
+  }
+
+  /* --- ② UI部品。境界を box-shadow で描いている所に線を補う ---------
+     forced-color-adjust は継承するので、①の中に入ったときに戻す。
+     border を既に持つ部品は太さを奪わないよう、線が無い部品だけに引く。 */
   .sw-btn, .sw-kenbai, .sw-tsumami,
-  .sw-input, .sw-select, .sw-textarea,
-  .sw-panel, .sw-fukidashi, .sw-fusen, .sw-nifuda,
-  .sw-stampcard, .sw-shojo, .sw-genkou {
+  .sw-input, .sw-select, .sw-textarea, .sw-progress,
+  .sw-panel, .sw-fukidashi, .sw-fusen, .sw-nifuda, .sw-badge,
+  .sw-stampcard, .sw-shojo, .sw-genkou, .sw-table, .sw-denpyo, .sw-shinagaki,
+  .sw-inkan, .sw-obi {
+    forced-color-adjust: auto;
+  }
+
+  .sw-panel, .sw-fukidashi, .sw-fusen {
     border: 1px solid;
+  }
+
+  .sw-btn, .sw-kenbai, .sw-tsumami, .sw-panel, .sw-fukidashi, .sw-fusen,
+  .sw-stampcard, .sw-shojo, .sw-genkou {
     box-shadow: none;
   }
 
@@ -2984,18 +3024,74 @@
 
   /* 表の罫。--sw-kei は強制配色で潰れるので currentColor に寄せる */
   .sw-table, .sw-table th, .sw-table td,
-  .sw-shinagaki, .sw-denpyo, .sw-denpyo th, .sw-denpyo td,
+  .sw-shinagaki,
+  .sw-denpyo, .sw-denpyo th, .sw-denpyo td,
   .sw-waku {
     border-color: currentColor;
-  }
-
-  /* チェックと丸。地と印の区別が付かなくなるのを防ぐ */
-  .sw-check, .sw-radio {
-    forced-color-adjust: none;
   }
 
   /* 焦点はシステム色で。芥子色は強制配色では見えない */
   .sw :focus-visible {
     outline-color: Highlight;
+  }
+
+  /* --- ③ 意味を持つ線を描き直す --------------------------------------
+     グラデーションで描いていたものは勝手に落ちるので、落ちると情報が
+     消えるものだけ、系統色の面と線で引き直す。 */
+
+  /* 目盛り。値が消えるとデータそのものが失われる */
+  .sw-progress { border: 1px solid CanvasText; }
+  .sw-progress::-webkit-progress-bar { background: Canvas; }
+  .sw-progress::-webkit-progress-value { background: CanvasText; }
+  .sw-progress::-moz-progress-bar { background: CanvasText; }
+
+  /* 選択の矢印。無いと記入欄と見分けが付かない */
+  .sw-select {
+    background-image: none;
+    padding-right: 1.2em;
+  }
+  .sw-select::after { content: none; }
+
+  /* つまみ。指標が消えて向きが分からなくなる */
+  .sw-tsumami {
+    background: Canvas;
+    border: 1px solid CanvasText;
+  }
+  .sw-tsumami::after { background: CanvasText; }
+
+  /* 訂正線。消えると「訂正された」という意味だけが失われる */
+  .sw-teisei {
+    background-image: none;
+    text-decoration: line-through 2px;
+  }
+
+  /* 升目と罫。原稿用紙・伝票・区切りは線が意味を持つ */
+  .sw-genkou { background-image: none; }
+  .sw-denpyo { background-image: none; }
+  .sw-shikiri {
+    background-image: none;
+    border-top: 1px solid CanvasText;
+    height: auto;
+  }
+
+  /* チェックと丸。地と印の区別が付かなくなるのを防ぐ。
+     ラベル全体に none を当てると、ラベルの文字色が保持されて
+     Canvas に対し 1.25:1 で読めなくなる（旧版の不具合）。
+     箱と印だけに絞る。 */
+  .sw-check > input,
+  .sw-radio > input,
+  .sw-check > input::before,
+  .sw-radio > input::before {
+    forced-color-adjust: none;
+  }
+
+  /* 吹き出しの尾。CSS三角は transparent も CanvasText になり、
+     塗り潰しの四角が下にぶら下がる */
+  .sw-fukidashi::before, .sw-fukidashi::after { display: none; }
+
+  /* 荷札。clip-path が左の切り欠きを削るので border が三方しか出ない */
+  .sw-nifuda {
+    clip-path: none;
+    border: 1px solid;
   }
 }

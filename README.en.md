@@ -8,7 +8,7 @@
 
 A CSS framework for building UI in the style of Japan's **Shōwa era** (specifically the 1950s–80s): porcelain-enamel street signs, coffee-shop menus, ticket books, CRT televisions, misregistered printing.
 
-**No JavaScript. No images.** Everything is gradients and inline SVG data URIs. 65.6KB minified, **13.6KB gzipped**. Import only what you need and it drops to 8KB.
+**No JavaScript. No images.** Everything is gradients and inline SVG data URIs. 67.0KB minified, **13.9KB gzipped**. Import only what you need and it drops to 8KB.
 
 ```html
 <link rel="stylesheet" href="showa-retro.css">
@@ -103,8 +103,8 @@ Referencing Google Fonts directly sends your visitors' IP addresses to Google, w
 
 | What you load | Minified | Gzipped |
 | --- | --- | --- |
-| Everything | 65.6KB | 13.6KB |
-| Common set (base, type, signs, buttons, tables, layout, forced colours) | 27.2KB | 6.6KB |
+| Everything | 67.0KB | 13.9KB |
+| Common set (base, type, signs, buttons, tables, layout, forced colours) | 28.6KB | 6.9KB |
 | Base and typesetting only | 9.1KB | 3.0KB |
 
 ## Accessibility
